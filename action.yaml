@@ -9,6 +9,7 @@ inputs:
     description: Choose which artifacts to build. Artifacts with image names that contain the expression will be built only. Default is to build sources for all artifacts
     required: false
   tag:
+    default: latest
     required: false
     description: The optional custom tag to use for images which overrides the current Tagger configuration
   build-image:
