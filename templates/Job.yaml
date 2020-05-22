@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: github-action-skaffold
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: version
+          image: {{ .Values.image }}
+          args:
+            - version

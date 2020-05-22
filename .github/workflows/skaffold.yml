@@ -1,7 +1,16 @@
 name: Skaffold
 on: [push]
+env:
+  SKAFFOLD_DEFAULT_REPO: docker.pkg.github.com/hiberbee/actions
 jobs:
-  version:
+  build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: hiberbee/actions.skaffold@master
+        with:
+          args: build
+      - uses: hiberbee/actions.skaffold@master
+        with:
+          entrypoint: container-structure-test test
+          args: config=container-structure-test.yaml image=$SKAFFOLD_DEFAULT_REPO/skaffold
