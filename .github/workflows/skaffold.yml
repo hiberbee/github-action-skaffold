@@ -11,7 +11,7 @@ jobs:
       - name: Authenticate with Docker credentials
         uses: azure/docker-login@v1
         with:
-          login-server: docker.pkg.github.com/hiberbee/actions
+          login-server: docker.pkg.github.com
           username: ${{ github.actor }}
           password: ${{ secrets.docker_password }}
 
