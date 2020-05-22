@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: hiberbee/actions.skaffold@master
         with:
-          command: diagnose
+          command: version
       - uses: hiberbee/actions.skaffold@master
         with:
           command: build
