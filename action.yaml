@@ -26,6 +26,7 @@ runs:
   using: docker
   image: docker://hiberb/skaffold:latest
   env:
+    SKAFFOLD_DEFAULT_REPO: ${{ inputs.default-repo }}
     SKAFFOLD_PROFILE: ${{ inputs.profile }}
     SKAFFOLD_TAG: ${{ inputs.tag }}
     SKAFFOLD_BUILD_IMAGE: ${{ inputs.build-image }}
