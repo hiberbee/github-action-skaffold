@@ -37,5 +37,5 @@ runs:
     SKAFFOLD_DEFAULT_REPO: ${{ inputs.docker_registry }}
     DOCKER_PASSWORD: ${{ inputs.docker_username }}
     DOCKER_USERNAME: ${{ inputs.docker_password }}
-  pre-if: $SKAFFOLD_DEFAULT_REPO != ''
+  pre-if: 'inputs.docker_registry != ""'
   pre-entrypoint: docker login $SKAFFOLD_DEFAULT_REPO --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
