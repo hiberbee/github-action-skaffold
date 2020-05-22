@@ -1,0 +1,7 @@
+name: Skaffold
+on: [push]
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hiberbee/actions.skaffold@master

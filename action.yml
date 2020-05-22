@@ -1,5 +1,9 @@
-name: Skaffold
-description: Downloads skaffold dependencies
+name: skaffold
+description: Setup Skaffold and all required dependencies
+author: hiberbee
+branding:
+  icon: anchor
+  color: blue
 inputs:
   skaffold-version:
     description: Skaffold version
@@ -9,3 +13,5 @@ outputs: {}
 runs:
   using: docker
   image: Dockerfile
+  args:
+    - version
