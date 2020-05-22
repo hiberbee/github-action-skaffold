@@ -15,7 +15,8 @@ jobs:
         with:
           registry: docker.pkg.github.com/hiberbee/actions
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.docker_password }}
           repository: skaffold
+          add_git_labels: true
           push: true
           tags: latest
