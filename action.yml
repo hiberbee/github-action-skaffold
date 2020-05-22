@@ -34,7 +34,8 @@ runs:
     SKAFFOLD_TAG: ${{ inputs.tag }}
     SKAFFOLD_BUILD_IMAGE: ${{ inputs.build-image }}
     SKAFFOLD_SKIP_TESTS : ${{ inputs.skip-tests }}
+    SKAFFOLD_DEFAULT_REPO: ${{ inputs.docker_registry }}
     DOCKER_PASSWORD: ${{ inputs.docker_username }}
     DOCKER_USERNAME: ${{ inputs.docker_password }}
-  pre-if: 'SKAFFOLD_DEFAULT_REPO != ""'
+  pre-if: $SKAFFOLD_DEFAULT_REPO != ''
   pre-entrypoint: docker login $SKAFFOLD_DEFAULT_REPO --username $DOCKER_USERNAME --password $DOCKER_PASSWORD

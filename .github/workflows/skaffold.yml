@@ -15,6 +15,7 @@ jobs:
           SKAFFOLD_DEFAULT_REPO: docker.pkg.github.com/hiberbee/actions
           SKAFFOLD_SKIP_TESTS: true
         with:
+          docker_registry: docker.pkg.github.com/hiberbee/actions
           docker_username: ${{ github.actor }}
           docker_password: ${{ secrets.docker_password }}
 
