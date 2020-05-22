@@ -10,13 +10,8 @@ jobs:
           command: version
       - uses: hiberbee/actions.skaffold@master
         with:
-          command: build
-      - uses: docker/build-push-action@master
+          entrypoint: docker
+          args: login --username=${{ github.actor }} --password=${{ secrets.docker_password }}
+      - uses: hiberbee/actions.skaffold@master
         with:
-          registry: docker.pkg.github.com/hiberbee/actions
-          username: ${{ github.actor }}
-          password: ${{ secrets.docker_password }}
-          repository: skaffold
-          add_git_labels: true
-          push: true
-          tags: latest
+          command: build
