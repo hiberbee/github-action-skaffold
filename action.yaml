@@ -31,6 +31,7 @@ runs:
   using: docker
   image: Dockerfile
   env:
+    DOCKER_BUILDKIT: '1'
     SKAFFOLD_DEFAULT_REPO: ${{ inputs.default-repo }}
     SKAFFOLD_PROFILE: ${{ inputs.profile }}
     SKAFFOLD_TAG: ${{ inputs.tag }}
