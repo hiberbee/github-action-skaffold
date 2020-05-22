@@ -21,10 +21,11 @@ jobs:
         uses: hiberbee/actions.skaffold@master
         with:
           args: version
-          default-repo: $DOCKER_REGISTRY
 
       - name: Build Skaffold artifacts
         uses: hiberbee/actions.skaffold@master
+        env:
+          SKAFFOLD_DEFAULT_REPO: $DOCKER_REGISTRY
         with:
           args: build
 
