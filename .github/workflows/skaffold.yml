@@ -1,7 +1,5 @@
 name: Skaffold Pipiline
 on: [push]
-env:
-  DOCKER_REGISTRY: docker.pkg.github.com/hiberbee/actions
 jobs:
   build:
     name: Build & Test Docker images
@@ -13,7 +11,7 @@ jobs:
       - name: Authenticate with Docker credentials
         uses: azure/docker-login@v1
         with:
-          login-server: $DOCKER_REGISTRY
+          login-server: docker.pkg.github.com/hiberbee/actions
           username: ${{ github.actor }}
           password: ${{ secrets.docker_password }}
 
@@ -25,7 +23,7 @@ jobs:
       - name: Build Skaffold artifacts
         uses: hiberbee/actions.skaffold@master
         with:
-          default-repo: $DOCKER_REGISTRY
+          default-repo: docker.pkg.github.com/hiberbee/actions
           args: build
 
       - name: Test container structure
