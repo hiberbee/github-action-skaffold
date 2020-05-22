@@ -27,9 +27,10 @@ inputs:
     required: false
 
 outputs: {}
+
 runs:
   using: docker
-  image: Dockerfile
+  image: hiberb/skaffold:latest
   env:
     DOCKER_BUILDKIT: '1'
     SKAFFOLD_DEFAULT_REPO: ${{ inputs.default-repo }}
