@@ -8,18 +8,14 @@ jobs:
 
       - uses: hiberbee/actions.skaffold@master
         with:
-          entrypoint: docker
-          args: login docker.pkg.github.com/hiberbee/actions --username=${{ github.actor }} --password=${{ secrets.docker_password }}
-
-      - uses: hiberbee/actions.skaffold@master
-        with:
-          entrypoint: container-structure-test
-          args: test --config=container-structure-test.yaml --image=skaffold
-
-      - uses: hiberbee/actions.skaffold@master
-        with:
           args: version
 
       - uses: hiberbee/actions.skaffold@master
         env:
           SKAFFOLD_DEFAULT_REPO: docker.pkg.github.com/hiberbee/actions
+          SKAFFOLD_SKIP_TESTS: false
+
+      - uses: hiberbee/actions.skaffold@master
+        with:
+          entrypoint: container-structure-test
+          args: test --config=container-structure-test.yaml --image=docker.pkg.github.com/hiberbee/actions/skaffold
