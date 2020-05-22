@@ -30,7 +30,7 @@ outputs: {}
 
 runs:
   using: docker
-  image: hiberb/skaffold:latest
+  image: docker://hiberb/skaffold:latest
   env:
     DOCKER_BUILDKIT: '1'
     SKAFFOLD_DEFAULT_REPO: ${{ inputs.default-repo }}
