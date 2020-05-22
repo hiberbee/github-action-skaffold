@@ -15,5 +15,3 @@ jobs:
         with:
           args: version
       - uses: hiberbee/actions.skaffold@master
-        with:
-          args: build

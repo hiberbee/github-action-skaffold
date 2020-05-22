@@ -17,16 +17,18 @@ inputs:
   profile:
     description: Activate profiles by name (prefixed with `-` to disable a profile)
     required: false
-  command:
-    default: build
-    description: Skaffold command to execute
+  entrypoint:
+    default: skaffold
+    description: Default entrypoint
     required: false
-  docker_username:
+  args:
     default: build
+    required: false
+    description: Command line arguments
+  docker_username:
     description: Docker username
     required: false
   docker_password:
-    default: build
     description: Docker password
     required: false
   skip-tests:
