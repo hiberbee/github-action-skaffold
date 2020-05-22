@@ -10,6 +10,7 @@ jobs:
       - uses: hiberbee/actions.skaffold@master
         with:
           command: version
+      - run: echo '${{ secrets.GITHUB_TOKEN }}' | docker login $SKAFFOLD_DEFAULT_REPO --username ${{ github.actor }} --password-stdin
       - uses: hiberbee/actions.skaffold@master
         with:
           command: build
