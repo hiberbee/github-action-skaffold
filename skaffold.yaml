@@ -8,6 +8,7 @@ build:
     sha256: {}
   local:
     useBuildkit: true
+    useDockerCLI: false
   artifacts:
     - image: skaffold
 
