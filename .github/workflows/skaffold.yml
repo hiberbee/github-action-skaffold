@@ -13,7 +13,10 @@ jobs:
       - uses: hiberbee/actions.skaffold@master
         env:
           SKAFFOLD_DEFAULT_REPO: docker.pkg.github.com/hiberbee/actions
-          SKAFFOLD_SKIP_TESTS: false
+          SKAFFOLD_SKIP_TESTS: true
+        with:
+          docker_username: ${{ github.actor }}
+          docker_password: ${{ secrets.docker_password }}
 
       - uses: hiberbee/actions.skaffold@master
         with:
