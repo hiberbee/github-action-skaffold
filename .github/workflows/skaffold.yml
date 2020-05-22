@@ -13,9 +13,9 @@ jobs:
           command: build
       - uses: docker/build-push-action@master
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          registry: docker.pkg.github.com
-          repository: hiberbee/actions
+          registry: docker.pkg.github.com/hiberbee/actions
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          repository: skaffold
           push: true
           tags: latest
