@@ -29,4 +29,4 @@ runs:
     SKAFFOLD_BUILD_IMAGE: ${{ inputs.build-image }}
     SKAFFOLD_SKIP_TESTS : ${{ inputs.skip-tests }}
   pre-if: 'SKAFFOLD_DEFAULT_REPO != ""'
-  pre-entrypoint: docker login $SKAFFOLD_DEFAULT_REPO --username=${{ github.actor }} --password=${{ secrets.docker_password }}
+  pre-entrypoint: docker login $SKAFFOLD_DEFAULT_REPO --username $GITHUB_ACTOR --password=${{ secrets.docker_password }}
