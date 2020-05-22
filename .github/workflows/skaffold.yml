@@ -1,7 +1,5 @@
 name: Skaffold
 on: [push]
-env:
-  SKAFFOLD_DEFAULT_REPO: docker.pkg.github.com/hiberbee/actions
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,7 +8,14 @@ jobs:
       - uses: hiberbee/actions.skaffold@master
         with:
           command: version
-      - run: echo '${{ secrets.GITHUB_TOKEN }}' | docker login $SKAFFOLD_DEFAULT_REPO --username ${{ github.actor }} --password-stdin
       - uses: hiberbee/actions.skaffold@master
         with:
           command: build
+      - uses: docker/build-push-action@master
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: docker.pkg.github.com
+          repository: hiberbee/actions
+          push: true
+          tags: latest
