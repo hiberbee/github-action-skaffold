@@ -1,25 +1,36 @@
-name: Skaffold
+name: Skaffold Pipiline
 on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository sources
+        uses: actions/checkout@v2
 
-      - uses: hiberbee/actions.skaffold@master
+      - name: Get Skaffold version
+        uses: hiberbee/actions.skaffold@master
         with:
           args: version
 
-      - uses: hiberbee/actions.skaffold@master
-        env:
-          SKAFFOLD_DEFAULT_REPO: docker.pkg.github.com/hiberbee/actions
-          SKAFFOLD_SKIP_TESTS: true
+      - name: Build Skaffold artifacts
+        uses: hiberbee/actions.skaffold@master
         with:
-          docker_registry: docker.pkg.github.com/hiberbee/actions
-          docker_username: ${{ github.actor }}
-          docker_password: ${{ secrets.docker_password }}
+          args: build
 
-      - uses: hiberbee/actions.skaffold@master
+      - name: Test container structure
+        uses: hiberbee/actions.skaffold@master
         with:
           entrypoint: container-structure-test
-          args: test --config=container-structure-test.yaml --image=docker.pkg.github.com/hiberbee/actions/skaffold
+          args: test --config container-structure-test.yaml --image skaffold
+
+      - name: Push image to Docker registry
+        uses: docker/build-push-action@master
+        with:
+          entrypoint: build
+          registry: docker.pkg.github.com/hiberbee/actions
+          username: ${{ github.actor }}
+          password: ${{ secrets.docker_password }}
+          repository: skaffold
+          add_git_labels: true
+          push: true
+          tags: latest
