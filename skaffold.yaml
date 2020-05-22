@@ -5,6 +5,7 @@ metadata:
 build:
   local:
     useBuildkit: true
+    useDockerCLI: false
     concurrency: 0
   artifacts:
     - image: skaffold
