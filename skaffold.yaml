@@ -3,6 +3,8 @@ kind: Config
 metadata:
   name: github-actions-skaffold
 build:
+  tagPolicy:
+    sha256: {}
   local:
     useBuildkit: true
     useDockerCLI: false
