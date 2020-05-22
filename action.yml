@@ -21,6 +21,14 @@ inputs:
     default: build
     description: Skaffold command to execute
     required: false
+  docker_username:
+    default: build
+    description: Docker username
+    required: false
+  docker_password:
+    default: build
+    description: Docker password
+    required: false
   skip-tests:
     default: 'false'
     description: Whether to skip the tests after building
@@ -36,5 +44,6 @@ runs:
     SKAFFOLD_TAG: ${{ inputs.tag }}
     SKAFFOLD_BUILD_IMAGE: ${{ inputs.build-image }}
     SKAFFOLD_SKIP_TESTS : ${{ inputs.skip-tests }}
+  entrypoint: ${{ input.entrypoint }}
   args:
-    - ${{ inputs.command }}
+    - ${{ inputs.args }}
