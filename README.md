@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Authenticate with Docker credentials
-        uses: docker/login-action@v1
+        uses: azure/docker-login@v1
         with:
           login-server: $DOCKER_REGISTRY
           username: ${{ github.actor }}
