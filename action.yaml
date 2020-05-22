@@ -34,7 +34,7 @@ runs:
     SKAFFOLD_DEFAULT_REPO: ${{ inputs.default-repo }}
     SKAFFOLD_PROFILE: ${{ inputs.profile }}
     SKAFFOLD_TAG: ${{ inputs.tag }}
+    SKAFFOLD_BUILD_IMAGE: ${{ inputs.build-image }}
+    SKAFFOLD_SKIP_TESTS : ${{ inputs.skip-tests }}
   args:
     - ${{ inputs.command }}
-    - --build-image=${{ inputs.build-image }}
-    - --skip-tests=${{ inputs.skip-tests }}
