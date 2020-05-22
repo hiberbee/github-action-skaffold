@@ -5,13 +5,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: hiberbee/actions.skaffold@master
         with:
           entrypoint: docker
           args: login docker.pkg.github.com/hiberbee/actions --username=${{ github.actor }} --password=${{ secrets.docker_password }}
+
+      - uses: hiberbee/actions.skaffold@master
+        with:
+          entrypoint: container-structure-test
+          args: test --config=container-structure-test.yaml --image=skaffold
+
       - uses: hiberbee/actions.skaffold@master
         with:
           args: version
+
       - uses: hiberbee/actions.skaffold@master
-        with:
-          default-repo: docker.pkg.github.com/hiberbee/actions
+        env:
+          SKAFFOLD_DEFAULT_REPO: docker.pkg.github.com/hiberbee/actions

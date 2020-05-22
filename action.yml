@@ -5,9 +5,6 @@ branding:
   icon: anchor
   color: blue
 inputs:
-  default-repo:
-    description: Default repository value (overrides global config)
-    required: false
   tag:
     required: false
     description: The optional custom tag to use for images which overrides the current Tagger configuration
@@ -21,6 +18,10 @@ inputs:
     default: skaffold
     description: Default entrypoint
     required: false
+  push:
+    default: 'false'
+    required: false
+    description: Push images by Skaffold
   args:
     default: build
     required: false
@@ -34,8 +35,6 @@ runs:
   using: docker
   image: Dockerfile
   env:
-    DOCKER_BUILDKIT: '1'
-    SKAFFOLD_DEFAULT_REPO: ${{ inputs.default-repo }}
     SKAFFOLD_PROFILE: ${{ inputs.profile }}
     SKAFFOLD_TAG: ${{ inputs.tag }}
     SKAFFOLD_BUILD_IMAGE: ${{ inputs.build-image }}

@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2beta4
+apiVersion: skaffold/v2alpha4
 kind: Config
 metadata:
   name: github-actions-skaffold
@@ -8,8 +8,6 @@ build:
     sha256: {}
   local:
     useBuildkit: true
-    useDockerCLI: true
-    push: false
     concurrency: 0
   artifacts:
     - image: skaffold
@@ -28,3 +26,11 @@ deploy:
 test:
   - image: skaffold
     structureTests: [container-structure-test.yaml]
+
+profiles:
+  - name: ci
+    activation:
+      - env: CI=true
+    build:
+      local:
+        push: true
