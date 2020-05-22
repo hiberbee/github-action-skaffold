@@ -25,12 +25,10 @@ inputs:
     default: 'false'
     description: Whether to skip the tests after building
     required: false
-
 outputs: {}
-
 runs:
   using: docker
-  image: docker://hiberb/skaffold:latest
+  image: Dockerfile
   env:
     DOCKER_BUILDKIT: '1'
     SKAFFOLD_DEFAULT_REPO: ${{ inputs.default-repo }}

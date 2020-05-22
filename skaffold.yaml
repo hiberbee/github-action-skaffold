@@ -13,6 +13,8 @@ build:
     concurrency: 0
   artifacts:
     - image: skaffold
+      docker:
+        cacheFrom: [hiberb/skaffold:latest]
 
 deploy:
   helm:
