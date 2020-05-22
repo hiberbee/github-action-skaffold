@@ -46,6 +46,6 @@ runs:
     SKAFFOLD_TAG: ${{ inputs.tag }}
     SKAFFOLD_BUILD_IMAGE: ${{ inputs.build-image }}
     SKAFFOLD_SKIP_TESTS : ${{ inputs.skip-tests }}
-  entrypoint: ${{ input.entrypoint }}
+  entrypoint: ${{ inputs.entrypoint }}
   args:
     - ${{ inputs.args }}
