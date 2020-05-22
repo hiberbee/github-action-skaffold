@@ -24,9 +24,8 @@ jobs:
 
       - name: Build Skaffold artifacts
         uses: hiberbee/actions.skaffold@master
-        env:
-          SKAFFOLD_DEFAULT_REPO: $DOCKER_REGISTRY
         with:
+          default-repo: $DOCKER_REGISTRY
           args: build
 
       - name: Test container structure
