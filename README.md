@@ -15,41 +15,40 @@ This action allows you to execute `build` and `test` stages of Skaffold CI/CD pi
 ### Example
 
 ```yaml
-name: Skaffold
+name: Skaffold Pipiline
 on: [push]
+env:
+  DOCKER_REGISTRY: docker.pkg.github.com/hiberbee/actions
 jobs:
   build:
+    name: Build & Test Docker images
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository sources
         uses: actions/checkout@v2
-        
+
+      - name: Authenticate with Docker credentials
+        uses: docker/login-action@v1
+        with:
+          login-server: $DOCKER_REGISTRY
+          username: ${{ github.actor }}
+          password: ${{ secrets.docker_password }}
+
       - name: Get Skaffold version
         uses: hiberbee/actions.skaffold@master
         with:
           args: version
-          
+          default-repo: $DOCKER_REGISTRY
+
       - name: Build Skaffold artifacts
         uses: hiberbee/actions.skaffold@master
         with:
           args: build
-          
+
       - name: Test container structure
         uses: hiberbee/actions.skaffold@master
         with:
           entrypoint: container-structure-test
           args: test --config container-structure-test.yaml --image skaffold
-          
-      - name: Push image to Docker registry
-        uses: docker/build-push-action@master
-        with:
-          entrypoint: build
-          registry: docker.pkg.github.com/hiberbee/actions
-          username: ${{ github.actor }}
-          password: ${{ secrets.docker_password }}
-          repository: skaffold
-          add_git_labels: true
-          push: true
-          tags: latest
 
 ```
