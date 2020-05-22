@@ -2,16 +2,16 @@ name: Skaffold
 on: [push]
 jobs:
   build:
-    env:
-      SKAFFOLD_DEFAULT_REPO: docker.pkg.github.com/hiberbee/actions
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: hiberbee/actions.skaffold@master
         with:
           entrypoint: docker
-          args: login $SKAFFOLD_DEFAULT_REPO --username=${{ github.actor }} --password=${{ secrets.docker_password }}
+          args: login docker.pkg.github.com/hiberbee/actions --username=${{ github.actor }} --password=${{ secrets.docker_password }}
       - uses: hiberbee/actions.skaffold@master
         with:
           args: version
       - uses: hiberbee/actions.skaffold@master
+        with:
+          default-repo: docker.pkg.github.com/hiberbee/actions
