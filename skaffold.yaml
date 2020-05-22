@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2alpha4
+apiVersion: skaffold/v2beta4
 kind: Config
 metadata:
   name: github-actions-skaffold
@@ -17,7 +17,7 @@ deploy:
       - name: skaffold
         chartPath: .
         remote: false
-        values:
+        setValues:
           image: skaffold
 
 test:
