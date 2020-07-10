@@ -5,7 +5,7 @@ jobs:
     name: Build & Test Docker images
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository sources
+      - name: Checkout sources
         uses: actions/checkout@v2
 
       - name: Authenticate with Docker credentials
