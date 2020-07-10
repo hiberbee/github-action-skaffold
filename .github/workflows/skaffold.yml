@@ -23,7 +23,7 @@ jobs:
       - name: Build Skaffold artifacts
         uses: hiberbee/github-action-skaffold@master
         with:
-          default-repo: hiber
+          default-repo: hiberb
           args: build
 
       - name: Test container structure
