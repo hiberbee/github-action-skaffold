@@ -11,9 +11,9 @@ jobs:
       - name: Authenticate with Docker credentials
         uses: azure/docker-login@v1
         with:
-          login-server: docker.pkg.github.com
-          username: ${{ github.actor }}
-          password: ${{ secrets.docker_password }}
+          login-server: https://index.docker.io/v2
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Get Skaffold version
         uses: hiberbee/github-action-skaffold@master
@@ -23,7 +23,7 @@ jobs:
       - name: Build Skaffold artifacts
         uses: hiberbee/github-action-skaffold@master
         with:
-          default-repo: docker.pkg.github.com/hiberbee/actions
+          default-repo: hiber
           args: build
 
       - name: Test container structure
