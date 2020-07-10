@@ -9,6 +9,7 @@ build:
     useBuildkit: true
     useDockerCLI: true
     concurrency: 0
+    push: false
   artifacts:
     - image: skaffold
 deploy:
