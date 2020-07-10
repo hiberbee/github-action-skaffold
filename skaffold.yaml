@@ -7,7 +7,7 @@ build:
     sha256: {}
   local:
     useBuildkit: true
-    useDockerCLI: false
+    useDockerCLI: true
     concurrency: 0
   artifacts:
     - image: skaffold
