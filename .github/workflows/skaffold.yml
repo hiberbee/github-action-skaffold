@@ -9,16 +9,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Authenticate with Docker credentials
-        uses: azure/docker-login@v1
-        with:
-          login-server: index.docker.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Get Skaffold version
-        uses: hiberbee/github-action-skaffold@master
-        with:
-          args: version
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
       - name: Build Skaffold artifacts
         uses: hiberbee/github-action-skaffold@master
@@ -31,3 +22,8 @@ jobs:
         with:
           entrypoint: container-structure-test
           args: test --config container-structure-test.yaml --image skaffold
+
+      - name: Get Skaffold version
+        uses: hiberbee/github-action-skaffold@master
+        with:
+          args: version
