@@ -10,7 +10,7 @@ build:
     useDockerCLI: false
     concurrency: 0
   artifacts:
-    - image: hiberb/skaffold
+    - image: skaffold
 deploy:
   helm:
     releases:
@@ -20,6 +20,6 @@ deploy:
         setValues:
           image: skaffold
 test:
-  - image: hiberb/skaffold
+  - image: skaffold
     structureTests: [container-structure-test.yaml]
 
