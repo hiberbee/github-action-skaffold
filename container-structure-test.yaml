@@ -13,3 +13,7 @@ commandTests:
     command: container-structure-test
     args: [version]
     exitCode: 0
+  - name: Test Docker version
+    command: docker
+    args: [version]
+    exitCode: 0
