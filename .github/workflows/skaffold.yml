@@ -12,16 +12,15 @@ jobs:
         uses: hiberbee/github-action-minikube@1.0.0
 
       - name: Configure Docker env
-        run: |
-          eval $(minikube docker-env)
-          minikube update-context
-          kubectl cluster-info
+        run: echo '::set-env name=MINIKUBE_IP::$(minikube ip)'
 
       - name: Run Skaffold CI
         uses: hiberbee/github-action-skaffold@master
+        env:
+          KUBERNETES_SERVICE_HOST: $MINIKUBE_IP
+          KUBERNETES_SERVICE_PORT: 8443
         with:
           args: run
-          skip-tests: true
 
       - name: Test container structure
         uses: hiberbee/github-action-skaffold@master
