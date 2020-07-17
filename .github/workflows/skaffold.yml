@@ -12,7 +12,10 @@ jobs:
         uses: hiberbee/github-action-minikube@1.0.0
 
       - name: Configure Docker env
-        run: minikube update-context
+        run: |
+          eval $(minikube docker-env)
+          minikube update-context
+          kubectl cluster-info
 
       - name: Run Skaffold CI
         uses: hiberbee/github-action-skaffold@master

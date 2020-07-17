@@ -8,7 +8,7 @@ build:
     sha256: {}
   local:
     useBuildkit: true
-    useDockerCLI: false
+    useDockerCLI: true
     concurrency: 0
     push: false
   artifacts:
