@@ -11,6 +11,9 @@ jobs:
       - name: Setup Minikube
         uses: hiberbee/github-action-minikube@1.0.0
 
+      - name: Configure Docker env
+        run: eval $(minikube docker-env)
+
       - name: Run Skaffold CI
         uses: hiberbee/github-action-skaffold@master
         with:
