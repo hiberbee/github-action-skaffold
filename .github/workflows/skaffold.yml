@@ -8,22 +8,16 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v2
 
-      - name: Authenticate with Docker credentials
-        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
-
-      - name: Build Skaffold artifacts
-        uses: hiberbee/github-action-skaffold@master
-        with:
-          default-repo: hiberb
-          args: build
+      - name: Setup Minikube
+        uses: hiberbee/github-action-minikube@1.0.0
 
       - name: Test container structure
         uses: hiberbee/github-action-skaffold@master
         with:
           entrypoint: container-structure-test
-          args: test --config container-structure-test.yaml --image hiberb/skaffold
+          args: test --config structure-test.yaml --image skaffold
 
-      - name: Get Skaffold version
+      - name: Run Skaffold CI
         uses: hiberbee/github-action-skaffold@master
         with:
-          args: version
+          args: run

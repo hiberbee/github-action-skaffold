@@ -2,25 +2,30 @@ apiVersion: skaffold/v2beta5
 kind: Config
 metadata:
   name: github-action-skaffold
+
 build:
   tagPolicy:
     sha256: {}
   local:
     useBuildkit: true
-    useDockerCLI: true
+    useDockerCLI: false
     concurrency: 0
     push: false
   artifacts:
     - image: skaffold
+
 deploy:
   helm:
     releases:
       - name: skaffold
-        chartPath: .
-        remote: false
-        setValues:
+        wait: true
+        chartPath: src/charts/skaffold
+        artifactOverrides:
           image: skaffold
+        setValues:
+          wordpress.service.type: ClusterIP
+
 test:
   - image: skaffold
-    structureTests: [container-structure-test.yaml]
+    structureTests: [structure-test.yaml]
 
