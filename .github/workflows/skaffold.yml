@@ -11,13 +11,13 @@ jobs:
       - name: Setup Minikube
         uses: hiberbee/github-action-minikube@1.0.0
 
-      - name: Test container structure
-        uses: hiberbee/github-action-skaffold@master
-        with:
-          entrypoint: container-structure-test
-          args: test --config structure-test.yaml --image skaffold
-
       - name: Run Skaffold CI
         uses: hiberbee/github-action-skaffold@master
         with:
           args: run
+
+      - name: Test container structure
+        uses: hiberbee/github-action-skaffold@master
+        with:
+          entrypoint: container-structure-test
+          args: test --config structure-test.yaml --image library/skaffold
