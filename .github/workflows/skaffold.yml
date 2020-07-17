@@ -12,12 +12,13 @@ jobs:
         uses: hiberbee/github-action-minikube@1.0.0
 
       - name: Configure Docker env
-        run: eval $(minikube docker-env)
+        run: minikube update-context
 
       - name: Run Skaffold CI
         uses: hiberbee/github-action-skaffold@master
         with:
           args: run
+          skip-tests: true
 
       - name: Test container structure
         uses: hiberbee/github-action-skaffold@master
