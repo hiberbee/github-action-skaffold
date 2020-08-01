@@ -1111,33 +1111,27 @@ function run() {
                     binDir = homeDir + "/bin";
                     _b.label = 1;
                 case 1:
-                    _b.trys.push([1, 9, , 10]);
+                    _b.trys.push([1, 7, , 8]);
                     return [4, download_1["default"](skaffoldTestUrl, binDir + "/skaffold")];
                 case 2:
                     _b.sent();
-                    return [4, tool_cache_1.cacheFile(binDir + "/skaffold", "skaffold-" + skaffoldVersion, 'skaffold', skaffoldVersion)];
+                    if (!!core_1.getInput('skip-tests')) return [3, 4];
+                    return [4, download_1["default"](containerStructureTestUrl, binDir + "/container-structure-test")];
                 case 3:
                     _b.sent();
-                    if (!!core_1.getInput('skip-tests')) return [3, 6];
-                    return [4, download_1["default"](containerStructureTestUrl, binDir + "/container-structure-test")];
-                case 4:
-                    _b.sent();
-                    return [4, tool_cache_1.cacheFile(binDir + "/container-structure-test", "container-structure-test", 'container-structure-test', containerStructureTestVersion)];
+                    _b.label = 4;
+                case 4: return [4, exec_1.exec('skaffold', Array.of(core_1.getInput('command')).concat(skaffold_1["default"]()))];
                 case 5:
                     _b.sent();
-                    _b.label = 6;
-                case 6: return [4, exec_1.exec('skaffold', Array.of(core_1.getInput('command')).concat(skaffold_1["default"]()))];
-                case 7:
-                    _b.sent();
                     return [4, tool_cache_1.cacheDir(homeDir + "/.skaffold/cache", 'skaffold', skaffoldVersion)];
-                case 8:
+                case 6:
                     _b.sent();
-                    return [3, 10];
-                case 9:
+                    return [3, 8];
+                case 7:
                     error_1 = _b.sent();
                     core_1.setFailed(error_1.message);
-                    return [3, 10];
-                case 10: return [2];
+                    return [3, 8];
+                case 8: return [2];
             }
         });
     });

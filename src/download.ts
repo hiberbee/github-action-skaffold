@@ -1,7 +1,7 @@
 import { addPath } from '@actions/core'
 import { exec } from '@actions/exec'
 import { downloadTool } from '@actions/tool-cache'
-import { mkdirP, mv, cp } from '@actions/io'
+import { mkdirP, mv } from '@actions/io'
 import path from 'path'
 
 /**

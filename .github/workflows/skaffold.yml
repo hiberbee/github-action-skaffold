@@ -1,7 +1,5 @@
 name: Skaffold
 on: [push]
-env:
-  SKAFFOLD_VERSION: 1.13.0
 jobs:
   run:
     name: Run Pipiline
@@ -11,8 +9,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.skaffold/cache
-          key: ${{ runner.os }}-skaffold-$SKAFFOLD_VERSION
-          restore-keys: ${{ runner.os }}-skaffold-
+          key: ${{ runner.os }}-skaffold
 
       - name: Checkout sources
         uses: actions/checkout@v2
@@ -26,7 +23,6 @@ jobs:
       - name: Run Skaffold command
         uses: hiberbee/github-action-skaffold@master
         with:
-          version: $SKAFFOLD_VERSION
           command: run
           default-repo: docker.pkg.github.com/${{ github.repository }}
 

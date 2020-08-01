@@ -21,16 +21,8 @@ async function run(): Promise<void> {
 
   try {
     await download(skaffoldTestUrl, `${binDir}/skaffold`)
-    await cacheFile(`${binDir}/skaffold`, `skaffold-${skaffoldVersion}`, 'skaffold', skaffoldVersion)
-
     if (!getInput('skip-tests')) {
       await download(containerStructureTestUrl, `${binDir}/container-structure-test`)
-      await cacheFile(
-        `${binDir}/container-structure-test`,
-        `container-structure-test`,
-        'container-structure-test',
-        containerStructureTestVersion,
-      )
     }
     await exec('skaffold', Array.of(getInput('command')).concat(skaffold()))
     await cacheDir(`${homeDir}/.skaffold/cache`, 'skaffold', skaffoldVersion)
