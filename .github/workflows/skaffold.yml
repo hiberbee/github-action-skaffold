@@ -5,29 +5,25 @@ jobs:
     name: Build & Test Docker images
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository sources
+      - name: Checkout sources
         uses: actions/checkout@v2
 
-      - name: Authenticate with Docker credentials
-        uses: azure/docker-login@v1
-        with:
-          login-server: docker.pkg.github.com
-          username: ${{ github.actor }}
-          password: ${{ secrets.docker_password }}
+      - name: Setup Minikube
+        uses: hiberbee/github-action-minikube@1.0.0
 
-      - name: Get Skaffold version
-        uses: hiberbee/actions.skaffold@master
-        with:
-          args: version
+      - name: Configure Docker env
+        run: echo '::set-env name=MINIKUBE_IP::$(minikube ip)'
 
-      - name: Build Skaffold artifacts
-        uses: hiberbee/actions.skaffold@master
+      - name: Run Skaffold CI
+        uses: hiberbee/github-action-skaffold@master
+        env:
+          KUBERNETES_SERVICE_HOST: $MINIKUBE_IP
+          KUBERNETES_SERVICE_PORT: 8443
         with:
-          default-repo: docker.pkg.github.com/hiberbee/actions
-          args: build
+          args: run
 
       - name: Test container structure
-        uses: hiberbee/actions.skaffold@master
+        uses: hiberbee/github-action-skaffold@master
         with:
           entrypoint: container-structure-test
-          args: test --config container-structure-test.yaml --image skaffold
+          args: test --config structure-test.yaml --image library/skaffold
