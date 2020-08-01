@@ -2,7 +2,7 @@ name: Skaffold
 on: [push]
 jobs:
   run:
-    name: Run full pipiline
+    name: Run Pipiline
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -16,10 +16,10 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo update
 
-      - name: Run Skaffold CI
+      - name: Run Skaffold command
         uses: hiberbee/github-action-skaffold@master
         with:
           command: run
 
-      - name: Check Wordpress service
+      - name: Check deployed service
         run: kubectl get services

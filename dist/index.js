@@ -1092,50 +1092,46 @@ var skaffold_1 = tslib_1.__importDefault(__webpack_require__(419));
 var download_1 = tslib_1.__importDefault(__webpack_require__(725));
 var exec_1 = __webpack_require__(986);
 var os_1 = tslib_1.__importDefault(__webpack_require__(87));
+var tool_cache_1 = __webpack_require__(533);
 var osPlat = os_1["default"].platform();
 var platform = osPlat === 'win32' ? 'windows' : osPlat;
 var suffix = osPlat === 'win32' ? '.exe' : '';
 function run() {
+    var _a;
     return tslib_1.__awaiter(this, void 0, void 0, function () {
-        var skaffoldTestUrl, containerStructureTestUrl, options, binDir, error_1;
-        return tslib_1.__generator(this, function (_a) {
-            switch (_a.label) {
+        var skaffoldVersion, containerStructureTestVersion, skaffoldTestUrl, containerStructureTestUrl, homeDir, binDir, error_1;
+        return tslib_1.__generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    skaffoldTestUrl = "https://storage.googleapis.com/skaffold/releases/v" + core_1.getInput('version') + "/skaffold-" + platform + "-amd64" + suffix;
+                    skaffoldVersion = core_1.getInput('version');
+                    containerStructureTestVersion = core_1.getInput('container-structure-test-version');
+                    skaffoldTestUrl = "https://storage.googleapis.com/skaffold/releases/v" + skaffoldVersion + "/skaffold-" + platform + "-amd64" + suffix;
                     containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v" + core_1.getInput('container-structure-test-version') + "/container-structure-test-" + platform + "-amd64";
-                    options = {};
-                    binDir = '/home/runner/bin';
-                    _a.label = 1;
+                    homeDir = (_a = process.env.HOME) !== null && _a !== void 0 ? _a : '/home/runner';
+                    binDir = homeDir + "/bin";
+                    _b.label = 1;
                 case 1:
-                    _a.trys.push([1, 6, , 7]);
-                    return [4, download_1["default"]({
-                            url: skaffoldTestUrl,
-                            dir: binDir,
-                            file: 'skaffold'
+                    _b.trys.push([1, 6, , 7]);
+                    return [4, download_1["default"](skaffoldTestUrl, binDir + "/skaffold").then(function () {
+                            return tool_cache_1.cacheFile(binDir + "/skaffold", binDir + "/skaffold", 'skaffold', skaffoldVersion, platform);
                         })];
                 case 2:
-                    _a.sent();
+                    _b.sent();
                     if (!!core_1.getInput('skip-tests')) return [3, 4];
-                    return [4, download_1["default"]({
-                            url: containerStructureTestUrl,
-                            dir: binDir,
-                            file: 'container-structure-test'
+                    return [4, download_1["default"](containerStructureTestUrl, binDir + "/container-structure-test").then(function () {
+                            return tool_cache_1.cacheFile(binDir + "/container-structure-test", binDir + "/container-structure-test", 'container-structure-test', containerStructureTestVersion, platform);
                         })];
                 case 3:
-                    _a.sent();
-                    _a.label = 4;
-                case 4: return [4, skaffold_1["default"]({
-                        skipTests: Boolean(core_1.getInput('skip-tests')),
-                        tag: core_1.getInput('tag'),
-                        command: core_1.getInput('command'),
-                        defaultRepo: core_1.getInput('default-repo'),
-                        profile: core_1.getInput('profile')
-                    }).then(function () { return exec_1.exec('minikube', ['ip'], options); })];
+                    _b.sent();
+                    _b.label = 4;
+                case 4: return [4, exec_1.exec('skaffold', Array.of(core_1.getInput('command')).concat(skaffold_1["default"]())).then(function () {
+                        return tool_cache_1.cacheDir(homeDir, 'skaffold', skaffoldVersion, platform);
+                    })];
                 case 5:
-                    _a.sent();
+                    _b.sent();
                     return [3, 7];
                 case 6:
-                    error_1 = _a.sent();
+                    error_1 = _b.sent();
                     core_1.setFailed(error_1.message);
                     return [3, 7];
                 case 7: return [2];
@@ -1477,30 +1473,24 @@ module.exports = require("crypto");
 "use strict";
 
 exports.__esModule = true;
-exports.commandLineArgs = void 0;
-var tslib_1 = __webpack_require__(422);
-var exec_1 = __webpack_require__(986);
-function commandLineArgs(args) {
-    return [
-        args.command,
-        args.defaultRepo ? "--default-repo=" + args.defaultRepo : '',
-        args.profile ? "--profile=" + args.profile : '',
-        args.skipTests ? "--skip-tests=" + args.skipTests : '',
-        args.tag ? "--tag=" + args.tag : '',
-    ].filter(function (value) { return value !== ''; });
-}
-exports.commandLineArgs = commandLineArgs;
-function default_1(args) {
-    return tslib_1.__awaiter(this, void 0, void 0, function () {
-        return tslib_1.__generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4, exec_1.exec('skaffold', commandLineArgs(args))];
-                case 1:
-                    _a.sent();
-                    return [2];
-            }
-        });
-    });
+var core_1 = __webpack_require__(470);
+var SkaffoldArgs;
+(function (SkaffoldArgs) {
+    SkaffoldArgs["BUILD_IMAGE"] = "--build-image";
+    SkaffoldArgs["CACHE_ARTIFACTS"] = "--cache-artifacts";
+    SkaffoldArgs["DEFAULT_REPO"] = "--default-repo";
+    SkaffoldArgs["FILENAME"] = "--filename";
+    SkaffoldArgs["INSECURE_REGISTRIES"] = "--insecure-registries";
+    SkaffoldArgs["KUBE_CONTEXT"] = "--kube-context";
+    SkaffoldArgs["KUBECONFIG"] = "--kubeconfig";
+    SkaffoldArgs["NAMESPACE"] = "--namespace";
+    SkaffoldArgs["PROFILE"] = "--profile";
+    SkaffoldArgs["SKIP_TESTS"] = "--skip-tests";
+})(SkaffoldArgs || (SkaffoldArgs = {}));
+function default_1() {
+    return Object.keys(SkaffoldArgs)
+        .map(function (key) { return (key in SkaffoldArgs ? (core_1.getInput(key) !== '' ? key + "=" + core_1.getInput(key) : '') : key); })
+        .filter(function (value) { return value !== ''; });
 }
 exports["default"] = default_1;
 
@@ -5163,30 +5153,31 @@ var exec_1 = __webpack_require__(986);
 var tool_cache_1 = __webpack_require__(533);
 var io_1 = __webpack_require__(1);
 var path_1 = tslib_1.__importDefault(__webpack_require__(622));
-function default_1(args) {
+function default_1(url, destination) {
     return tslib_1.__awaiter(this, void 0, void 0, function () {
-        var downloadPath;
+        var downloadPath, destinationDir;
         return tslib_1.__generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4, tool_cache_1.downloadTool(args.url)];
+                case 0: return [4, tool_cache_1.downloadTool(url)];
                 case 1:
                     downloadPath = _a.sent();
-                    return [4, io_1.mkdirP(args.dir)];
+                    destinationDir = path_1["default"].dirname(destination);
+                    return [4, io_1.mkdirP(destinationDir)];
                 case 2:
                     _a.sent();
-                    if (!args.url.endsWith('tar.gz')) return [3, 4];
-                    return [4, exec_1.exec('tar', ['-xz', "--file=" + downloadPath, "--directory=" + args.dir, "--strip=1"])];
+                    if (!(url.endsWith('tar.gz') || url.endsWith('tar') || url.endsWith('tgz'))) return [3, 4];
+                    return [4, exec_1.exec('tar', ['-xz', "--file=" + downloadPath, "--directory=" + destinationDir, "--strip=1"])];
                 case 3:
                     _a.sent();
                     return [3, 6];
-                case 4: return [4, io_1.mv(downloadPath, path_1["default"].join(args.dir, args.file))];
+                case 4: return [4, io_1.mv(downloadPath, destination)];
                 case 5:
                     _a.sent();
                     _a.label = 6;
-                case 6: return [4, exec_1.exec('chmod', ['+x', '-R', args.dir])];
+                case 6: return [4, exec_1.exec('chmod', ['+x', destination])];
                 case 7:
                     _a.sent();
-                    core_1.addPath(args.dir);
+                    core_1.addPath(destinationDir);
                     return [2];
             }
         });

@@ -1,44 +1,42 @@
-import { getInput, setFailed, exportVariable, setOutput, error, info } from '@actions/core'
+import { exportVariable, getInput, setFailed } from '@actions/core'
 import skaffold from 'src/skaffold'
 import download from 'src/download'
 import { exec } from '@actions/exec'
-import { ExecOptions } from '@actions/exec/lib/interfaces'
 import os from 'os'
+import { cacheDir, cacheFile } from '@actions/tool-cache'
 
 const osPlat = os.platform()
 const platform = osPlat === 'win32' ? 'windows' : osPlat
 const suffix = osPlat === 'win32' ? '.exe' : ''
 
 async function run(): Promise<void> {
-  const skaffoldTestUrl = `https://storage.googleapis.com/skaffold/releases/v${getInput(
-    'version',
-  )}/skaffold-${platform}-amd64${suffix}`
+  const skaffoldVersion = getInput('version')
+  const containerStructureTestVersion = getInput('container-structure-test-version')
+  const skaffoldTestUrl = `https://storage.googleapis.com/skaffold/releases/v${skaffoldVersion}/skaffold-${platform}-amd64${suffix}`
   const containerStructureTestUrl = `https://storage.googleapis.com/container-structure-test/v${getInput(
     'container-structure-test-version',
   )}/container-structure-test-${platform}-amd64`
-  const options: ExecOptions = {}
-  const binDir = '/home/runner/bin'
+  const homeDir = process.env.HOME ?? '/home/runner'
+  const binDir = `${homeDir}/bin`
 
   try {
-    await download({
-      url: skaffoldTestUrl,
-      dir: binDir,
-      file: 'skaffold',
-    })
+    await download(skaffoldTestUrl, `${binDir}/skaffold`).then(() =>
+      cacheFile(`${binDir}/skaffold`, `${binDir}/skaffold`, 'skaffold', skaffoldVersion, platform),
+    )
     if (!getInput('skip-tests')) {
-      await download({
-        url: containerStructureTestUrl,
-        dir: binDir,
-        file: 'container-structure-test',
-      })
+      await download(containerStructureTestUrl, `${binDir}/container-structure-test`).then(() =>
+        cacheFile(
+          `${binDir}/container-structure-test`,
+          `${binDir}/container-structure-test`,
+          'container-structure-test',
+          containerStructureTestVersion,
+          platform,
+        ),
+      )
     }
-    await skaffold({
-      skipTests: Boolean(getInput('skip-tests')),
-      tag: getInput('tag'),
-      command: getInput('command'),
-      defaultRepo: getInput('default-repo'),
-      profile: getInput('profile'),
-    }).then(() => exec('minikube', ['ip'], options))
+    await exec('skaffold', Array.of(getInput('command')).concat(skaffold())).then(() =>
+      cacheDir(homeDir, 'skaffold', skaffoldVersion, platform),
+    )
   } catch (error) {
     setFailed(error.message)
   }

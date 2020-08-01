@@ -1,0 +1,3 @@
+repositories:
+  - name: elastic
+    url: https://helm.elastic.co

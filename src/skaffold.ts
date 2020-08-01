@@ -1,23 +1,20 @@
-import { exec } from '@actions/exec'
+import { getInput } from '@actions/core'
 
-export type CommandArguments = {
-  command: string
-  defaultRepo?: string
-  tag?: string
-  profile?: string
-  skipTests?: boolean
+enum SkaffoldArgs {
+  BUILD_IMAGE = '--build-image',
+  CACHE_ARTIFACTS = '--cache-artifacts',
+  DEFAULT_REPO = '--default-repo',
+  FILENAME = '--filename',
+  INSECURE_REGISTRIES = '--insecure-registries',
+  KUBE_CONTEXT = '--kube-context',
+  KUBECONFIG = '--kubeconfig',
+  NAMESPACE = '--namespace',
+  PROFILE = '--profile',
+  SKIP_TESTS = '--skip-tests',
 }
 
-export function commandLineArgs(args: CommandArguments): string[] {
-  return [
-    args.command,
-    args.defaultRepo ? `--default-repo=${args.defaultRepo}` : '',
-    args.profile ? `--profile=${args.profile}` : '',
-    args.skipTests ? `--skip-tests=${args.skipTests}` : '',
-    args.tag ? `--tag=${args.tag}` : '',
-  ].filter(value => value !== '')
-}
-
-export default async function (args: CommandArguments): Promise<void> {
-  await exec('skaffold', commandLineArgs(args))
+export default function (): string[] {
+  return Object.keys(SkaffoldArgs)
+    .map(key => (key in SkaffoldArgs ? (getInput(key) !== '' ? `${key}=${getInput(key)}` : '') : key))
+    .filter(value => value !== '')
 }

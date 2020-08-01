@@ -18,9 +18,11 @@
     "suppressImplicitAnyIndexErrors": true,
     "removeComments": true,
     "lib": [
-      "dom",
-      "es5",
-      "es2015.promise"
+      "DOM",
+      "ES5",
+      "ES2017",
+      "ES2015.Iterable",
+      "ES2015.promise"
     ]
   },
   "exclude": [
