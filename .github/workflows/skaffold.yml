@@ -1,8 +1,8 @@
-name: Skaffold Pipiline
+name: Skaffold
 on: [push]
 jobs:
-  build:
-    name: Build & Test Docker images
+  run:
+    name: Run full pipiline
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -13,7 +13,7 @@ jobs:
 
       - name: Add Helm stable repository
         run: |
-          helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+          helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo update
 
       - name: Run Skaffold CI

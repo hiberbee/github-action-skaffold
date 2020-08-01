@@ -1,6 +1,6 @@
 {
   "name": "github-action-skaffold",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Downloads Skaffold and Container Structure Tests utility",
   "main": "build/main.js",

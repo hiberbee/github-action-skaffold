@@ -10,7 +10,7 @@ inputs:
     description: Set Skaffold version
     required: false
   container-structure-test-version:
-    default: '1.8.6'
+    default: '1.8.0'
     description: Set Container Structure Test version
     required: false
   default-repo:
