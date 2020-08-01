@@ -1473,21 +1473,21 @@ exports.__esModule = true;
 var core_1 = __webpack_require__(470);
 var SkaffoldArgs;
 (function (SkaffoldArgs) {
-    SkaffoldArgs["BUILD_IMAGE"] = "--build-image";
-    SkaffoldArgs["CACHE_ARTIFACTS"] = "--cache-artifacts";
-    SkaffoldArgs["DEFAULT_REPO"] = "--default-repo";
-    SkaffoldArgs["FILENAME"] = "--filename";
-    SkaffoldArgs["INSECURE_REGISTRIES"] = "--insecure-registries";
-    SkaffoldArgs["KUBE_CONTEXT"] = "--kube-context";
-    SkaffoldArgs["KUBECONFIG"] = "--kubeconfig";
-    SkaffoldArgs["NAMESPACE"] = "--namespace";
-    SkaffoldArgs["PROFILE"] = "--profile";
-    SkaffoldArgs["SKIP_TESTS"] = "--skip-tests";
+    SkaffoldArgs["BUILD_IMAGE"] = "build-image";
+    SkaffoldArgs["CACHE_ARTIFACTS"] = "cache-artifacts";
+    SkaffoldArgs["DEFAULT_REPO"] = "default-repo";
+    SkaffoldArgs["FILENAME"] = "filename";
+    SkaffoldArgs["INSECURE_REGISTRIES"] = "insecure-registries";
+    SkaffoldArgs["KUBE_CONTEXT"] = "kube-context";
+    SkaffoldArgs["KUBECONFIG"] = "kubeconfig";
+    SkaffoldArgs["NAMESPACE"] = "namespace";
+    SkaffoldArgs["PROFILE"] = "profile";
+    SkaffoldArgs["SKIP_TESTS"] = "skip-tests";
 })(SkaffoldArgs || (SkaffoldArgs = {}));
 function default_1() {
-    return Object.keys(SkaffoldArgs)
-        .map(function (key) { return (key in SkaffoldArgs ? (core_1.getInput(key) !== '' ? key + "=" + core_1.getInput(key) : '') : key); })
-        .filter(function (value) { return value !== ''; });
+    return Object.values(SkaffoldArgs)
+        .filter(function (key) { return core_1.getInput(key) !== ''; })
+        .map(function (key) { return "--" + key + "=" + core_1.getInput(key); });
 }
 exports["default"] = default_1;
 
