@@ -1,0 +1,18 @@
+schemaVersion: 2.0.0
+
+metadataTest:
+  entrypoint:
+    - skaffold
+
+commandTests:
+  - name: Test Skaffold version
+    command: skaffold
+    args: [version]
+    exitCode: 0
+  - name: Test Container Structure Test version
+    command: container-structure-test
+    args: [version]
+    exitCode: 0
+  - name: Test Docker version
+    command: docker
+    exitCode: 0
