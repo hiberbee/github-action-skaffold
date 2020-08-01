@@ -5169,13 +5169,12 @@ function default_1(url, destination) {
                     return [4, exec_1.exec('tar', ['-xz', "--file=" + downloadPath, "--directory=" + destinationDir, "--strip=1"])];
                 case 3:
                     _a.sent();
-                    return [3, 6];
-                case 4: return [4, io_1.mv(downloadPath, destination)];
+                    _a.label = 4;
+                case 4: return [4, io_1.cp(downloadPath, destination)];
                 case 5:
                     _a.sent();
-                    _a.label = 6;
-                case 6: return [4, exec_1.exec('chmod', ['+x', destination])];
-                case 7:
+                    return [4, exec_1.exec('chmod', ['+x', destination])];
+                case 6:
                     _a.sent();
                     core_1.addPath(destinationDir);
                     return [2, downloadPath];
