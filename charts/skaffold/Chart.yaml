@@ -1,8 +1,8 @@
 name: github-action-skaffold
 apiVersion: v2
 version: 1.0.0
-appVersion: 1.12.0
+appVersion: 1.13.0
 dependencies:
   - name: wordpress
-    version: 9.3.20
+    version: 9.4.0
     repository: https://charts.bitnami.com/bitnami

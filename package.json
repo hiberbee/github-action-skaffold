@@ -1,0 +1,96 @@
+{
+  "name": "github-action-skaffold",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Downloads Skaffold and Container Structure Tests utility",
+  "main": "build/main.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf build",
+    "lint": "eslint --fix src/**/*.ts",
+    "dist": "ncc build build/main.js",
+    "test": "jest",
+    "start": "cross-env RUNNER_TEMP=build node dist/index.js",
+    "release": "npm run clean && npm run build && npm run dist && npm run clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiberbee/github-action-skaffold.git"
+  },
+  "keywords": [
+    "actions",
+    "ci",
+    "github",
+    "helm",
+    "kubernetes",
+    "minikube"
+  ],
+  "author": {
+    "name": "Vlad Volkov",
+    "email": "vlad@hiberbee.com",
+    "url": "https://github.com/vladyslavvolkov"
+  },
+  "husky": {
+    "hooks": {}
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "singleQuote": true,
+    "printWidth": 120,
+    "trailingComma": "all",
+    "semi": false
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module",
+      "ecmaFeatures": {}
+    },
+    "plugins": [],
+    "rules": {},
+    "settings": {}
+  },
+  "eslintIgnore": [
+    "*.log",
+    ".github",
+    ".idea",
+    ".env*",
+    ".eslintcache",
+    "build",
+    "dist",
+    "node_modules",
+    "package.json"
+  ],
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/exec": "^1.0.4",
+    "@actions/tool-cache": "^1.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/jest": "^26.0.8",
+    "@types/node": "^14.0.27",
+    "@typescript-eslint/eslint-plugin": "^3.7.1",
+    "@typescript-eslint/parser": "^3.7.1",
+    "@zeit/ncc": "^0.22.3",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-github": "^4.1.1",
+    "eslint-plugin-jest": "^23.20.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
+    "jest": "^26.2.2",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.1.4",
+    "typescript": "^3.9.7"
+  }
+}

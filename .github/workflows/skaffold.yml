@@ -1,7 +1,5 @@
 name: Skaffold Pipiline
 on: [push]
-env:
-  DOCKER_BUILDKIT: 1
 jobs:
   build:
     name: Build & Test Docker images
@@ -13,13 +11,15 @@ jobs:
       - name: Setup Minikube
         uses: hiberbee/github-action-minikube@master
 
+      - name: Add Helm stable repository
+        run: |
+          helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+          helm repo update
+
       - name: Run Skaffold CI
         uses: hiberbee/github-action-skaffold@master
         with:
-          args: run
+          command: run
 
-      - name: Test container structure
-        uses: hiberbee/github-action-skaffold@master
-        with:
-          entrypoint: container-structure-test
-          args: test --config structure-test.yaml --image library/skaffold
+      - name: Check Wordpress service
+        run: kubectl get services

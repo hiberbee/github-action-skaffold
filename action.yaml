@@ -5,6 +5,14 @@ branding:
   icon: anchor
   color: blue
 inputs:
+  version:
+    default: '1.13.0'
+    description: Set Skaffold version
+    required: false
+  container-structure-test-version:
+    default: '1.8.6'
+    description: Set Container Structure Test version
+    required: false
   default-repo:
     default: ''
     description: Choose which artifacts to build. Artifacts with image names that contain the expression will be built only. Default is to build sources for all artifacts
@@ -25,22 +33,10 @@ inputs:
     default: 'false'
     description: Whether to skip the tests after building
     required: false
-  args:
-    default: 'build'
-    description: Whether to skip the tests after building
-    required: false
-  entrypoint:
-    default: 'skaffold'
-    required: false
-    description: Entrypoint
+  command:
+    description: Skaffold command to execute
+    required: true
 outputs: {}
 runs:
-  using: docker
-  image: docker://hiberb/skaffold:latest
-  env:
-    SKAFFOLD_DEFAULT_REPO: ${{ inputs.default-repo }}
-    SKAFFOLD_PROFILE: ${{ inputs.profile }}
-    SKAFFOLD_TAG: ${{ inputs.tag }}
-    SKAFFOLD_BUILD_IMAGE: ${{ inputs.build-image }}
-    SKAFFOLD_SKIP_TESTS : ${{ inputs.skip-tests }}
-
+  using: node12
+  main: dist/index.js
