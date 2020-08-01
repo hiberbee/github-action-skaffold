@@ -8,7 +8,7 @@ build:
     sha256: {}
   local:
     useBuildkit: true
-    useDockerCLI: true
+    useDockerCLI: false
     concurrency: 0
     push: false
   artifacts:
@@ -18,7 +18,6 @@ deploy:
   helm:
     releases:
       - name: skaffold
-        wait: true
         chartPath: charts/skaffold
         artifactOverrides:
           image: skaffold
