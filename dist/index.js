@@ -1111,30 +1111,33 @@ function run() {
                     binDir = homeDir + "/bin";
                     _b.label = 1;
                 case 1:
-                    _b.trys.push([1, 6, , 7]);
-                    return [4, download_1["default"](skaffoldTestUrl, binDir + "/skaffold").then(function (sourceFile) {
-                            return tool_cache_1.cacheFile(sourceFile, binDir + "/skaffold", 'skaffold', skaffoldVersion, platform);
-                        })];
+                    _b.trys.push([1, 9, , 10]);
+                    return [4, download_1["default"](skaffoldTestUrl, binDir + "/skaffold")];
                 case 2:
                     _b.sent();
-                    if (!!core_1.getInput('skip-tests')) return [3, 4];
-                    return [4, download_1["default"](containerStructureTestUrl, binDir + "/container-structure-test").then(function (sourceFile) {
-                            return tool_cache_1.cacheFile(sourceFile, binDir + "/container-structure-test", 'container-structure-test', containerStructureTestVersion, platform);
-                        })];
+                    return [4, tool_cache_1.cacheFile(binDir + "/skaffold", "skaffold-" + skaffoldVersion, 'skaffold', skaffoldVersion)];
                 case 3:
                     _b.sent();
-                    _b.label = 4;
-                case 4: return [4, exec_1.exec('skaffold', Array.of(core_1.getInput('command')).concat(skaffold_1["default"]())).then(function () {
-                        return tool_cache_1.cacheDir(homeDir, 'skaffold', skaffoldVersion, platform);
-                    })];
+                    if (!!core_1.getInput('skip-tests')) return [3, 6];
+                    return [4, download_1["default"](containerStructureTestUrl, binDir + "/container-structure-test")];
+                case 4:
+                    _b.sent();
+                    return [4, tool_cache_1.cacheFile(binDir + "/container-structure-test", "container-structure-test", 'container-structure-test', containerStructureTestVersion)];
                 case 5:
                     _b.sent();
-                    return [3, 7];
-                case 6:
+                    _b.label = 6;
+                case 6: return [4, exec_1.exec('skaffold', Array.of(core_1.getInput('command')).concat(skaffold_1["default"]()))];
+                case 7:
+                    _b.sent();
+                    return [4, tool_cache_1.cacheDir(homeDir + "/.skaffold/cache", 'skaffold', skaffoldVersion)];
+                case 8:
+                    _b.sent();
+                    return [3, 10];
+                case 9:
                     error_1 = _b.sent();
                     core_1.setFailed(error_1.message);
-                    return [3, 7];
-                case 7: return [2];
+                    return [3, 10];
+                case 10: return [2];
             }
         });
     });
@@ -5165,16 +5168,20 @@ function default_1(url, destination) {
                     return [4, io_1.mkdirP(destinationDir)];
                 case 2:
                     _a.sent();
-                    if (!(url.endsWith('tar.gz') || url.endsWith('tar') || url.endsWith('tgz'))) return [3, 4];
-                    return [4, exec_1.exec('tar', ['-xz', "--file=" + downloadPath, "--directory=" + destinationDir, "--strip=1"])];
+                    if (!(url.endsWith('tar.gz') || url.endsWith('tar') || url.endsWith('tgz'))) return [3, 5];
+                    return [4, exec_1.exec('tar', ['-xzvf', downloadPath, "--strip=1"])];
                 case 3:
                     _a.sent();
-                    _a.label = 4;
-                case 4: return [4, io_1.cp(downloadPath, destination)];
-                case 5:
+                    return [4, io_1.mv(path_1["default"].basename(destination), destinationDir)];
+                case 4:
                     _a.sent();
-                    return [4, exec_1.exec('chmod', ['+x', destination])];
+                    return [3, 7];
+                case 5: return [4, io_1.mv(downloadPath, destination)];
                 case 6:
+                    _a.sent();
+                    _a.label = 7;
+                case 7: return [4, exec_1.exec('chmod', ['+x', destination])];
+                case 8:
                     _a.sent();
                     core_1.addPath(destinationDir);
                     return [2, downloadPath];

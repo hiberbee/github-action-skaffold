@@ -20,23 +20,20 @@ async function run(): Promise<void> {
   const binDir = `${homeDir}/bin`
 
   try {
-    await download(skaffoldTestUrl, `${binDir}/skaffold`).then(sourceFile =>
-      cacheFile(sourceFile, `${binDir}/skaffold`, 'skaffold', skaffoldVersion, platform),
-    )
+    await download(skaffoldTestUrl, `${binDir}/skaffold`)
+    await cacheFile(`${binDir}/skaffold`, `skaffold-${skaffoldVersion}`, 'skaffold', skaffoldVersion)
+
     if (!getInput('skip-tests')) {
-      await download(containerStructureTestUrl, `${binDir}/container-structure-test`).then(sourceFile =>
-        cacheFile(
-          sourceFile,
-          `${binDir}/container-structure-test`,
-          'container-structure-test',
-          containerStructureTestVersion,
-          platform,
-        ),
+      await download(containerStructureTestUrl, `${binDir}/container-structure-test`)
+      await cacheFile(
+        `${binDir}/container-structure-test`,
+        `container-structure-test`,
+        'container-structure-test',
+        containerStructureTestVersion,
       )
     }
-    await exec('skaffold', Array.of(getInput('command')).concat(skaffold())).then(() =>
-      cacheDir(homeDir, 'skaffold', skaffoldVersion, platform),
-    )
+    await exec('skaffold', Array.of(getInput('command')).concat(skaffold()))
+    await cacheDir(`${homeDir}/.skaffold/cache`, 'skaffold', skaffoldVersion)
   } catch (error) {
     setFailed(error.message)
   }

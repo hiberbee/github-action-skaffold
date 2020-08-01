@@ -18,9 +18,11 @@ export default async function (url: string, destination: string): Promise<string
   const destinationDir = path.dirname(destination)
   await mkdirP(destinationDir)
   if (url.endsWith('tar.gz') || url.endsWith('tar') || url.endsWith('tgz')) {
-    await exec('tar', ['-xz', `--file=${downloadPath}`, `--directory=${destinationDir}`, `--strip=1`])
+    await exec('tar', ['-xzvf', downloadPath, `--strip=1`])
+    await mv(path.basename(destination), destinationDir)
+  } else {
+    await mv(downloadPath, destination)
   }
-  await cp(downloadPath, destination)
   await exec('chmod', ['+x', destination])
   addPath(destinationDir)
   return downloadPath

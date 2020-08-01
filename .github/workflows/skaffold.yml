@@ -1,10 +1,19 @@
 name: Skaffold
 on: [push]
+env:
+  SKAFFOLD_VERSION: 1.13.0
 jobs:
   run:
     name: Run Pipiline
     runs-on: ubuntu-latest
     steps:
+      - name: Extract cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.skaffold/cache
+          key: ${{ runner.os }}-skaffold-$SKAFFOLD_VERSION
+          restore-keys: ${{ runner.os }}-skaffold-
+
       - name: Checkout sources
         uses: actions/checkout@v2
 
@@ -12,13 +21,12 @@ jobs:
         uses: hiberbee/github-action-minikube@master
 
       - name: Add Helm stable repository
-        run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo update
+        run: helm repo --repository-config=repositories.yaml update
 
       - name: Run Skaffold command
         uses: hiberbee/github-action-skaffold@master
         with:
+          version: $SKAFFOLD_VERSION
           command: run
           default-repo: docker.pkg.github.com/${{ github.repository }}
 
