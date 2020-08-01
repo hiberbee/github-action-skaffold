@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2beta6
+apiVersion: skaffold/v2beta5
 kind: Config
 metadata:
   name: github-action-skaffold
@@ -22,7 +22,7 @@ deploy:
         artifactOverrides:
           image: skaffold
         setValues:
-          wordpress.service.type: NodePort
+          service.type: NodePort
 
 test:
   - image: skaffold
