@@ -20,13 +20,13 @@ async function run(): Promise<void> {
   const binDir = `${homeDir}/bin`
 
   try {
-    await download(skaffoldTestUrl, `${binDir}/skaffold`).then(() =>
-      cacheFile(`${binDir}/skaffold`, `${binDir}/skaffold`, 'skaffold', skaffoldVersion, platform),
+    await download(skaffoldTestUrl, `${binDir}/skaffold`).then(sourceFile =>
+      cacheFile(sourceFile, `${binDir}/skaffold`, 'skaffold', skaffoldVersion, platform),
     )
     if (!getInput('skip-tests')) {
-      await download(containerStructureTestUrl, `${binDir}/container-structure-test`).then(() =>
+      await download(containerStructureTestUrl, `${binDir}/container-structure-test`).then(sourceFile =>
         cacheFile(
-          `${binDir}/container-structure-test`,
+          sourceFile,
           `${binDir}/container-structure-test`,
           'container-structure-test',
           containerStructureTestVersion,

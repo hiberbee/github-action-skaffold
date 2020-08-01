@@ -13,8 +13,9 @@ import path from 'path'
  * @param url link to download
  * @param destination full path
  */
-export default async function (url: string, destination: string): Promise<void> {
+export default async function (url: string, destination: string): Promise<string> {
   const downloadPath = await downloadTool(url)
+
   const destinationDir = path.dirname(destination)
   await mkdirP(destinationDir)
   if (url.endsWith('tar.gz') || url.endsWith('tar') || url.endsWith('tgz')) {
@@ -24,4 +25,5 @@ export default async function (url: string, destination: string): Promise<void> 
   }
   await exec('chmod', ['+x', destination])
   addPath(destinationDir)
+  return downloadPath
 }

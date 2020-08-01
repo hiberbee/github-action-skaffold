@@ -1112,14 +1112,14 @@ function run() {
                     _b.label = 1;
                 case 1:
                     _b.trys.push([1, 6, , 7]);
-                    return [4, download_1["default"](skaffoldTestUrl, binDir + "/skaffold").then(function () {
-                            return tool_cache_1.cacheFile(binDir + "/skaffold", binDir + "/skaffold", 'skaffold', skaffoldVersion, platform);
+                    return [4, download_1["default"](skaffoldTestUrl, binDir + "/skaffold").then(function (sourceFile) {
+                            return tool_cache_1.cacheFile(sourceFile, binDir + "/skaffold", 'skaffold', skaffoldVersion, platform);
                         })];
                 case 2:
                     _b.sent();
                     if (!!core_1.getInput('skip-tests')) return [3, 4];
-                    return [4, download_1["default"](containerStructureTestUrl, binDir + "/container-structure-test").then(function () {
-                            return tool_cache_1.cacheFile(binDir + "/container-structure-test", binDir + "/container-structure-test", 'container-structure-test', containerStructureTestVersion, platform);
+                    return [4, download_1["default"](containerStructureTestUrl, binDir + "/container-structure-test").then(function (sourceFile) {
+                            return tool_cache_1.cacheFile(sourceFile, binDir + "/container-structure-test", 'container-structure-test', containerStructureTestVersion, platform);
                         })];
                 case 3:
                     _b.sent();
@@ -5178,7 +5178,7 @@ function default_1(url, destination) {
                 case 7:
                     _a.sent();
                     core_1.addPath(destinationDir);
-                    return [2];
+                    return [2, downloadPath];
             }
         });
     });
