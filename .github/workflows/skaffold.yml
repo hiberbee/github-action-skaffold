@@ -1,5 +1,7 @@
 name: Skaffold Pipiline
 on: [push]
+env:
+  DOCKER_BUILDKIT: 1
 jobs:
   build:
     name: Build & Test Docker images
