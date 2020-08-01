@@ -1106,7 +1106,7 @@ function run() {
                     skaffoldVersion = core_1.getInput('version');
                     containerStructureTestVersion = core_1.getInput('container-structure-test-version');
                     skaffoldTestUrl = "https://storage.googleapis.com/skaffold/releases/v" + skaffoldVersion + "/skaffold-" + platform + "-amd64" + suffix;
-                    containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v" + core_1.getInput('container-structure-test-version') + "/container-structure-test-" + platform + "-amd64";
+                    containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v" + containerStructureTestVersion + "/container-structure-test-" + platform + "-amd64";
                     homeDir = (_a = process.env.HOME) !== null && _a !== void 0 ? _a : '/home/runner';
                     binDir = homeDir + "/bin";
                     _b.label = 1;
@@ -1115,7 +1115,7 @@ function run() {
                     return [4, download_1["default"](skaffoldTestUrl, binDir + "/skaffold")];
                 case 2:
                     _b.sent();
-                    if (!!core_1.getInput('skip-tests')) return [3, 4];
+                    if (!(core_1.getInput('skip-tests') === 'false')) return [3, 4];
                     return [4, download_1["default"](containerStructureTestUrl, binDir + "/container-structure-test")];
                 case 3:
                     _b.sent();

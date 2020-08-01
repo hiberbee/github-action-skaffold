@@ -13,15 +13,13 @@ async function run(): Promise<void> {
   const skaffoldVersion = getInput('version')
   const containerStructureTestVersion = getInput('container-structure-test-version')
   const skaffoldTestUrl = `https://storage.googleapis.com/skaffold/releases/v${skaffoldVersion}/skaffold-${platform}-amd64${suffix}`
-  const containerStructureTestUrl = `https://storage.googleapis.com/container-structure-test/v${getInput(
-    'container-structure-test-version',
-  )}/container-structure-test-${platform}-amd64`
+  const containerStructureTestUrl = `https://storage.googleapis.com/container-structure-test/v${containerStructureTestVersion}/container-structure-test-${platform}-amd64`
   const homeDir = process.env.HOME ?? '/home/runner'
   const binDir = `${homeDir}/bin`
 
   try {
     await download(skaffoldTestUrl, `${binDir}/skaffold`)
-    if (!getInput('skip-tests')) {
+    if (getInput('skip-tests') === 'false') {
       await download(containerStructureTestUrl, `${binDir}/container-structure-test`)
     }
     await exec('skaffold', Array.of(getInput('command')).concat(skaffold()))

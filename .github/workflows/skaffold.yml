@@ -3,7 +3,7 @@ on: [push]
 jobs:
   run:
     name: Run Pipiline
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Extract cache
         uses: actions/cache@v2
