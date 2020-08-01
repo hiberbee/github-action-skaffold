@@ -58,7 +58,5 @@ inputs:
     description: The optional custom tag to use for images which overrides the current Tagger configuration
 outputs: {}
 runs:
-  env:
-    SKAFFOLD_DEFAULT_REPO: docker.pkg.github.com/${{ github.repository }}
   using: node12
   main: dist/index.js

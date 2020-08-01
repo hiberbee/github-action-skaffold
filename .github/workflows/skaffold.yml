@@ -20,6 +20,7 @@ jobs:
         uses: hiberbee/github-action-skaffold@master
         with:
           command: run
+          default-repo: docker.pkg.github.com/${{ github.repository }}
 
       - name: Check deployed service
         run: kubectl get services
