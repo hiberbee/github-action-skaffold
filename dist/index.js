@@ -1093,13 +1093,14 @@ var download_1 = tslib_1.__importDefault(__webpack_require__(725));
 var exec_1 = __webpack_require__(986);
 var os_1 = tslib_1.__importDefault(__webpack_require__(87));
 var tool_cache_1 = __webpack_require__(533);
+var io_1 = __webpack_require__(1);
 var osPlat = os_1["default"].platform();
 var platform = osPlat === 'win32' ? 'windows' : osPlat;
 var suffix = osPlat === 'win32' ? '.exe' : '';
 function run() {
     var _a;
     return tslib_1.__awaiter(this, void 0, void 0, function () {
-        var skaffoldVersion, containerStructureTestVersion, skaffoldTestUrl, containerStructureTestUrl, homeDir, binDir, error_1;
+        var skaffoldVersion, containerStructureTestVersion, skaffoldTestUrl, containerStructureTestUrl, homeDir, skaffoldCacheDir, binDir, error_1;
         return tslib_1.__generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -1108,30 +1109,34 @@ function run() {
                     skaffoldTestUrl = "https://storage.googleapis.com/skaffold/releases/v" + skaffoldVersion + "/skaffold-" + platform + "-amd64" + suffix;
                     containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v" + containerStructureTestVersion + "/container-structure-test-" + platform + "-amd64";
                     homeDir = (_a = process.env.HOME) !== null && _a !== void 0 ? _a : '/home/runner';
+                    skaffoldCacheDir = homeDir + "/.skaffold/cache";
                     binDir = homeDir + "/bin";
                     _b.label = 1;
                 case 1:
-                    _b.trys.push([1, 7, , 8]);
-                    return [4, download_1["default"](skaffoldTestUrl, binDir + "/skaffold")];
+                    _b.trys.push([1, 8, , 9]);
+                    return [4, io_1.mkdirP(skaffoldCacheDir)];
                 case 2:
                     _b.sent();
-                    if (!(core_1.getInput('skip-tests') === 'false')) return [3, 4];
-                    return [4, download_1["default"](containerStructureTestUrl, binDir + "/container-structure-test")];
+                    return [4, download_1["default"](skaffoldTestUrl, binDir + "/skaffold")];
                 case 3:
                     _b.sent();
-                    _b.label = 4;
-                case 4: return [4, exec_1.exec('skaffold', Array.of(core_1.getInput('command')).concat(skaffold_1["default"]()))];
-                case 5:
+                    if (!(core_1.getInput('skip-tests') === 'false')) return [3, 5];
+                    return [4, download_1["default"](containerStructureTestUrl, binDir + "/container-structure-test")];
+                case 4:
                     _b.sent();
-                    return [4, tool_cache_1.cacheDir(homeDir + "/.skaffold/cache", 'skaffold', skaffoldVersion)];
+                    _b.label = 5;
+                case 5: return [4, exec_1.exec('skaffold', Array.of(core_1.getInput('command'), "--cache-file=" + skaffoldCacheDir).concat(skaffold_1["default"]()))];
                 case 6:
                     _b.sent();
-                    return [3, 8];
+                    return [4, tool_cache_1.cacheDir(skaffoldCacheDir, 'skaffold', skaffoldVersion)];
                 case 7:
+                    _b.sent();
+                    return [3, 9];
+                case 8:
                     error_1 = _b.sent();
                     core_1.setFailed(error_1.message);
-                    return [3, 8];
-                case 8: return [2];
+                    return [3, 9];
+                case 9: return [2];
             }
         });
     });

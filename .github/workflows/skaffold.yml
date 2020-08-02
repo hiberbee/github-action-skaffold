@@ -8,7 +8,7 @@ jobs:
       - name: Extract cache
         uses: actions/cache@v2
         with:
-          path: ~/.skaffold/cache
+          path: ~/.skaffold
           key: ${{ runner.os }}-skaffold
 
       - name: Checkout sources
