@@ -10,12 +10,12 @@ jobs:
         with:
           path: ~/.skaffold/cache
           key: ${{ runner.os }}-skaffold-1.13.0
-          restore-keys: ${{ runner.os }}-skaffold-1.13.0
+          restore-keys: ${{ runner.os }}-skaffold-
 
       - name: Checkout sources
         uses: actions/checkout@v2
 
-      - name: Setup Minikube
+      - name: Start Minikube
         uses: hiberbee/github-action-minikube@master
 
       - name: Authenticate with Docker registry
@@ -30,6 +30,7 @@ jobs:
         uses: hiberbee/github-action-skaffold@master
         with:
           command: run
+          skip-tests: true
           default-repo: docker.pkg.github.com/${{ github.repository }}
 
       - name: Check deployed service

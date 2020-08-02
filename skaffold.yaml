@@ -32,8 +32,8 @@ profiles:
       local:
         concurrency: 0
         push: true
-        useBuildkit: false
-        useDockerCLI: true
+        useBuildkit: true
+        useDockerCLI: false
     test:
       - image: skaffold
         structureTests: [structure-test.yaml]

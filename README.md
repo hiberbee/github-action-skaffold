@@ -22,10 +22,15 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 | Name | Description | Default |
 | ---- | ----------- | ------- |
-| `version` | Set Skaffold version | 1.13.0 |
-| `container-structure-test-version` | Set Container Structure Test version | 1.8.0 |
-| `profile` | Set Skaffold profile name |  |
 | `build-image` | Set Skaffold profile name |  |
+| `container-structure-test-version` | Set Container Structure Test version | 1.8.0 |
+| `default-repo` | Default repository value (overrides global config) |  |
+| `filename` | Path or URL to the Skaffold config file | skaffold.yaml |
+| `kube-context` | Deploy to this Kubernetes context |  |
+| `kubeconfig` | Path to the kubeconfig file to use for CLI requests |  |
+| `profile` | Activate profiles by name |  |
+| `tag` | Set Skaffold profile name |  |
+| `version` | Set Skaffold version | 1.13.0 |
 
 ## Outputs
 
@@ -36,25 +41,37 @@ name: Skaffold
 on: [push]
 jobs:
   run:
-    name: Run full pipiline
-    runs-on: ubuntu-latest
+    name: Run Pipiline
+    runs-on: ubuntu-20.04
     steps:
+      - name: Extract cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.skaffold/cache
+          key: ${{ runner.os }}-skaffold-1.13.0
+          restore-keys: ${{ runner.os }}-skaffold-
+
       - name: Checkout sources
         uses: actions/checkout@v2
 
-      - name: Setup Minikube
+      - name: Start Minikube
         uses: hiberbee/github-action-minikube@master
 
-      - name: Add Helm stable repository
-        run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo update
+      - name: Authenticate with Docker registry
+        run: echo $GITHUB_TOKEN | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Skaffold CI
+      - name: Add Helm repositories
+        run: helm repo --repository-config=repositories.yaml update
+
+      - name: Run Skaffold command
         uses: hiberbee/github-action-skaffold@master
         with:
           command: run
+          default-repo: docker.pkg.github.com/${{ github.repository }}
 
-      - name: Check Wordpress service
+      - name: Check deployed service
         run: kubectl get services
+
 ```
