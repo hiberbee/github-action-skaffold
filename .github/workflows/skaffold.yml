@@ -8,7 +8,7 @@ jobs:
       - name: Extract cache
         uses: actions/cache@v2
         with:
-          path: ~/.skaffold
+          path: ~/.skaffold/cache
           key: ${{ runner.os }}-skaffold
 
       - name: Checkout sources
@@ -18,7 +18,9 @@ jobs:
         uses: hiberbee/github-action-minikube@master
 
       - name: Authenticate with Docker registry
-        run: cat ~/GH_TOKEN.txt | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        run: echo $GITHUB_TOKEN | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add Helm stable repository
         run: helm repo --repository-config=repositories.yaml update
