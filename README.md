@@ -22,6 +22,7 @@ See also [Github Action Minikube](https://github.com/hiberbee/github-action-mini
 ### Configuration
 
 | Name | Description | Default |
+| ---- | ----------- | ------- |
 | `skaffold-version` | Set Skaffold version | 1.13.0 |
 | `container-structure-test-version` | Set Container Structure Test version | 1.9.0 |
 
@@ -30,6 +31,7 @@ See also [Github Action Minikube](https://github.com/hiberbee/github-action-mini
 ### Required
 
 | Name | Description | Default |
+| ---- | ----------- | ------- |
 | `command` | Set Skaffold profile name |  |
 
 ### Optional
