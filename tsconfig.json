@@ -19,10 +19,10 @@
     "removeComments": true,
     "lib": [
       "DOM",
-      "ES5",
-      "ES2017",
       "ES2015.Iterable",
-      "ES2015.promise"
+      "ES2015.promise",
+      "ES2017",
+      "ES5"
     ]
   },
   "exclude": [

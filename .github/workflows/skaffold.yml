@@ -1,5 +1,5 @@
 name: Skaffold
-on: [push]
+on: push
 jobs:
   run:
     name: Run Pipiline
@@ -30,6 +30,7 @@ jobs:
         uses: hiberbee/github-action-skaffold@master
         with:
           command: run
+          skip-tests: true
           default-repo: docker.pkg.github.com/${{ github.repository }}
 
       - name: Check deployed service

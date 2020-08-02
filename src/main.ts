@@ -11,7 +11,7 @@ const platform = osPlat === 'win32' ? 'windows' : osPlat
 const suffix = osPlat === 'win32' ? '.exe' : ''
 
 async function run(): Promise<void> {
-  const skaffoldVersion = getInput('version')
+  const skaffoldVersion = getInput('skaffold-version')
   const containerStructureTestVersion = getInput('container-structure-test-version')
   const skaffoldTestUrl = `https://storage.googleapis.com/skaffold/releases/v${skaffoldVersion}/skaffold-${platform}-amd64${suffix}`
   const containerStructureTestUrl = `https://storage.googleapis.com/container-structure-test/v${containerStructureTestVersion}/container-structure-test-${platform}-amd64`

@@ -1104,7 +1104,7 @@ function run() {
         return tslib_1.__generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    skaffoldVersion = core_1.getInput('version');
+                    skaffoldVersion = core_1.getInput('skaffold-version');
                     containerStructureTestVersion = core_1.getInput('container-structure-test-version');
                     skaffoldTestUrl = "https://storage.googleapis.com/skaffold/releases/v" + skaffoldVersion + "/skaffold-" + platform + "-amd64" + suffix;
                     containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v" + containerStructureTestVersion + "/container-structure-test-" + platform + "-amd64";
