@@ -17,6 +17,9 @@ jobs:
       - name: Setup Minikube
         uses: hiberbee/github-action-minikube@master
 
+      - name: Authenticate with Docker registry
+        run: cat ~/GH_TOKEN.txt | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
       - name: Add Helm stable repository
         run: helm repo --repository-config=repositories.yaml update
 

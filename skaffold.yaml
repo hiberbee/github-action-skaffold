@@ -7,10 +7,10 @@ build:
   tagPolicy:
     sha256: {}
   local:
-    useBuildkit: true
-    useDockerCLI: false
     concurrency: 0
     push: false
+    useBuildkit: true
+    useDockerCLI: false
   artifacts:
     - image: skaffold
 
@@ -32,3 +32,9 @@ profiles:
   - name: minikube
     activation:
       - kubeContext: minikube
+    build:
+      local:
+        concurrency: 0
+        push: true
+        useBuildkit: true
+        useDockerCLI: false
