@@ -12,6 +12,7 @@ Skaffold is a command line tool that facilitates continuous development for Kube
 
 This action allows you to execute skaffold commands as Github Action. Repository is self-testable, so you can refer to [Skaffold manifest](skaffold.yaml), [Container Structure tests](structure-test.yaml) and [Github workflow](.github/workflows/skaffold.yml)
 
+See also [Github Action Minikube](https://github.com/hiberbee/github-action-minikube) for better development experience
 ## Installed software
 
 - skaffold 1.13.0
