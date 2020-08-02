@@ -1,4 +1,4 @@
-# Skaffold Build Action
+# Skaffold Github Action
 
 ![License](https://img.shields.io/github/license/hiberbee/github-action-skaffold?style=flat-square)
 
