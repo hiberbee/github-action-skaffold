@@ -1488,6 +1488,7 @@ var SkaffoldArgs;
     SkaffoldArgs["NAMESPACE"] = "namespace";
     SkaffoldArgs["PROFILE"] = "profile";
     SkaffoldArgs["SKIP_TESTS"] = "skip-tests";
+    SkaffoldArgs["TAG"] = "tag";
 })(SkaffoldArgs || (SkaffoldArgs = {}));
 function default_1() {
     return Object.values(SkaffoldArgs)

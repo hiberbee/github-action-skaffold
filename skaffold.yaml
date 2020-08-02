@@ -29,14 +29,11 @@ profiles:
     activation:
       - env: CI=true
     build:
-      tagPolicy:
-        gitCommit:
-          variant: CommitSha
       local:
         concurrency: 0
         push: true
         useBuildkit: true
-        useDockerCLI: false
+        useDockerCLI: true
     test:
       - image: skaffold
         structureTests: [structure-test.yaml]

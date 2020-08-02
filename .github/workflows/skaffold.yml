@@ -1,5 +1,7 @@
 name: Skaffold
 on: [push]
+env:
+  DOCKER_BUILDKIT: 1
 jobs:
   run:
     name: Run Pipiline
@@ -22,7 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Add Helm stable repository
+      - name: Add Helm repositories
         run: helm repo --repository-config=repositories.yaml update
 
       - name: Run Skaffold command

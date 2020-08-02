@@ -11,6 +11,7 @@ enum SkaffoldArgs {
   NAMESPACE = 'namespace',
   PROFILE = 'profile',
   SKIP_TESTS = 'skip-tests',
+  TAG = 'tag',
 }
 
 export default function (): string[] {
