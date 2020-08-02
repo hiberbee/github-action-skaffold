@@ -24,17 +24,19 @@ deploy:
         setValues:
           service.type: NodePort
 
-test:
-  - image: skaffold
-    structureTests: [structure-test.yaml]
-
 profiles:
-  - name: minikube
+  - name: ci
     activation:
-      - kubeContext: minikube
+      - env: CI=true
     build:
+      tagPolicy:
+        gitCommit:
+          variant: CommitSha
       local:
         concurrency: 0
         push: true
         useBuildkit: true
         useDockerCLI: false
+    test:
+      - image: skaffold
+        structureTests: [structure-test.yaml]
