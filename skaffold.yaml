@@ -32,7 +32,7 @@ profiles:
       local:
         concurrency: 0
         push: true
-        useBuildkit: true
+        useBuildkit: false
         useDockerCLI: true
     test:
       - image: skaffold

@@ -1,7 +1,5 @@
 name: Skaffold
 on: [push]
-env:
-  DOCKER_BUILDKIT: 1
 jobs:
   run:
     name: Run Pipiline
@@ -11,7 +9,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.skaffold/cache
-          key: ${{ runner.os }}-skaffold
+          key: ${{ runner.os }}-skaffold-1.13.0
+          restore-keys: ${{ runner.os }}-skaffold-1.13.0
 
       - name: Checkout sources
         uses: actions/checkout@v2
