@@ -16,14 +16,14 @@ See also [Github Action Minikube](https://github.com/hiberbee/github-action-mini
 
 ## Installed versions
 
-- skaffold 1.13.0
+- skaffold 1.13.1
 - container-structure-test 1.9.0
 
 ### Configuration
 
 | Name | Description | Default |
 | ---- | ----------- | ------- |
-| `skaffold-version` | Set Skaffold version | 1.13.0 |
+| `skaffold-version` | Set Skaffold version | 1.13.1 |
 | `container-structure-test-version` | Set Container Structure Test version | 1.9.0 |
 
 ## Inputs
@@ -64,7 +64,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.skaffold/cache
-          key: ${{ runner.os }}-skaffold-1.13.0
+          key: ${{ runner.os }}-skaffold-1.13.1
           restore-keys: ${{ runner.os }}-skaffold-
 
       - name: Checkout sources

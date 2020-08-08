@@ -9,7 +9,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.skaffold/cache
-          key: ${{ runner.os }}-skaffold-1.13.0
+          key: ${{ runner.os }}-skaffold-1.13.1
           restore-keys: ${{ runner.os }}-skaffold-
 
       - name: Checkout sources
@@ -19,9 +19,7 @@ jobs:
         uses: hiberbee/github-action-minikube@master
 
       - name: Authenticate with Docker registry
-        run: echo $GITHUB_TOKEN | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo ${{ secrets.HARBOR_PASSWORD }} | docker login harbor.k8s.hiberbee.net -u ${{ secrets.HARBOR_USERNAME }} --password-stdin
 
       - name: Add Helm repositories
         run: helm repo --repository-config=repositories.yaml update
@@ -31,7 +29,7 @@ jobs:
         with:
           command: run
           skip-tests: true
-          default-repo: docker.pkg.github.com/${{ github.repository }}
+          default-repo: harbor.k8s.hiberbee.net/library
 
       - name: Check deployed service
         run: kubectl get services
