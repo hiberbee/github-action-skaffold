@@ -2,34 +2,27 @@ name: Skaffold
 on: push
 jobs:
   run:
-    name: Run Pipiline
+    name: Pipiline
     runs-on: ubuntu-20.04
     steps:
-      - name: Extract cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.skaffold/cache
-          key: ${{ runner.os }}-skaffold-1.13.1
-          restore-keys: ${{ runner.os }}-skaffold-
-
       - name: Checkout sources
         uses: actions/checkout@v2
 
-      - name: Start Minikube
-        uses: hiberbee/github-action-minikube@master
+      - name: Setup Minikube
+        uses: hiberbee/github-action-minikube@latest
+
+      - name: Setup Helm
+        uses: hiberbee/github-action-helm@latest
 
       - name: Authenticate with Docker registry
         run: echo ${{ secrets.HARBOR_PASSWORD }} | docker login harbor.k8s.hiberbee.net -u ${{ secrets.HARBOR_USERNAME }} --password-stdin
 
-      - name: Add Helm repositories
-        run: helm repo --repository-config=repositories.yaml update
-
       - name: Run Skaffold command
-        uses: hiberbee/github-action-skaffold@master
+        uses: hiberbee/github-action-skaffold@latest
         with:
           command: run
           skip-tests: true
           default-repo: harbor.k8s.hiberbee.net/library
 
-      - name: Check deployed service
-        run: kubectl get services
+      - name: Get Helm releases
+        run: helm list

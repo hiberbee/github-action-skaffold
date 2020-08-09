@@ -71,7 +71,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Start Minikube
-        uses: hiberbee/github-action-minikube@master
+        uses: hiberbee/github-action-minikube@latest
 
       - name: Authenticate with Docker registry
         run: echo $GITHUB_TOKEN | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
@@ -82,7 +82,7 @@ jobs:
         run: helm repo --repository-config=repositories.yaml update
 
       - name: Run Skaffold command
-        uses: hiberbee/github-action-skaffold@master
+        uses: hiberbee/github-action-skaffold@latest
         with:
           command: run
           default-repo: docker.pkg.github.com/${{ github.repository }}
