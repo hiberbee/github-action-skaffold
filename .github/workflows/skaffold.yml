@@ -2,7 +2,8 @@ name: Skaffold
 on:
   push:
     paths:
-      - dist/index.js
+      - dist/**
+      - .github/workflows/skaffold.yml
 jobs:
   run:
     name: Pipiline
