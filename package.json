@@ -9,7 +9,7 @@
     "build": "tsc",
     "clean": "rimraf build",
     "lint": "eslint --fix src/**/*.ts",
-    "dist": "ncc build build/main.js",
+    "dist": "ncc build build/main.js --source-map",
     "test": "jest",
     "start": "cross-env RUNNER_TEMP=build node dist/index.js",
     "release": "npm run clean && npm run build && npm run dist && npm run clean"
@@ -72,25 +72,22 @@
     "@actions/tool-cache": "^1.6.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/preset-env": "^7.11.0",
-    "@babel/preset-typescript": "^7.10.4",
-    "@types/jest": "^26.0.9",
-    "@types/node": "^14.0.27",
-    "@typescript-eslint/eslint-plugin": "^3.8.0",
-    "@typescript-eslint/parser": "^3.8.0",
+    "@types/jest": "^26.0.10",
+    "@types/node": "^14.6.0",
+    "@typescript-eslint/eslint-plugin": "^3.9.1",
+    "@typescript-eslint/parser": "^3.9.1",
     "@zeit/ncc": "^0.22.3",
     "cross-env": "^7.0.2",
-    "eslint": "^7.6.0",
+    "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-github": "^4.1.1",
     "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.2.5",
-    "jest": "^26.2.2",
+    "jest": "^26.4.2",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
-    "ts-jest": "^26.1.4",
-    "typescript": "^3.9.7"
+    "ts-jest": "^26.2.0",
+    "typescript": "^4.0.2"
   }
 }

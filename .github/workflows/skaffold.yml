@@ -1,5 +1,8 @@
 name: Skaffold
-on: push
+on:
+  push:
+    paths:
+      - dist/index.js
 jobs:
   run:
     name: Pipiline
@@ -15,7 +18,10 @@ jobs:
         uses: hiberbee/github-action-helm@latest
 
       - name: Authenticate with Docker registry
-        run: echo ${{ secrets.HARBOR_PASSWORD }} | docker login harbor.k8s.hiberbee.net -u ${{ secrets.HARBOR_USERNAME }} --password-stdin
+        run: echo $DOCKER_PASSWORD | docker login harbor.k8s.hiberbee.net -u $DOCKER_USERNAME --password-stdin
+        env:
+          DOCKER_USERNAME: ${{ secrets.HARBOR_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.HARBOR_PASSWORD }}
 
       - name: Run Skaffold command
         uses: hiberbee/github-action-skaffold@latest
