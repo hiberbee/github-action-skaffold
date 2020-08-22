@@ -14,6 +14,7 @@ inputs:
     description: Set Container Structure Test version
     required: false
   command:
+    default: version
     description: Skaffold command to execute
     required: true
   build-image:
@@ -49,7 +50,7 @@ inputs:
     description: Activate profiles by name (prefixed with `-` to disable a profile)
     required: false
   skip-tests:
-    default: 'false'
+    default: 'true'
     description: Whether to skip the tests after building
     required: false
   tag:

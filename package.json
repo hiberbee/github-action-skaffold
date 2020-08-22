@@ -34,38 +34,6 @@
   "husky": {
     "hooks": {}
   },
-  "prettier": {
-    "arrowParens": "avoid",
-    "singleQuote": true,
-    "printWidth": 120,
-    "trailingComma": "all",
-    "semi": false
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:@typescript-eslint/recommended"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": 2020,
-      "sourceType": "module",
-      "ecmaFeatures": {}
-    },
-    "plugins": [],
-    "rules": {},
-    "settings": {}
-  },
-  "eslintIgnore": [
-    "*.log",
-    ".github",
-    ".idea",
-    ".env*",
-    ".eslintcache",
-    "build",
-    "dist",
-    "node_modules",
-    "package.json"
-  ],
   "dependencies": {
     "@actions/core": "^1.2.4",
     "@actions/exec": "^1.0.4",

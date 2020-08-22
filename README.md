@@ -30,21 +30,18 @@ See also [Github Action Minikube](https://github.com/hiberbee/github-action-mini
 
 ### Required
 
-| Name | Description | Default |
-| ---- | ----------- | ------- |
-| `command` | Set Skaffold profile name |  |
-
 ### Optional
 
 | Name | Description | Default |
 | ---- | ----------- | ------- |
 | `build-image` | Set Skaffold profile name | n/a |
-| `cache-artifacts` | Set Skaffold profile name | true |
+| `cache-artifacts` | Set to false to disable default caching of artifacts | true |
+| `command` | Set Skaffold profile name | version |
 | `default-repo` | Default repository value (overrides global config) | n/a |
 | `filename` | Path or URL to the Skaffold config file | skaffold.yaml |
-| `namespace` | Run deployments in the specified namespace | n/a |
 | `kube-context` | Deploy to this Kubernetes context | n/a |
 | `kubeconfig` | Path to the kubeconfig file to use for CLI requests | n/a |
+| `namespace` | Run deployments in the specified namespace | n/a |
 | `profile` | Activate profiles by name | n/a |
 | `tag` | Set Skaffold profile name | n/a |
 
@@ -53,41 +50,38 @@ See also [Github Action Minikube](https://github.com/hiberbee/github-action-mini
 ### Example
 
 ```yaml
-name: Skaffold
-on: [push]
+on:
+  push:
+    paths:
+      - src/**
+      - skaffold.yaml
+      - Dockerfile
 jobs:
-  run:
-    name: Run Pipiline
+  pipiline:
     runs-on: ubuntu-20.04
     steps:
-      - name: Extract cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.skaffold/cache
-          key: ${{ runner.os }}-skaffold-1.13.2
-          restore-keys: ${{ runner.os }}-skaffold-
-
       - name: Checkout sources
         uses: actions/checkout@v2
 
-      - name: Start Minikube
+      - name: Setup Minikube
         uses: hiberbee/github-action-minikube@latest
 
+      - name: Setup Helm
+        uses: hiberbee/github-action-helm@latest
+
       - name: Authenticate with Docker registry
-        run: echo $GITHUB_TOKEN | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+        run: echo $DOCKER_PASSWORD | docker login harbor.k8s.hiberbee.net -u $DOCKER_USERNAME --password-stdin
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Add Helm repositories
-        run: helm repo --repository-config=repositories.yaml update
-
-      - name: Run Skaffold command
+      - name: Run Skaffold pipeline
         uses: hiberbee/github-action-skaffold@latest
         with:
           command: run
-          default-repo: docker.pkg.github.com/${{ github.repository }}
+          default-repo: harbor.k8s.hiberbee.net/library
 
-      - name: Check deployed service
-        run: kubectl get services
+      - name: Get Helm releases
+        run: helm list
 
 ```

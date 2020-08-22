@@ -1,0 +1,12 @@
+*.iml
+*.log
+*.md
+.env*
+.eslintcache
+.github
+.idea
+Dockerfile
+build
+dist
+node_modules
+package.json

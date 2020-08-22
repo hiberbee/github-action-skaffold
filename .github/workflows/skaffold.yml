@@ -1,12 +1,10 @@
-name: Skaffold
 on:
   push:
     paths:
       - dist/**
       - .github/workflows/skaffold.yml
 jobs:
-  run:
-    name: Pipiline
+  pipiline:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout sources
@@ -28,7 +26,6 @@ jobs:
         uses: hiberbee/github-action-skaffold@latest
         with:
           command: run
-          skip-tests: true
           default-repo: harbor.k8s.hiberbee.net/library
 
       - name: Get Helm releases
