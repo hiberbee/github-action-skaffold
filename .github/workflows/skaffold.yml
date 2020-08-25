@@ -24,7 +24,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.HARBOR_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.HARBOR_PASSWORD }}
 
-      - name: Run Skaffold command
+      - name: Run Skaffold pipeline
         uses: hiberbee/github-action-skaffold@latest
         with:
           command: run

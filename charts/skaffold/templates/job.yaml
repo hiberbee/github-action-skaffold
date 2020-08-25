@@ -10,5 +10,3 @@ spec:
         - name: version
           image: {{ .Values.image }}
           imagePullPolicy: IfNotPresent
-          args:
-            - version

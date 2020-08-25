@@ -1,6 +1,7 @@
 schemaVersion: 2.0.0
 
 metadataTest:
+  workdir: /usr/local/bin
   entrypoint:
     - skaffold
 
