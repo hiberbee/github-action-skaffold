@@ -1,4 +1,4 @@
-name: Skaffold Build Action
+name: Skaffold Github Action
 description: Setup Skaffold and all required dependencies
 author: hiberbee
 branding:
@@ -60,4 +60,4 @@ inputs:
 outputs: {}
 runs:
   using: node12
-  main: dist/index.js
+  main: lib/index.js

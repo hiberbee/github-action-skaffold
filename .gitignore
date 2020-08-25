@@ -37,5 +37,3 @@ node_modules
 .scannerwork
 
 ### Project ############################################################################################################
-!/dist/index.js
-!/dist/sourcemap-register.js
