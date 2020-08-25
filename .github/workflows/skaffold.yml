@@ -1,10 +1,12 @@
+name: Skaffold
 on:
   push:
     paths:
-      - dist/**
+      - lib/**
       - .github/workflows/skaffold.yml
 jobs:
   pipiline:
+    name: Pipiline
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout sources

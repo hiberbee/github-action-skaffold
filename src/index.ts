@@ -1,14 +1,14 @@
-import { getInput, setFailed } from '@actions/core'
-import { exec } from '@actions/exec'
-import os from 'os'
-import { cacheDir } from '@actions/tool-cache'
-import { mkdirP, mv } from '@actions/io'
+import { platform } from 'os'
+import { dirname, basename } from 'path'
 import { addPath } from '@actions/core'
+import { cacheDir } from '@actions/tool-cache'
 import { downloadTool } from '@actions/tool-cache'
-import path from 'path'
+import { exec } from '@actions/exec'
+import { getInput, setFailed } from '@actions/core'
+import { mkdirP, mv } from '@actions/io'
 
-const osPlat = os.platform()
-const platform = osPlat === 'win32' ? 'windows' : osPlat
+const osPlat = platform()
+const platformName = osPlat === 'win32' ? 'windows' : osPlat
 const suffix = osPlat === 'win32' ? '.exe' : ''
 
 enum SkaffoldArgs {
@@ -36,11 +36,11 @@ enum SkaffoldArgs {
  */
 async function download(url: string, destination: string): Promise<string> {
   const downloadPath = await downloadTool(url)
-  const destinationDir = path.dirname(destination)
+  const destinationDir = dirname(destination)
   await mkdirP(destinationDir)
   if (url.endsWith('tar.gz') || url.endsWith('tar') || url.endsWith('tgz')) {
     await exec('tar', ['-xzvf', downloadPath, `--strip=1`])
-    await mv(path.basename(destination), destinationDir)
+    await mv(basename(destination), destinationDir)
   } else {
     await mv(downloadPath, destination)
   }
@@ -58,8 +58,8 @@ function commandLineArgs(): string[] {
 async function run(): Promise<void> {
   const skaffoldVersion = getInput('skaffold-version')
   const containerStructureTestVersion = getInput('container-structure-test-version')
-  const skaffoldTestUrl = `https://storage.googleapis.com/skaffold/releases/v${skaffoldVersion}/skaffold-${platform}-amd64${suffix}`
-  const containerStructureTestUrl = `https://storage.googleapis.com/container-structure-test/v${containerStructureTestVersion}/container-structure-test-${platform}-amd64`
+  const skaffoldTestUrl = `https://storage.googleapis.com/skaffold/releases/v${skaffoldVersion}/skaffold-${platformName}-amd64${suffix}`
+  const containerStructureTestUrl = `https://storage.googleapis.com/container-structure-test/v${containerStructureTestVersion}/container-structure-test-${platformName}-amd64`
   const homeDir = process.env.HOME ?? '/home/runner'
   const skaffoldCacheDir = `${homeDir}/.skaffold/cache`
   const binDir = `${homeDir}/bin`
@@ -70,11 +70,12 @@ async function run(): Promise<void> {
     if (getInput('skip-tests') === 'false') {
       await download(containerStructureTestUrl, `${binDir}/container-structure-test`)
     }
-    await exec('skaffold', Array.of(getInput('command'), `--cache-file=${skaffoldCacheDir}`).concat(commandLineArgs()))
+    await exec('skaffold', [getInput('command'), `--cache-file=${skaffoldCacheDir}`].concat(commandLineArgs()))
     await cacheDir(skaffoldCacheDir, 'skaffold', skaffoldVersion)
   } catch (error) {
     setFailed(error.message)
   }
 }
 
-run().then(() => exec('skaffold', ['version']))
+// noinspection JSIgnoredPromiseFromCall
+run()

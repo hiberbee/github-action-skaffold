@@ -1,0 +1,20 @@
+name: Lint
+on:
+  push:
+    paths:
+      - src/**
+      - .github/workflows/lint.yml
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Lint Code Base
+        uses: github/super-linter@v3
+        env:
+          VALIDATE_ALL_CODEBASE: true
+          DEFAULT_BRANCH: latest
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
