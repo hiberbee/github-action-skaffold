@@ -1101,13 +1101,13 @@ var SkaffoldArgs;
     SkaffoldArgs["TAG"] = "tag";
 })(SkaffoldArgs || (SkaffoldArgs = {}));
 var homeDir = index_1.getHomeDir();
-var skaffoldHomeDir = path_1.join(homeDir, '.skaffold');
-var skaffoldCacheDir = path_1.join(skaffoldHomeDir, 'cache');
 var binDir = index_1.getBinDir();
+var skaffoldHomeDir = path_1.join(homeDir, '.skaffold');
+var skaffoldCacheFile = path_1.join(skaffoldHomeDir, 'cache');
 function getArgsFromInput() {
     return core_1.getInput('command')
         .split(' ')
-        .concat("--cache-file=" + skaffoldCacheDir)
+        .concat("--cache-file=" + skaffoldCacheFile)
         .concat(Object.values(SkaffoldArgs)
         .filter(function (key) { return core_1.getInput(key) !== ''; })
         .map(function (key) { return "--" + key + "=" + core_1.getInput(key); }));
@@ -1127,7 +1127,7 @@ function run() {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 8, , 9]);
-                    return [4, io_1.mkdirP(skaffoldCacheDir)];
+                    return [4, io_1.mkdirP(skaffoldHomeDir)];
                 case 2:
                     _a.sent();
                     return [4, index_1.download(skaffoldTestUrl, path_1.join(binDir, 'skaffold'))];
@@ -1138,10 +1138,10 @@ function run() {
                 case 4:
                     _a.sent();
                     _a.label = 5;
-                case 5: return [4, tool_cache_1.cacheDir(skaffoldCacheDir, 'skaffold', skaffoldVersion)];
+                case 5: return [4, exec_1.exec('skaffold', getArgsFromInput())];
                 case 6:
                     _a.sent();
-                    return [4, exec_1.exec('skaffold', getArgsFromInput())];
+                    return [4, tool_cache_1.cacheDir(skaffoldHomeDir, 'skaffold', skaffoldVersion)];
                 case 7:
                     _a.sent();
                     return [3, 9];
