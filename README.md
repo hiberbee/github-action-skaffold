@@ -1,16 +1,14 @@
 # Skaffold Github Action
 
-![License](https://img.shields.io/github/license/hiberbee/github-action-skaffold?style=flat-square)
-
-![GitHub Action Status](https://img.shields.io/github/workflow/status/hiberbee/github-action-skaffold/Skaffold?label=github-actions&style=flat-square)
-
-![Github Workflow](https://img.shields.io/github/v/tag/hiberbee/github-action-skaffold?label=hiberbee%2Fgithub-action-skaffold&style=flat-square)
+<p align="center">
+  <img src="https://img.shields.io/github/license/hiberbee/github-action-minikube?style=flat-square" alt="License">
+  <img src="https://img.shields.io/github/workflow/status/hiberbee/github-action-minikube/CI?label=github-actions&style=flat-square" alt="GitHub Action Status">
+  <img src="https://img.shields.io/github/v/tag/hiberbee/github-action-minikube?label=hiberbee%2Fgithub-action-minikube&style=flat-square" alt="GitHub Workflow Version">
+</p>
 
 Skaffold is a command line tool that facilitates continuous development for Kubernetes applications. You can iterate on your application source code locally then deploy to local or remote Kubernetes clusters. Skaffold handles the workflow for building, pushing and deploying your application. It also provides building blocks and describe customizations for a CI/CD pipeline.
 
 This action allows you to execute skaffold commands as Github Action. Repository is self-testable, so you can refer to [Skaffold manifest](test/skaffold.yaml), [Container Structure tests](test/structure-test.yaml) and [Github workflow](.github/workflows/ci.yml)
-
-See also [Github Action Minikube](https://github.com/hiberbee/github-action-minikube) for better development experience
 
 ## Installed versions
 

@@ -1,4 +1,4 @@
-name: Skaffold CI
+name: CI
 on:
   push:
     paths:
