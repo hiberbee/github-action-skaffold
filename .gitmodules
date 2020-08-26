@@ -1,0 +1,3 @@
+[submodule "kops"]
+	path = test/kops
+	url = git@github.com:hiberbee/github-action-kops
