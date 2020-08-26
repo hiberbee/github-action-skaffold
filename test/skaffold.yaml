@@ -5,7 +5,7 @@ metadata:
 
 build:
   tagPolicy:
-    sha256: {}
+    sha256: { }
   local:
     concurrency: 0
     push: false
@@ -36,4 +36,4 @@ profiles:
         useDockerCLI: false
     test:
       - image: skaffold
-        structureTests: [structure-test.yaml]
+        structureTests: [ structure-test.yaml ]
