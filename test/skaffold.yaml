@@ -13,12 +13,13 @@ build:
     useDockerCLI: false
   artifacts:
     - image: skaffold
+      context: test
 
 deploy:
   helm:
     releases:
       - name: skaffold
-        chartPath: charts/skaffold
+        chartPath: test/charts/skaffold
         artifactOverrides:
           image: skaffold
         setValues:
