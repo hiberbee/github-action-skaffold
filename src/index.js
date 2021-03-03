@@ -1138,7 +1138,7 @@ function run() {
                 case 4:
                     _a.sent();
                     _a.label = 5;
-                case 5: return [4, exec_1.exec('skaffold', getArgsFromInput())];
+                case 5: return [4, exec_1.exec('skaffold', getArgsFromInput(), { env: { ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true' } })];
                 case 6:
                     _a.sent();
                     return [4, tool_cache_1.cacheDir(skaffoldHomeDir, 'skaffold', skaffoldVersion)];
