@@ -1179,7 +1179,7 @@ function getArgsFromInput() {
 }
 function run() {
     return tslib_1.__awaiter(this, void 0, void 0, function () {
-        var platform, suffix, skaffoldVersion, containerStructureTestVersion, skaffoldTestUrl, containerStructureTestUrl, error_1;
+        var platform, suffix, skaffoldVersion, containerStructureTestVersion, skaffoldTUrl, containerStructureTestUrl, error_1;
         return tslib_1.__generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -1187,34 +1187,37 @@ function run() {
                     suffix = platform === 'windows' ? '.exe' : '';
                     skaffoldVersion = core_1.getInput('skaffold-version');
                     containerStructureTestVersion = core_1.getInput('container-structure-test-version');
-                    skaffoldTestUrl = "https://github.com/GoogleContainerTools/skaffold/releases/download/v" + skaffoldVersion + "/skaffold-" + platform + "-amd64" + suffix;
+                    skaffoldTUrl = "https://github.com/GoogleContainerTools/skaffold/releases/download/v" + skaffoldVersion + "/skaffold-" + platform + "-amd64" + suffix;
                     containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v" + containerStructureTestVersion + "/container-structure-test-" + platform + "-amd64";
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 8, , 9]);
+                    _a.trys.push([1, 9, , 10]);
                     return [4, io_1.mkdirP(skaffoldHomeDir)];
                 case 2:
                     _a.sent();
-                    return [4, index_1.download(skaffoldTestUrl, path_1.join(binDir, 'skaffold'))];
+                    return [4, index_1.download(skaffoldTUrl, path_1.join(binDir, 'skaffold'))];
                 case 3:
                     _a.sent();
-                    if (!(core_1.getInput('skip-tests') === 'false')) return [3, 5];
-                    return [4, index_1.download(containerStructureTestUrl, path_1.join(binDir, 'container-structure-test'))];
+                    return [4, exec_1.exec('apt-get', ['install', 'libc-bin'])];
                 case 4:
                     _a.sent();
-                    _a.label = 5;
-                case 5: return [4, exec_1.exec('skaffold', getArgsFromInput(), { env: { ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true' } })];
-                case 6:
+                    if (!(core_1.getInput('skip-tests') === 'false')) return [3, 6];
+                    return [4, index_1.download(containerStructureTestUrl, path_1.join(binDir, 'container-structure-test'))];
+                case 5:
                     _a.sent();
-                    return [4, tool_cache_1.cacheDir(skaffoldHomeDir, 'skaffold', skaffoldVersion)];
+                    _a.label = 6;
+                case 6: return [4, exec_1.exec('skaffold', getArgsFromInput(), { env: { ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true' } })];
                 case 7:
                     _a.sent();
-                    return [3, 9];
+                    return [4, tool_cache_1.cacheDir(skaffoldHomeDir, 'skaffold', skaffoldVersion)];
                 case 8:
+                    _a.sent();
+                    return [3, 10];
+                case 9:
                     error_1 = _a.sent();
                     core_1.setFailed(error_1.message);
-                    return [3, 9];
-                case 9: return [2];
+                    return [3, 10];
+                case 10: return [2];
             }
         });
     });
