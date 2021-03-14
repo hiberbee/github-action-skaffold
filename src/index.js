@@ -1198,7 +1198,7 @@ function run() {
                     return [4, index_1.download(skaffoldTUrl, path_1.join(binDir, 'skaffold'))];
                 case 3:
                     _a.sent();
-                    return [4, exec_1.exec('apt-get', ['install', 'libc-bin'])];
+                    return [4, exec_1.exec('sudo ', ['apt-get', 'install', 'libc-bin'])];
                 case 4:
                     _a.sent();
                     if (!(core_1.getInput('skip-tests') === 'false')) return [3, 6];
