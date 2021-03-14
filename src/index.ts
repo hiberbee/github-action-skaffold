@@ -7,9 +7,8 @@ import { exec } from '@actions/exec'
 import { getInput, setFailed } from '@actions/core'
 import { mkdirP, mv } from '@actions/io'
 
-const osPlat = platform()
-const platformName = osPlat === 'win32' ? 'windows' : osPlat
-const suffix = osPlat === 'win32' ? '.exe' : ''
+const osPlatform = platform() === 'win32' ? 'windows' : platform()
+const suffix = osPlatform === 'windows' ? '.exe' : ''
 
 enum SkaffoldArgs {
   BUILD_IMAGE = 'build-image',
@@ -49,17 +48,21 @@ async function download(url: string, destination: string): Promise<string> {
   return downloadPath
 }
 
+/**
+ * Parse command line args
+ * @return string[] command line args
+ */
 function commandLineArgs(): string[] {
   return Object.values(SkaffoldArgs)
-    .filter(key => getInput(key) !== '')
-    .map(key => `--${key}=${getInput(key)}`)
+    .filter((key) => getInput(key) !== '')
+    .map((key) => `--${key}=${getInput(key)}`)
 }
 
 async function run(): Promise<void> {
   const skaffoldVersion = getInput('skaffold-version')
   const containerStructureTestVersion = getInput('container-structure-test-version')
-  const skaffoldTestUrl = `https://storage.googleapis.com/skaffold/releases/v${skaffoldVersion}/skaffold-${platformName}-amd64${suffix}`
-  const containerStructureTestUrl = `https://storage.googleapis.com/container-structure-test/v${containerStructureTestVersion}/container-structure-test-${platformName}-amd64`
+  const skaffoldTestUrl = `https://storage.googleapis.com/skaffold/releases/v${skaffoldVersion}/skaffold-${osPlatform}-amd64${suffix}`
+  const containerStructureTestUrl = `https://storage.googleapis.com/container-structure-test/v${containerStructureTestVersion}/container-structure-test-${osPlatform}-amd64`
   const homeDir = process.env.HOME ?? '/home/runner'
   const skaffoldCacheDir = `${homeDir}/.skaffold/cache`
   const binDir = `${homeDir}/bin`
@@ -77,5 +80,4 @@ async function run(): Promise<void> {
   }
 }
 
-// noinspection JSIgnoredPromiseFromCall
-run()
+run().then()

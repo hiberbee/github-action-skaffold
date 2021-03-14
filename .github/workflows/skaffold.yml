@@ -6,7 +6,7 @@ on:
       - .github/workflows/skaffold.yml
 jobs:
   pipiline:
-    name: Pipiline
+    name: Skaffold Pipiline
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout sources
@@ -17,12 +17,6 @@ jobs:
 
       - name: Setup Helm
         uses: hiberbee/github-action-helm@latest
-
-      - name: Authenticate with Docker registry
-        run: echo $DOCKER_PASSWORD | docker login harbor.k8s.hiberbee.net -u $DOCKER_USERNAME --password-stdin
-        env:
-          DOCKER_USERNAME: ${{ secrets.HARBOR_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.HARBOR_PASSWORD }}
 
       - name: Run Skaffold pipeline
         uses: hiberbee/github-action-skaffold@latest

@@ -6,11 +6,11 @@ branding:
   color: blue
 inputs:
   skaffold-version:
-    default: 1.13.2
+    default: 1.20.0
     description: Set Skaffold version
     required: false
   container-structure-test-version:
-    default: 1.9.0
+    default: 1.10.0
     description: Set Container Structure Test version
     required: false
   command:
@@ -59,5 +59,5 @@ inputs:
     description: The optional custom tag to use for images which overrides the current Tagger configuration
 outputs: {}
 runs:
-  using: node12
+  using: node14
   main: lib/index.js

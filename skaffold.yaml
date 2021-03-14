@@ -1,19 +1,16 @@
-apiVersion: skaffold/v2beta6
+apiVersion: skaffold/v2beta12
 kind: Config
 metadata:
-  name: github-action-skaffold
-
+  name: github-action
 build:
-  tagPolicy:
-    sha256: {}
-  local:
-    concurrency: 0
-    push: false
-    useBuildkit: true
-    useDockerCLI: false
   artifacts:
     - image: skaffold
-
+  tagPolicy:
+    sha256: { }
+  local:
+    push: false
+    useBuildkit: true
+    concurrency: 0
 deploy:
   helm:
     releases:
@@ -23,17 +20,16 @@ deploy:
           image: skaffold
         setValues:
           service.type: NodePort
-
 profiles:
   - name: ci
     activation:
       - env: CI=true
     build:
       local:
-        concurrency: 0
-        push: true
+        push: false
         useBuildkit: true
-        useDockerCLI: false
+        concurrency: 0
     test:
       - image: skaffold
-        structureTests: [structure-test.yaml]
+        structureTests:
+          - structure-test.yaml
