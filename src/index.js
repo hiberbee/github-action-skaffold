@@ -1157,7 +1157,6 @@ var SkaffoldArgs;
     SkaffoldArgs["BUILD_IMAGE"] = "build-image";
     SkaffoldArgs["CACHE_ARTIFACTS"] = "cache-artifacts";
     SkaffoldArgs["DEFAULT_REPO"] = "default-repo";
-    SkaffoldArgs["FILENAME"] = "filename";
     SkaffoldArgs["KUBE_CONTEXT"] = "kube-context";
     SkaffoldArgs["KUBECONFIG"] = "kubeconfig";
     SkaffoldArgs["NAMESPACE"] = "namespace";
