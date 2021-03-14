@@ -1191,33 +1191,30 @@ function run() {
                     containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v" + containerStructureTestVersion + "/container-structure-test-" + platform + "-amd64";
                     _a.label = 1;
                 case 1:
-                    _a.trys.push([1, 9, , 10]);
+                    _a.trys.push([1, 8, , 9]);
                     return [4, io_1.mkdirP(skaffoldHomeDir)];
                 case 2:
                     _a.sent();
                     return [4, index_1.download(skaffoldTUrl, path_1.join(binDir, 'skaffold'))];
                 case 3:
                     _a.sent();
-                    return [4, exec_1.exec('sudo ', ['apt-get', 'install', 'libc-bin'])];
+                    if (!(core_1.getInput('skip-tests') === 'false')) return [3, 5];
+                    return [4, index_1.download(containerStructureTestUrl, path_1.join(binDir, 'container-structure-test'))];
                 case 4:
                     _a.sent();
-                    if (!(core_1.getInput('skip-tests') === 'false')) return [3, 6];
-                    return [4, index_1.download(containerStructureTestUrl, path_1.join(binDir, 'container-structure-test'))];
-                case 5:
-                    _a.sent();
-                    _a.label = 6;
-                case 6: return [4, exec_1.exec('skaffold', getArgsFromInput(), { env: { ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true' } })];
-                case 7:
+                    _a.label = 5;
+                case 5: return [4, exec_1.exec('skaffold', getArgsFromInput(), { env: { ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true' } })];
+                case 6:
                     _a.sent();
                     return [4, tool_cache_1.cacheDir(skaffoldHomeDir, 'skaffold', skaffoldVersion)];
-                case 8:
+                case 7:
                     _a.sent();
-                    return [3, 10];
-                case 9:
+                    return [3, 9];
+                case 8:
                     error_1 = _a.sent();
                     core_1.setFailed(error_1.message);
-                    return [3, 10];
-                case 10: return [2];
+                    return [3, 9];
+                case 9: return [2];
             }
         });
     });

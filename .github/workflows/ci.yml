@@ -26,7 +26,6 @@ jobs:
         with:
           command: run
           default-repo: harbor.k8s.hiberbee.net/library
-          filename: test/skaffold.yaml
 
       - name: Get Helm releases
         run: helm list
