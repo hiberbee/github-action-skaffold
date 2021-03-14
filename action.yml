@@ -59,5 +59,5 @@ inputs:
     description: The optional custom tag to use for images which overrides the current Tagger configuration
 outputs: {}
 runs:
-  using: node14
+  using: node12
   main: lib/index.js
