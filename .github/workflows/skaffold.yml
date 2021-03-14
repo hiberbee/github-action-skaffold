@@ -4,6 +4,7 @@ on:
     paths:
       - lib/**
       - .github/workflows/skaffold.yml
+      - action.yml
 jobs:
   pipiline:
     name: Skaffold Pipiline
