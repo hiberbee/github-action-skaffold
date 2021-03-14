@@ -2,8 +2,8 @@ name: Skaffold
 on:
   push:
     paths:
-      - lib/**
-      - .github/workflows/skaffold.yml
+      - src/**
+      - .github/workflows/ci.yml
       - action.yml
 jobs:
   pipiline:
