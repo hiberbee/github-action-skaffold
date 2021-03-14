@@ -18,12 +18,15 @@ jobs:
 
       - name: Setup Helm
         uses: hiberbee/github-action-helm@latest
+        with:
+          repository-config: test/repositories.yaml
 
       - name: Run Skaffold pipeline
         uses: hiberbee/github-action-skaffold@latest
         with:
           command: run
           default-repo: harbor.k8s.hiberbee.net/library
+          filename: test/skaffold.yaml
 
       - name: Get Helm releases
         run: helm list
