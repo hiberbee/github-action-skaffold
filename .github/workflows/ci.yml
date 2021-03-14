@@ -22,7 +22,7 @@ jobs:
           repository-config: test/repositories.yaml
 
       - name: Run Skaffold pipeline
-        uses: hiberbee/github-action-skaffold@1.4
+        uses: hiberbee/github-action-skaffold@1.4.0
         with:
           command: run
           default-repo: harbor.k8s.hiberbee.net/library
