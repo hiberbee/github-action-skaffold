@@ -28,19 +28,19 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Run Skaffold pipeline as command
-        run: build
-        working-directory: test
-        env:
-          SKAFFOLD_DEFAULT_REPO: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
-          SKAFFOLD_SKIP_TESTS: true
-
       - name: Run Skaffold pipeline as action
         uses: hiberbee/github-action-skaffold@latest
         with:
           command: run
           filename: test/skaffold.yaml
           default-repo: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
+
+      - name: Run Skaffold pipeline as command
+        run: build
+        working-directory: test
+        env:
+          SKAFFOLD_DEFAULT_REPO: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
+          SKAFFOLD_SKIP_TESTS: true
 
       - name: Get Helm releases
         run: helm list
