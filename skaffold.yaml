@@ -1,5 +1,5 @@
 # nonk8s
-apiVersion: skaffold/v2beta22
+apiVersion: skaffold/v2beta21
 kind: Config
 metadata:
   name: github-action

@@ -40,7 +40,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(77);
+/******/ 		return __webpack_require__(419);
 /******/ 	};
 /******/
 /******/ 	// run startup
@@ -1278,90 +1278,6 @@ function _readLinuxVersionFile() {
 }
 exports._readLinuxVersionFile = _readLinuxVersionFile;
 //# sourceMappingURL=manifest.js.map
-
-/***/ }),
-
-/***/ 77:
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-var tslib_1 = __webpack_require__(422);
-var tool_cache_1 = __webpack_require__(533);
-var exec_1 = __webpack_require__(986);
-var core_1 = __webpack_require__(470);
-var io_1 = __webpack_require__(1);
-var index_1 = __webpack_require__(362);
-var path_1 = __webpack_require__(622);
-var SkaffoldArgs;
-(function (SkaffoldArgs) {
-    SkaffoldArgs["BUILD_IMAGE"] = "build-image";
-    SkaffoldArgs["CACHE_ARTIFACTS"] = "cache-artifacts";
-    SkaffoldArgs["DEFAULT_REPO"] = "default-repo";
-    SkaffoldArgs["KUBE_CONTEXT"] = "kube-context";
-    SkaffoldArgs["KUBECONFIG"] = "kubeconfig";
-    SkaffoldArgs["NAMESPACE"] = "namespace";
-    SkaffoldArgs["PROFILE"] = "profile";
-    SkaffoldArgs["SKIP_TESTS"] = "skip-tests";
-    SkaffoldArgs["TAG"] = "tag";
-})(SkaffoldArgs || (SkaffoldArgs = {}));
-var workspaceDir = (0, index_1.getWorkspaceDir)();
-var binDir = (0, index_1.getBinDir)(workspaceDir);
-var skaffoldHomeDir = (0, path_1.join)(workspaceDir, '.skaffold');
-var skaffoldCacheFile = (0, path_1.join)(skaffoldHomeDir, 'cache');
-function getArgsFromInput() {
-    return (0, core_1.getInput)('command')
-        .split(' ')
-        .concat("--cache-file=" + skaffoldCacheFile)
-        .concat(Object.values(SkaffoldArgs)
-        .filter(function (key) { return (0, core_1.getInput)(key) !== ''; })
-        .map(function (key) { return "--" + key + "=" + (0, core_1.getInput)(key); }));
-}
-function run() {
-    return (0, tslib_1.__awaiter)(this, void 0, void 0, function () {
-        var platform, suffix, skaffoldVersion, containerStructureTestVersion, skaffoldTUrl, containerStructureTestUrl, error_1;
-        return (0, tslib_1.__generator)(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    platform = (0, index_1.getOsPlatform)();
-                    suffix = platform === 'windows' ? '.exe' : '';
-                    skaffoldVersion = (0, core_1.getInput)('skaffold-version');
-                    containerStructureTestVersion = (0, core_1.getInput)('container-structure-test-version');
-                    skaffoldTUrl = "https://github.com/GoogleContainerTools/skaffold/releases/download/v" + skaffoldVersion + "/skaffold-" + platform + "-amd64" + suffix;
-                    containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v" + containerStructureTestVersion + "/container-structure-test-" + platform + "-amd64";
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 8, , 9]);
-                    return [4, (0, io_1.mkdirP)(skaffoldHomeDir)];
-                case 2:
-                    _a.sent();
-                    return [4, (0, index_1.download)(skaffoldTUrl, (0, path_1.join)(binDir, 'skaffold'))];
-                case 3:
-                    _a.sent();
-                    if (!((0, core_1.getInput)('skip-tests') === 'false')) return [3, 5];
-                    return [4, (0, index_1.download)(containerStructureTestUrl, (0, path_1.join)(binDir, 'container-structure-test'))];
-                case 4:
-                    _a.sent();
-                    _a.label = 5;
-                case 5: return [4, (0, exec_1.exec)('skaffold', getArgsFromInput(), { env: { ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true' } })];
-                case 6:
-                    _a.sent();
-                    return [4, (0, tool_cache_1.cacheDir)(skaffoldHomeDir, 'skaffold', skaffoldVersion)];
-                case 7:
-                    _a.sent();
-                    return [3, 9];
-                case 8:
-                    error_1 = _a.sent();
-                    (0, core_1.setFailed)(error_1.message);
-                    return [3, 9];
-                case 9: return [2];
-            }
-        });
-    });
-}
-run();
-//# sourceMappingURL=skaffold.js.map
 
 /***/ }),
 
@@ -3682,14 +3598,7 @@ module.exports = require("string_decoder");
 
 /***/ }),
 
-/***/ 357:
-/***/ (function(module) {
-
-module.exports = require("assert");
-
-/***/ }),
-
-/***/ 362:
+/***/ 325:
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
@@ -3750,7 +3659,14 @@ function download(url, destination) {
     });
 }
 exports.download = download;
-//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ 357:
+/***/ (function(module) {
+
+module.exports = require("assert");
 
 /***/ }),
 
@@ -4533,6 +4449,90 @@ module.exports = __webpack_require__(141);
 /***/ (function(module) {
 
 module.exports = require("crypto");
+
+/***/ }),
+
+/***/ 419:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var tslib_1 = __webpack_require__(422);
+var tool_cache_1 = __webpack_require__(533);
+var exec_1 = __webpack_require__(986);
+var core_1 = __webpack_require__(470);
+var io_1 = __webpack_require__(1);
+var index_1 = __webpack_require__(325);
+var path_1 = __webpack_require__(622);
+var SkaffoldArgs;
+(function (SkaffoldArgs) {
+    SkaffoldArgs["BUILD_IMAGE"] = "build-image";
+    SkaffoldArgs["CACHE_ARTIFACTS"] = "cache-artifacts";
+    SkaffoldArgs["DEFAULT_REPO"] = "default-repo";
+    SkaffoldArgs["KUBE_CONTEXT"] = "kube-context";
+    SkaffoldArgs["KUBECONFIG"] = "kubeconfig";
+    SkaffoldArgs["NAMESPACE"] = "namespace";
+    SkaffoldArgs["PROFILE"] = "profile";
+    SkaffoldArgs["SKIP_TESTS"] = "skip-tests";
+    SkaffoldArgs["TAG"] = "tag";
+})(SkaffoldArgs || (SkaffoldArgs = {}));
+var workspaceDir = (0, index_1.getWorkspaceDir)();
+var binDir = (0, index_1.getBinDir)(workspaceDir);
+var skaffoldHomeDir = (0, path_1.join)(workspaceDir, '.skaffold');
+var skaffoldCacheFile = (0, path_1.join)(skaffoldHomeDir, 'cache');
+function getArgsFromInput() {
+    return (0, core_1.getInput)('command')
+        .split(' ')
+        .concat("--cache-file=" + skaffoldCacheFile)
+        .concat(Object.values(SkaffoldArgs)
+        .filter(function (key) { return (0, core_1.getInput)(key) !== ''; })
+        .map(function (key) { return "--" + key + "=" + (0, core_1.getInput)(key); }));
+}
+function run() {
+    return (0, tslib_1.__awaiter)(this, void 0, void 0, function () {
+        var platform, suffix, skaffoldVersion, containerStructureTestVersion, skaffoldTUrl, containerStructureTestUrl, error_1;
+        return (0, tslib_1.__generator)(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    platform = (0, index_1.getOsPlatform)();
+                    suffix = platform === 'windows' ? '.exe' : '';
+                    skaffoldVersion = (0, core_1.getInput)('skaffold-version');
+                    containerStructureTestVersion = (0, core_1.getInput)('container-structure-test-version');
+                    skaffoldTUrl = "https://github.com/GoogleContainerTools/skaffold/releases/download/v" + skaffoldVersion + "/skaffold-" + platform + "-amd64" + suffix;
+                    containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v" + containerStructureTestVersion + "/container-structure-test-" + platform + "-amd64";
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 8, , 9]);
+                    return [4, (0, io_1.mkdirP)(skaffoldHomeDir)];
+                case 2:
+                    _a.sent();
+                    return [4, (0, index_1.download)(skaffoldTUrl, (0, path_1.join)(binDir, 'skaffold'))];
+                case 3:
+                    _a.sent();
+                    if (!((0, core_1.getInput)('skip-tests') === 'false')) return [3, 5];
+                    return [4, (0, index_1.download)(containerStructureTestUrl, (0, path_1.join)(binDir, 'container-structure-test'))];
+                case 4:
+                    _a.sent();
+                    _a.label = 5;
+                case 5: return [4, (0, exec_1.exec)('skaffold', getArgsFromInput())];
+                case 6:
+                    _a.sent();
+                    return [4, (0, tool_cache_1.cacheDir)(skaffoldHomeDir, 'skaffold', skaffoldVersion)];
+                case 7:
+                    _a.sent();
+                    return [3, 9];
+                case 8:
+                    error_1 = _a.sent();
+                    (0, core_1.setFailed)(error_1.message);
+                    return [3, 9];
+                case 9: return [2];
+            }
+        });
+    });
+}
+run();
+
 
 /***/ }),
 
