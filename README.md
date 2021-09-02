@@ -12,15 +12,14 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 ## Installed versions
 
-- skaffold 1.13.2
-- container-structure-test 1.9.0
+- skaffold 1.31.0
+- container-structure-test 1.10.0
 
 ### Configuration
 
 | Name | Description | Default |
 | ---- | ----------- | ------- |
-| `skaffold-version` | Set Skaffold version | 1.13.2 |
-| `container-structure-test-version` | Set Container Structure Test version | 1.9.0 |
+
 
 ## Inputs
 
@@ -30,54 +29,87 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 | Name | Description | Default |
 | ---- | ----------- | ------- |
-| `build-image` | Set Skaffold profile name | n/a |
-| `cache-artifacts` | Set to false to disable default caching of artifacts | true |
+| `skaffold-version` | Set Skaffold version | 1.31.0 |
+| `container-structure-test-version` | Set Container Structure Test version | 1.10.0 |
+| `working-directory` | Set current working directory similar to Github Actions run | ${{ github.workspace }} |
+| `filename` | Path or URL to the Skaffold config file | skaffold.yaml |
 | `command` | Set Skaffold profile name | version |
 | `default-repo` | Default repository value (overrides global config) | n/a |
-| `filename` | Path or URL to the Skaffold config file | skaffold.yaml |
+| `build-image` | Set Skaffold profile name | n/a |
 | `kube-context` | Deploy to this Kubernetes context | n/a |
 | `kubeconfig` | Path to the kubeconfig file to use for CLI requests | n/a |
 | `namespace` | Run deployments in the specified namespace | n/a |
 | `profile` | Activate profiles by name | n/a |
-| `tag` | Set Skaffold profile name | n/a |
+| `skip-tests` | Whether to skip the tests after building | n/a |
+| `tag` | The optional custom tag to use for images which overrides the current Tagger configuration | n/a |
+| `cache-artifacts` | Set to false to disable default caching of artifacts | true |
 
 ## Outputs
 
 ### Example
 
+See example with build, test & deployment simple Helm chart from Dockerfile to local K8S mini cluster.
+
 ```yaml
+name: Skaffold
 on:
   push:
     paths:
       - src/**
-      - skaffold.yaml
-      - Dockerfile
+      - .github/workflows/ci.yml
+      - action.yml
 jobs:
   pipiline:
+    name: Skaffold Pipiline
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
 
       - name: Setup Minikube
-        uses: hiberbee/github-action-minikube@latest
+        uses: hiberbee/github-action-minikube@1.5.0
 
       - name: Setup Helm
-        uses: hiberbee/github-action-helm@latest
+        uses: hiberbee/github-action-helm@1.3.0
+        with:
+          repository-config: test/repositories.yaml
 
-      - name: Authenticate with Docker registry
-        run: echo $DOCKER_PASSWORD | docker login harbor.k8s.hiberbee.net -u $DOCKER_USERNAME --password-stdin
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Run Skaffold pipeline
-        uses: hiberbee/github-action-skaffold@latest
+      - name: Run Skaffold pipeline as action
+        uses: hiberbee/github-action-skaffold@1.6.0
         with:
           command: run
-          default-repo: harbor.k8s.hiberbee.net/library
+          default-repo: ${{ secrets.DOCKER_REGISTRY }}
 
       - name: Get Helm releases
         run: helm list
 
 ```
+
+## CLI usage
+
+You can use that action just to set up Skaffold and then perform actions manually. Here is code sample:
+
+```yaml
+jobs:
+  pipiline:
+    name: Skaffold Pipiline
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Setup Skaffold
+        uses: hiberbee/github-action-skaffold@1.6.0
+        with:
+          command: diagnose
+
+      - name: Build Docker images
+        run: skaffold build
+        env:
+          SKAFFOLD_DEFAULT_REPO: ${{ secrets.DOCKER_REGISTRY }}
+```
+

@@ -14,26 +14,26 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Minikube
-        uses: hiberbee/github-action-minikube@latest
+        uses: hiberbee/github-action-minikube@1.5.0
 
       - name: Setup Helm
-        uses: hiberbee/github-action-helm@latest
+        uses: hiberbee/github-action-helm@1.3.0
         with:
           repository-config: test/repositories.yaml
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
-          registry: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
+          registry: ${{ secrets.DOCKER_REPOSITORY }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Run Skaffold pipeline as action
-        uses: hiberbee/github-action-skaffold@latest
+        uses: hiberbee/github-action-skaffold@1.6.0
         with:
           command: run
           working-directory: test
-          default-repo: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
+          default-repo: ${{ secrets.DOCKER_REPOSITORY }}
 
       - name: Run Skaffold pipeline as command
         run: skaffold build

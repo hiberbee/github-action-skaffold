@@ -4512,7 +4512,7 @@ function run() {
                     return [4, (0, index_1.download)(skaffoldTUrl, (0, path_1.join)(binDir, 'skaffold'))];
                 case 3:
                     _b.sent();
-                    if (!((0, core_1.getInput)('skip-tests') === 'false')) return [3, 5];
+                    if (!!Boolean((0, core_1.getInput)('skip-tests'))) return [3, 5];
                     return [4, (0, index_1.download)(containerStructureTestUrl, (0, path_1.join)(binDir, 'container-structure-test'))];
                 case 4:
                     _b.sent();

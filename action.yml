@@ -43,7 +43,7 @@ inputs:
     required: false
   working-dir:
     default: ''
-    description: Set current working directory
+    description: Set current working directory similar to Github Actions run
     required: false
   profile:
     default: ''
