@@ -32,11 +32,11 @@ jobs:
         uses: hiberbee/github-action-skaffold@latest
         with:
           command: run
-          working-dir: test
+          working-directory: test
           default-repo: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
 
       - name: Run Skaffold pipeline as command
-        run: build
+        run: skaffold build
         working-directory: test
         env:
           SKAFFOLD_DEFAULT_REPO: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}

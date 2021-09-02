@@ -4517,7 +4517,7 @@ function run() {
                 case 4:
                     _b.sent();
                     _b.label = 5;
-                case 5: return [4, (0, exec_1.exec)('skaffold', getArgsFromInput(), { cwd: (_a = (0, core_1.getInput)('working-dir')) !== null && _a !== void 0 ? _a : workspaceDir })];
+                case 5: return [4, (0, exec_1.exec)('skaffold', getArgsFromInput(), { cwd: (_a = (0, core_1.getInput)('working-directory')) !== null && _a !== void 0 ? _a : workspaceDir })];
                 case 6:
                     _b.sent();
                     return [4, (0, tool_cache_1.cacheDir)(skaffoldHomeDir, 'skaffold', skaffoldVersion)];
