@@ -15,12 +15,6 @@ This action allows you to execute skaffold commands as Github Action. Repository
 - skaffold 1.31.0
 - container-structure-test 1.10.0
 
-### Configuration
-
-| Name | Description | Default |
-| ---- | ----------- | ------- |
-
-
 ## Inputs
 
 ### Required
