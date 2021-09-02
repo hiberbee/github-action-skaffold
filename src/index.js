@@ -4491,10 +4491,11 @@ function getArgsFromInput() {
         .map(function (key) { return "--" + key + "=" + (0, core_1.getInput)(key); }));
 }
 function run() {
+    var _a;
     return (0, tslib_1.__awaiter)(this, void 0, void 0, function () {
         var platform, suffix, skaffoldVersion, containerStructureTestVersion, skaffoldTUrl, containerStructureTestUrl, error_1;
-        return (0, tslib_1.__generator)(this, function (_a) {
-            switch (_a.label) {
+        return (0, tslib_1.__generator)(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     platform = (0, index_1.getOsPlatform)();
                     suffix = platform === 'windows' ? '.exe' : '';
@@ -4502,29 +4503,29 @@ function run() {
                     containerStructureTestVersion = (0, core_1.getInput)('container-structure-test-version');
                     skaffoldTUrl = "https://github.com/GoogleContainerTools/skaffold/releases/download/v" + skaffoldVersion + "/skaffold-" + platform + "-amd64" + suffix;
                     containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v" + containerStructureTestVersion + "/container-structure-test-" + platform + "-amd64";
-                    _a.label = 1;
+                    _b.label = 1;
                 case 1:
-                    _a.trys.push([1, 8, , 9]);
+                    _b.trys.push([1, 8, , 9]);
                     return [4, (0, io_1.mkdirP)(skaffoldHomeDir)];
                 case 2:
-                    _a.sent();
+                    _b.sent();
                     return [4, (0, index_1.download)(skaffoldTUrl, (0, path_1.join)(binDir, 'skaffold'))];
                 case 3:
-                    _a.sent();
+                    _b.sent();
                     if (!((0, core_1.getInput)('skip-tests') === 'false')) return [3, 5];
                     return [4, (0, index_1.download)(containerStructureTestUrl, (0, path_1.join)(binDir, 'container-structure-test'))];
                 case 4:
-                    _a.sent();
-                    _a.label = 5;
-                case 5: return [4, (0, exec_1.exec)('skaffold', getArgsFromInput())];
+                    _b.sent();
+                    _b.label = 5;
+                case 5: return [4, (0, exec_1.exec)('skaffold', getArgsFromInput(), { cwd: (_a = (0, core_1.getInput)('working-dir')) !== null && _a !== void 0 ? _a : workspaceDir })];
                 case 6:
-                    _a.sent();
+                    _b.sent();
                     return [4, (0, tool_cache_1.cacheDir)(skaffoldHomeDir, 'skaffold', skaffoldVersion)];
                 case 7:
-                    _a.sent();
+                    _b.sent();
                     return [3, 9];
                 case 8:
-                    error_1 = _a.sent();
+                    error_1 = _b.sent();
                     (0, core_1.setFailed)(error_1.message);
                     return [3, 9];
                 case 9: return [2];

@@ -41,6 +41,10 @@ inputs:
     default: ''
     description: Deploy to this Kubernetes context
     required: false
+  working-dir:
+    default: ''
+    description: Set current working directory
+    required: false
   profile:
     default: ''
     description: Activate profiles by name (prefixed with `-` to disable a profile)
