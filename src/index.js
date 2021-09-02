@@ -4473,6 +4473,7 @@ var SkaffoldArgs;
     SkaffoldArgs["KUBE_CONTEXT"] = "kube-context";
     SkaffoldArgs["KUBECONFIG"] = "kubeconfig";
     SkaffoldArgs["NAMESPACE"] = "namespace";
+    SkaffoldArgs["FILENAME"] = "filename";
     SkaffoldArgs["PROFILE"] = "profile";
     SkaffoldArgs["SKIP_TESTS"] = "skip-tests";
     SkaffoldArgs["TAG"] = "tag";
