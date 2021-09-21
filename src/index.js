@@ -4483,12 +4483,15 @@ var binDir = (0, index_1.getBinDir)(workspaceDir);
 var skaffoldHomeDir = (0, path_1.join)(workspaceDir, '.skaffold');
 var skaffoldCacheFile = (0, path_1.join)(skaffoldHomeDir, 'cache');
 function getArgsFromInput() {
-    return (0, core_1.getInput)('command')
+    var args = (0, core_1.getInput)('command')
         .split(' ')
-        .concat("--cache-file=" + skaffoldCacheFile)
         .concat(Object.values(SkaffoldArgs)
         .filter(function (key) { return (0, core_1.getInput)(key) !== ''; })
         .map(function (key) { return "--" + key + "=" + (0, core_1.getInput)(key); }));
+    if (SkaffoldArgs["CACHE_ARTIFACTS"] == true) {
+        args.concat("--cache-file=" + skaffoldCacheFile) 
+    }
+    return args
 }
 function run() {
     var _a;
