@@ -22,8 +22,8 @@ inputs:
     description: Number of concurrently running builds. If equals 0 (default) - will run all builds in parallel
     required: false
   push:
-    default: 'true'
-    description: Skaffold command to execute
+    default: ''
+    description: Push the built images to the specified image repository
     required: false
   image:
     default: ''
