@@ -33,6 +33,7 @@ This action allows you to execute skaffold commands as Github Action. Repository
 | `repository` | Default repository value (overrides global config) | n/a |
 | `image` | Set Skaffold profile name | n/a |
 | `tag` |  The optional custom tag to use for images which overrides the current Tagger configuration | n/a |
+| `push` | Push the built images to the specified image repository | n/a |
 | `concurrency` | Number of concurrently running builds. If equals 0 (default) - will run all builds in parallel | n/a |
 | `kube-context` | Deploy to this Kubernetes context | n/a |
 | `kubeconfig` | Path to the kubeconfig file to use for CLI requests | n/a |
@@ -61,7 +62,6 @@ jobs:
           repository: ghcr.io/hiberbee/docker
           image: nodejs
           tag: ${{ github.sha }}
-          push: true
 ```
 
 See more complex example with build, test & deployment simple Helm chart from Dockerfile to local K8S mini cluster.
