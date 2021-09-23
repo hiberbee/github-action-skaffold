@@ -29,7 +29,7 @@ inputs:
     default: ''
     description: Choose which artifacts to build. Artifacts with image names that contain the expression will be built only. Default is to build sources for all artifacts
     required: false
-  cache-artifacts:
+  cache:
     default: 'true'
     description: Set to false to disable default caching of artifacts
     required: false
