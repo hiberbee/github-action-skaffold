@@ -37,7 +37,7 @@ inputs:
     default: ''
     description: Specify the location of the cache file
     required: false
-  default-repo:
+  repository:
     default: ''
     description: Default repository value (overrides global config)
     required: false
@@ -53,7 +53,7 @@ inputs:
     default: ''
     description: Deploy to this Kubernetes context
     required: false
-  working-dir:
+  working-directory:
     default: ''
     description: Set current working directory similar to Github Actions run
     required: false
