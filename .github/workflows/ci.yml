@@ -29,11 +29,11 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Run Skaffold pipeline as action
-        uses: hiberbee/github-action-skaffold@1.6.0
+        uses: hiberbee/github-action-skaffold@latest
         with:
           command: run
           working-directory: test
-          default-repo: ${{ secrets.DOCKER_REPOSITORY }}
+          repository: ${{ secrets.DOCKER_REPOSITORY }}
 
       - name: Run Skaffold pipeline as command
         run: skaffold build

@@ -14,16 +14,28 @@ inputs:
     description: Set Container Structure Test version
     required: false
   command:
-    default: version
+    default: ''
+    description: Skaffold command to execute. If no command provided, then skaffold will be installed and print version
+    required: false
+  concurrency:
+    default: '0'
+    description: Number of concurrently running builds. If equals 0 (default) - will run all builds in parallel
+    required: false
+  push:
+    default: 'true'
     description: Skaffold command to execute
-    required: true
-  build-image:
+    required: false
+  image:
     default: ''
     description: Choose which artifacts to build. Artifacts with image names that contain the expression will be built only. Default is to build sources for all artifacts
     required: false
   cache-artifacts:
     default: 'true'
     description: Set to false to disable default caching of artifacts
+    required: false
+  cache-file:
+    default: ''
+    description: Specify the location of the cache file
     required: false
   default-repo:
     default: ''
