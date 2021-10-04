@@ -18,8 +18,8 @@ inputs:
     description: Skaffold command to execute. If no command provided, then skaffold will be installed and print version
     required: false
   concurrency:
-    default: '0'
-    description: Number of concurrently running builds. If equals 0 (default) - will run all builds in parallel
+    default: ''
+    description: Number of concurrently running builds. If equals 0 - will run all builds in parallel
     required: false
   push:
     default: ''
