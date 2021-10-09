@@ -34,9 +34,11 @@ jobs:
           command: run
           working-directory: test
           repository: ${{ secrets.DOCKER_REPOSITORY }}
+          cache: false
+          verbosity: info
 
       - name: Run Skaffold pipeline as command
-        run: skaffold build
+        run: skaffold build -v=3 --cache-artifacts
         working-directory: test
         env:
           SKAFFOLD_DEFAULT_REPO: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}

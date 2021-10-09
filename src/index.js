@@ -3876,19 +3876,22 @@ var core_1 = __webpack_require__(470);
 var io_1 = __webpack_require__(1);
 var index_1 = __webpack_require__(325);
 var path_1 = __webpack_require__(622);
-var paramsArgumentsMap = (_a = {},
-    _a['concurrency'] = 'build-concurrency',
-    _a['image'] = 'build-image',
-    _a['cache'] = 'cache-artifacts',
-    _a['cache-file'] = 'cache-file',
-    _a['repository'] = 'default-repo',
-    _a['tag'] = 'tag',
-    _a['filename'] = 'filename',
+var paramsArgumentsMap = (_a = {
+        concurrency: 'build-concurrency',
+        image: 'build-image',
+        cache: 'cache-artifacts'
+    },
+    _a["cache-file"] = 'cache-file',
+    _a.repository = 'default-repo',
+    _a.tag = 'tag',
+    _a.filename = 'filename',
     _a['kubeconfig'] = 'kubeconfig',
     _a['kube-context'] = 'kubeconfig',
     _a['namespace'] = 'namespace',
     _a['profile'] = 'profile',
     _a['push'] = 'push',
+    _a['verbosity'] = 'verbosity',
+    _a['interactive'] = 'interactive',
     _a['skip-tests'] = 'skip-tests',
     _a);
 var workspaceDir = (0, index_1.getWorkspaceDir)();
@@ -3904,7 +3907,7 @@ function resolveArgsFromAction() {
             var actionParam = _a[0], skaffoldArg = _a[1];
             return (0, core_1.getInput)(actionParam) !== '' ? "--" + skaffoldArg + "=" + (0, core_1.getInput)(actionParam) : '';
         })
-            .filter(Boolean));
+            .filter(function (it) { return it !== ''; }));
 }
 function run() {
     var _a;

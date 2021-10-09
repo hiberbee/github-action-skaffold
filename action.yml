@@ -65,6 +65,14 @@ inputs:
     default: 'true'
     description: Whether to skip the tests after building
     required: false
+  verbosity:
+    default: 'warning'
+    description: Log level - one of [panic fatal error warning info debug trace]
+    required: false
+  interactive:
+    default: 'false'
+    description: Allow user prompts for more information
+    required: false
   tag:
     default: ''
     required: false
