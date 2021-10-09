@@ -17,7 +17,7 @@ jobs:
         uses: hiberbee/github-action-minikube@1.5.0
 
       - name: Setup Helm
-        uses: hiberbee/github-action-helm@1.3.0
+        uses: hiberbee/github-action-helm@1.6.0
         with:
           repository-config: test/repositories.yaml
 
@@ -38,7 +38,7 @@ jobs:
           verbosity: info
 
       - name: Run Skaffold pipeline as command
-        run: skaffold build -v=3 --cache-artifacts
+        run: skaffold build --cache-artifacts -v debug
         working-directory: test
         env:
           SKAFFOLD_DEFAULT_REPO: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
