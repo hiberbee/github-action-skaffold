@@ -14,7 +14,7 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 ## Installed versions
 
-- skaffold 1.32.0
+- skaffold 1.33.0
 - container-structure-test 1.10.0
 
 ## Inputs
@@ -25,7 +25,7 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 | Name | Description | Default |
 | ---- | ----------- | ------- |
-| `skaffold-version` | Set Skaffold version | 1.31.0 |
+| `skaffold-version` | Set Skaffold version | 1.33.0 |
 | `container-structure-test-version` | Set Container Structure Test version | 1.10.0 |
 | `working-directory` | Set current working directory similar to Github Actions run | ${{ github.workspace }} |
 | `filename` | Path or URL to the Skaffold config file | skaffold.yaml |

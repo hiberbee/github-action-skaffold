@@ -6,7 +6,7 @@ branding:
   color: blue
 inputs:
   skaffold-version:
-    default: 1.32.0
+    default: 1.33.0
     description: Set Skaffold version
     required: false
   container-structure-test-version:
