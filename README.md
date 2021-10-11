@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Build Docker images
-        uses: hiberbee/github-action-skaffold@1.8.0
+        uses: hiberbee/github-action-skaffold@1.12.0
         with:
           command: build
           repository: ghcr.io/hiberbee/docker
@@ -99,7 +99,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Run Skaffold pipeline as action
-        uses: hiberbee/github-action-skaffold@1.6.0
+        uses: hiberbee/github-action-skaffold@1.12.0
         with:
           command: run
           repository: ghcr.io/${{ github.repository }}
