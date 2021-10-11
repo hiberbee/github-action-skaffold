@@ -3876,23 +3876,23 @@ var core_1 = __webpack_require__(470);
 var io_1 = __webpack_require__(1);
 var index_1 = __webpack_require__(325);
 var path_1 = __webpack_require__(622);
-var paramsArgumentsMap = (_a = {
-        concurrency: 'build-concurrency',
-        image: 'build-image',
-        cache: 'cache-artifacts'
-    },
+var paramsArgumentsMap = (_a = {},
+    _a['insecure-registries'] = 'insecure-registry',
+    _a['kube-context'] = 'kubeconfig',
+    _a['skip-tests'] = 'skip-tests',
     _a["cache-file"] = 'cache-file',
+    _a.cache = 'cache-artifacts',
+    _a.concurrency = 'build-concurrency',
+    _a.filename = 'filename',
+    _a.image = 'build-image',
+    _a.interactive = 'interactive',
+    _a.kubeconfig = 'kubeconfig',
+    _a.namespace = 'namespace',
+    _a.profile = 'profile',
+    _a.push = 'push',
     _a.repository = 'default-repo',
     _a.tag = 'tag',
-    _a.filename = 'filename',
-    _a['kubeconfig'] = 'kubeconfig',
-    _a['kube-context'] = 'kubeconfig',
-    _a['namespace'] = 'namespace',
-    _a['profile'] = 'profile',
-    _a['push'] = 'push',
-    _a['verbosity'] = 'verbosity',
-    _a['interactive'] = 'interactive',
-    _a['skip-tests'] = 'skip-tests',
+    _a.verbosity = 'verbosity',
     _a);
 var workspaceDir = (0, index_1.getWorkspaceDir)();
 var binDir = (0, index_1.getBinDir)(workspaceDir);

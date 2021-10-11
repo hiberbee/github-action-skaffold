@@ -15,6 +15,8 @@ jobs:
 
       - name: Setup Minikube
         uses: hiberbee/github-action-minikube@1.5.0
+        with:
+          addons: registry
 
       - name: Setup Helm
         uses: hiberbee/github-action-helm@1.6.0
@@ -32,10 +34,12 @@ jobs:
         uses: hiberbee/github-action-skaffold@latest
         with:
           command: run
-          working-directory: test
-          repository: ${{ secrets.DOCKER_REPOSITORY }}
           cache: false
+          insecure-registries: localhost:5000
+          namespace: default
+          repository: ${{ secrets.DOCKER_REPOSITORY }}
           verbosity: info
+          working-directory: test
 
       - name: Run Skaffold pipeline as command
         run: skaffold build --cache-artifacts -v debug

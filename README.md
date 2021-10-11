@@ -31,6 +31,7 @@ This action allows you to execute skaffold commands as Github Action. Repository
 | `filename` | Path or URL to the Skaffold config file | skaffold.yaml |
 | `command` | Set Skaffold profile name | version |
 | `repository` | Default repository value (overrides global config) | n/a |
+| `insecure-registries` | Target registries for built images which are not secure | n/a |
 | `image` | Set Skaffold profile name | n/a |
 | `tag` |  The optional custom tag to use for images which overrides the current Tagger configuration | n/a |
 | `push` | Push the built images to the specified image repository | n/a |
