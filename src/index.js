@@ -3920,7 +3920,7 @@ function run() {
                     suffix = platform === "windows" ? ".exe" : "";
                     skaffoldVersion = (0, core_1.getInput)("skaffold-version");
                     containerStructureTestVersion = (0, core_1.getInput)("container-structure-test-version");
-                    skaffoldTUrl = "https://github.com/GoogleContainerTools/skaffold/releases/download/v".concat(skaffoldVersion, "/skaffold-").concat(platform, "-amd64").concat(suffix);
+                    skaffoldTUrl = "https://storage.googleapis.com/skaffold/releases/v".concat(skaffoldVersion, "/skaffold-").concat(platform, "-amd64").concat(suffix);
                     containerStructureTestUrl = "https://storage.googleapis.com/container-structure-test/v".concat(containerStructureTestVersion, "/container-structure-test-").concat(platform, "-amd64");
                     _b.label = 1;
                 case 1:
