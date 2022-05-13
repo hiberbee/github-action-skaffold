@@ -6,7 +6,7 @@ branding:
   color: blue
 inputs:
   skaffold-version:
-    default: 1.37.1
+    default: 1.38.0
     description: Set Skaffold version
     required: false
   container-structure-test-version:
@@ -80,6 +80,10 @@ inputs:
   interactive:
     default: 'false'
     description: Allow user prompts for more information
+    required: false
+  output:
+    default: ''
+    description: Format output with go-template
     required: false
   tag:
     default: ''

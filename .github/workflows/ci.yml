@@ -48,5 +48,22 @@ jobs:
           SKAFFOLD_DEFAULT_REPO: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
           SKAFFOLD_SKIP_TESTS: true
 
+      - name: Run Skaffold with output
+        uses: hiberbee/github-action-skaffold@latest
+        with:
+          command: build
+          output: "render.yaml"
+          repository: ${{ secrets.DOCKER_REPOSITORY }}
+          verbosity: info
+          working-directory: test
+
+      - name: Run Skaffold with output args
+        uses: hiberbee/github-action-skaffold@latest
+        with:
+          command: build --output=render.yaml
+          repository: ${{ secrets.DOCKER_REPOSITORY }}
+          verbosity: info
+          working-directory: test
+
       - name: Get Helm releases
         run: helm list

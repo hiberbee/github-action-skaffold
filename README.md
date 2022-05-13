@@ -23,26 +23,27 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 ### Optional
 
-| Name | Description | Default |
-| ---- | ----------- | ------- |
-| `skaffold-version` | Set Skaffold version | 1.33.0 |
-| `container-structure-test-version` | Set Container Structure Test version | 1.10.0 |
-| `working-directory` | Set current working directory similar to Github Actions run | ${{ github.workspace }} |
-| `filename` | Path or URL to the Skaffold config file | skaffold.yaml |
-| `command` | Set Skaffold profile name | version |
-| `repository` | Default repository value (overrides global config) | n/a |
-| `insecure-registries` | Target registries for built images which are not secure | n/a |
-| `image` | Set Skaffold profile name | n/a |
-| `tag` |  The optional custom tag to use for images which overrides the current Tagger configuration | n/a |
-| `push` | Push the built images to the specified image repository | n/a |
-| `concurrency` | Number of concurrently running builds. If equals 0 (default) - will run all builds in parallel | n/a |
-| `kube-context` | Deploy to this Kubernetes context | n/a |
-| `kubeconfig` | Path to the kubeconfig file to use for CLI requests | n/a |
-| `namespace` | Run deployments in the specified namespace | n/a |
-| `profile` | Activate profiles by name | n/a |
-| `skip-tests` | Whether to skip the tests after building | n/a |
-| `cache` | Set to false to disable default caching of artifacts | true |
-| `cache-file` | Set to false to disable default caching of artifacts | true |
+| Name                               | Description                                                                                    | Default                 |
+|------------------------------------|------------------------------------------------------------------------------------------------|-------------------------|
+| `skaffold-version`                 | Set Skaffold version                                                                           | 1.38.0                  |
+| `container-structure-test-version` | Set Container Structure Test version                                                           | 1.11.0                  |
+| `working-directory`                | Set current working directory similar to Github Actions run                                    | ${{ github.workspace }} |
+| `filename`                         | Path or URL to the Skaffold config file                                                        | skaffold.yaml           |
+| `command`                          | Set Skaffold profile name                                                                      | version                 |
+| `repository`                       | Default repository value (overrides global config)                                             | n/a                     |
+| `insecure-registries`              | Target registries for built images which are not secure                                        | n/a                     |
+| `image`                            | Set Skaffold profile name                                                                      | n/a                     |
+| `tag`                              | The optional custom tag to use for images which overrides the current Tagger configuration     | n/a                     |
+| `push`                             | Push the built images to the specified image repository                                        | n/a                     |
+| `concurrency`                      | Number of concurrently running builds. If equals 0 (default) - will run all builds in parallel | n/a                     |
+| `kube-context`                     | Deploy to this Kubernetes context                                                              | n/a                     |
+| `kubeconfig`                       | Path to the kubeconfig file to use for CLI requests                                            | n/a                     |
+| `namespace`                        | Run deployments in the specified namespace                                                     | n/a                     |
+| `profile`                          | Activate profiles by name                                                                      | n/a                     |
+| `output`                           | Format output with go-template                                                                 | n/a                     |
+| `skip-tests`                       | Whether to skip the tests after building                                                       | true                    |
+| `cache`                            | Set to false to disable default caching of artifacts                                           | true                    |
+| `cache-file`                       | Specify the location of the cache file                                                         | n/a                     |
 
 ## Outputs
 
