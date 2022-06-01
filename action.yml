@@ -82,7 +82,7 @@ inputs:
     description: Allow user prompts for more information
     required: false
   output:
-    default: 'true'
+    default: ''
     description: Format output with go-template
     required: false
   tag:
