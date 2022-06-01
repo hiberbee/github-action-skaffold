@@ -14,8 +14,8 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 ## Installed versions
 
-- skaffold 1.33.0
-- container-structure-test 1.10.0
+- skaffold 1.38.0
+- container-structure-test 1.11.0
 
 ## Inputs
 
@@ -47,6 +47,10 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 ## Outputs
 
+| Name   | Description      | Payload                                           |
+|--------|------------------|---------------------------------------------------|
+| builds | Built image tags | ``` [{ "imageName": "string", tag: "string"}] ``` |
+
 ### Example
 
 #### Build Docker images
@@ -58,7 +62,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Build Docker images
-        uses: hiberbee/github-action-skaffold@1.12.0
+        uses: hiberbee/github-action-skaffold@1.19.0
         with:
           command: build
           repository: ghcr.io/hiberbee/docker
@@ -77,12 +81,12 @@ on:
       - .github/workflows/ci.yml
       - action.yml
 jobs:
-  pipiline:
-    name: Skaffold Pipiline
+  pipeline:
+    name: Skaffold Pipeline
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Minikube
         uses: hiberbee/github-action-minikube@1.5.0
@@ -100,7 +104,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Run Skaffold pipeline as action
-        uses: hiberbee/github-action-skaffold@1.12.0
+        uses: hiberbee/github-action-skaffold@1.19.0
         with:
           command: run
           repository: ghcr.io/${{ github.repository }}

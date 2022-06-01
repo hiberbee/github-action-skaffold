@@ -89,6 +89,9 @@ inputs:
     default: ''
     required: false
     description: The optional custom tag to use for images which overrides the current Tagger configuration
+outputs:
+  builds:
+    description: Built image tags
 runs:
   using: node16
   main: src/index.js
