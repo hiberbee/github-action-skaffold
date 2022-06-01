@@ -3988,149 +3988,152 @@ var core_1 = __webpack_require__(470);
 var io_1 = __webpack_require__(1);
 var index_1 = __webpack_require__(325);
 var path_1 = __webpack_require__(622);
-var paramsArgumentsMap = (_a = {},
-    _a["insecure-registries"] = "insecure-registry",
-    _a["kube-context"] = "kubeconfig",
-    _a["skip-tests"] = "skip-tests",
-    _a["cache-file"] = "cache-file",
-    _a.cache = "cache-artifacts",
-    _a.concurrency = "build-concurrency",
-    _a.filename = "filename",
-    _a.output = "output",
-    _a.image = "build-image",
-    _a.interactive = "interactive",
-    _a.kubeconfig = "kubeconfig",
-    _a.namespace = "namespace",
-    _a.profile = "profile",
-    _a.push = "push",
-    _a.repository = "default-repo",
-    _a.tag = "tag",
-    _a.verbosity = "verbosity",
-    _a);
+var paramsArgumentsMap =
+  ((_a = {}),
+  (_a["insecure-registries"] = "insecure-registry"),
+  (_a["kube-context"] = "kubeconfig"),
+  (_a["skip-tests"] = "skip-tests"),
+  (_a["cache-file"] = "cache-file"),
+  (_a.cache = "cache-artifacts"),
+  (_a.concurrency = "build-concurrency"),
+  (_a.filename = "filename"),
+  (_a.output = "output"),
+  (_a.image = "build-image"),
+  (_a.interactive = "interactive"),
+  (_a.kubeconfig = "kubeconfig"),
+  (_a.namespace = "namespace"),
+  (_a.profile = "profile"),
+  (_a.push = "push"),
+  (_a.repository = "default-repo"),
+  (_a.tag = "tag"),
+  (_a.verbosity = "verbosity"),
+  _a);
 var workspaceDir = (0, index_1.getWorkspaceDir)();
 var platform = (0, index_1.getOsPlatform)();
 var binDir = (0, index_1.getBinDir)(workspaceDir);
 var skaffoldHomeDir = (0, path_1.join)(workspaceDir, ".skaffold");
 
-      function getBinaryUrl(name, version) {
-        var extension = platform === "windows" ? ".exe" : "";
-        return "https://storage.googleapis.com/"
-          .concat(name, "/releases/v")
-          .concat(version, "/")
-          .concat(name, "-")
-          .concat(platform, "-amd64")
-          .concat(extension);
-      }
+function getBinaryUrl(name, version) {
+  var extension = platform === "windows" ? ".exe" : "";
+  return "https://storage.googleapis.com/"
+    .concat(name, "/releases/v")
+    .concat(version, "/")
+    .concat(name, "-")
+    .concat(platform, "-amd64")
+    .concat(extension);
+}
 
-      function resolveArgsFromAction() {
-        return (0, core_1.getInput)("command") === ""
-          ? ["version"]
-          : (0, core_1.getInput)("command")
-              .split(" ")
-              .concat(
-                Object.entries(paramsArgumentsMap)
-                  .map(function (_a) {
-                    var actionParam = _a[0],
-                      skaffoldArg = _a[1];
-                    return (0, core_1.getInput)(actionParam) !== ""
-                      ? "--"
-                          .concat(skaffoldArg, "=")
-                          .concat((0, core_1.getInput)(actionParam))
-                      : "";
-                  })
-                  .filter(function (it) {
-                    return it !== "";
-                  })
-              );
-      }
+function resolveArgsFromAction() {
+  return (0, core_1.getInput)("command") === ""
+    ? ["version"]
+    : (0, core_1.getInput)("command")
+        .split(" ")
+        .concat(
+          Object.entries(paramsArgumentsMap)
+            .map(function (_a) {
+              var actionParam = _a[0],
+                skaffoldArg = _a[1];
+              return (0, core_1.getInput)(actionParam) !== ""
+                ? "--"
+                    .concat(skaffoldArg, "=")
+                    .concat((0, core_1.getInput)(actionParam))
+                : "";
+            })
+            .filter(function (it) {
+              return it !== "";
+            })
+        );
+}
+
+function filterOutputSkitTests(args) {
+  return (0, core_1.getInput)("output") ||
+    args.find(function (each) {
+      return each.startsWith("--output");
+    })
+    ? args.filter(function (arg) {
+        return !arg.startsWith("--skip-tests");
+      })
+    : args;
+}
+
 function run() {
-    var _a;
-    return tslib_1.__awaiter(this, void 0, void 0, function () {
-      var skaffoldTUrl, containerStructureTestUrl, args_1, error_1;
-      return tslib_1.__generator(this, function (_b) {
-        switch (_b.label) {
-          case 0:
-            skaffoldTUrl = getBinaryUrl(
-              "skaffold",
-              (0, core_1.getInput)("skaffold-version")
-            );
-            containerStructureTestUrl = getBinaryUrl(
-              "container-structure-test",
-              (0, core_1.getInput)("container-structure-test-version")
-            );
-            _b.label = 1;
-          case 1:
-            _b.trys.push([1, 7, , 8]);
-            return [4, (0, io_1.mkdirP)(skaffoldHomeDir)];
-          case 2:
-            _b.sent();
-            return [
-              4,
-              (0, index_1.download)(
-                skaffoldTUrl,
-                (0, path_1.join)(binDir, "skaffold")
-              ),
-            ];
-          case 3:
-            _b.sent();
-            if (!!Boolean((0, core_1.getInput)("skip-tests"))) return [3, 5];
-            return [
-              4,
-              (0, index_1.download)(
-                containerStructureTestUrl,
-                (0, path_1.join)(binDir, "container-structure-test")
-              ),
-            ];
-          case 4:
-            _b.sent();
-            _b.label = 5;
-          case 5:
-            args_1 = resolveArgsFromAction();
-            if (
-              (0, core_1.getInput)("output") ||
-              args_1.find(function (each) {
-                return each.startsWith("--output");
-              })
-            ) {
-              args_1 = args_1.filter(function (arg) {
-                return !arg.startsWith("--skip-tests");
-              });
-            }
-            return [
-              4,
-              (0, exec_1.exec)("skaffold", args_1, {
-                cwd:
-                  (_a = (0, core_1.getInput)("working-directory")) !== null &&
-                  _a !== void 0
-                    ? _a
-                    : workspaceDir,
-              }).then(function () {
-                return (0,
-                exec_1.exec)("skaffold", args_1.concat(["--quiet", "--output='{{json .}}'"]), {
-                  listeners: {
-                    stdout: function (output) {
-                      var data = JSON.parse(output.toString("utf8"));
-                      (0, core_1.setOutput)(
-                        "builds",
-                        JSON.stringify(data.builds)
-                      );
-                    },
+  var _a;
+  return tslib_1.__awaiter(this, void 0, void 0, function () {
+    var skaffoldTUrl, containerStructureTestUrl, args_1, error_1;
+    return tslib_1.__generator(this, function (_b) {
+      switch (_b.label) {
+        case 0:
+          skaffoldTUrl = getBinaryUrl(
+            "skaffold",
+            (0, core_1.getInput)("skaffold-version")
+          );
+          containerStructureTestUrl = getBinaryUrl(
+            "container-structure-test",
+            (0, core_1.getInput)("container-structure-test-version")
+          );
+          _b.label = 1;
+        case 1:
+          _b.trys.push([1, 7, , 8]);
+          return [4, (0, io_1.mkdirP)(skaffoldHomeDir)];
+        case 2:
+          _b.sent();
+          return [
+            4,
+            (0, index_1.download)(
+              skaffoldTUrl,
+              (0, path_1.join)(binDir, "skaffold")
+            ),
+          ];
+        case 3:
+          _b.sent();
+          if (!!Boolean((0, core_1.getInput)("skip-tests"))) return [3, 5];
+          return [
+            4,
+            (0, index_1.download)(
+              containerStructureTestUrl,
+              (0, path_1.join)(binDir, "container-structure-test")
+            ),
+          ];
+        case 4:
+          _b.sent();
+          _b.label = 5;
+        case 5:
+          args_1 = filterOutputSkitTests(resolveArgsFromAction());
+          return [
+            4,
+            (0, exec_1.exec)("skaffold", args_1, {
+              cwd:
+                (_a = (0, core_1.getInput)("working-directory")) !== null &&
+                _a !== void 0
+                  ? _a
+                  : workspaceDir,
+            }).then(function () {
+              return (0,
+              exec_1.exec)("skaffold", ["build"].concat(args_1.slice(1).concat(["--quiet", "--output='{{json .}}'"])), {
+                listeners: {
+                  stdout: function (output) {
+                    var data = JSON.parse(output.toString("utf8"));
+                    (0, core_1.setOutput)(
+                      "builds",
+                      JSON.stringify(data.builds)
+                    );
                   },
-                });
-              }),
-            ];
-          case 6:
-            _b.sent();
-            return [3, 8];
-          case 7:
-            error_1 = _b.sent();
-            (0, core_1.setFailed)(error_1.message);
-            return [3, 8];
-          case 8:
-            return [2];
-        }
-      });
+                },
+              });
+            }),
+          ];
+        case 6:
+          _b.sent();
+          return [3, 8];
+        case 7:
+          error_1 = _b.sent();
+          (0, core_1.setFailed)(error_1.message);
+          return [3, 8];
+        case 8:
+          return [2];
+      }
     });
+  });
 }
 run();
 
@@ -7224,10 +7227,10 @@ class OidcClient {
             const res = yield httpclient
                 .getJson(id_token_url)
                 .catch(error => {
-                throw new Error(`Failed to get ID Token. \n
+                  throw new Error(`Failed to get ID Token. \n
         Error Code : ${error.statusCode}\n
         Error Message: ${error.result.message}`);
-            });
+                });
             const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
             if (!id_token) {
                 throw new Error('Response json body do not have ID Token field');
