@@ -4072,8 +4072,12 @@ module.exports = require("crypto");
                   return (0, exec_1.exec)('skaffold', filterOutputSkitTests(['build'].concat(args_1.slice(1).concat(['--quiet', '--output=\'{{json .}}\'']))), tslib_1.__assign(tslib_1.__assign({}, options), {
                     listeners: {
                       stdout: function(output) {
-                        var data = JSON.parse(output.toString('utf8'));
-                        (0, core_1.setOutput)('builds', JSON.stringify(data.builds))
+                        try {
+                          var data = JSON.parse(output.toString('utf8').replace('\'', ''));
+                          (0, core_1.setOutput)('builds', JSON.stringify(data.builds))
+                        } catch (e) {
+                          (0, core_1.setOutput)('error', e)
+                        }
                       }
                     }
                   }))
@@ -5462,15 +5466,18 @@ exports.saveState = saveState;
  * @returns   string
  */
 function getState(name) {
-    return process.env[`STATE_${name}`] || '';
+  return process.env[`STATE_${name}`] || ''
 }
-exports.getState = getState;
-function getIDToken(aud) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return yield oidc_utils_1.OidcClient.getIDToken(aud);
-    });
-}
-exports.getIDToken = getIDToken;
+
+      exports.getState = getState
+
+      function getIDToken(aud) {
+        return __awaiter(this, void 0, void 0, function* () {
+          return yield oidc_utils_1.OidcClient.getIDToken(aud)
+        })
+      }
+
+      exports.getIDToken = getIDToken
       /**
        * Summary exports
        */
@@ -5513,15 +5520,19 @@ exports.getIDToken = getIDToken;
       /***/
     }),
 
-/***/ 533:
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
+    /***/ 533:
+    /***/ (function(__unusedmodule, exports, __webpack_require__) {
 
-"use strict";
+      'use strict'
 
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
+      var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+        if (k2 === undefined) k2 = k
+        Object.defineProperty(o, k2, {
+          enumerable: true, get: function() {
+            return m[k]
+          }
+        })
+      }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
 }));
@@ -6262,11 +6273,12 @@ class PersonalAccessTokenCredentialHandler {
     canHandleAuthentication() {
         return false;
     }
-    handleAuthentication() {
-      return __awaiter(this, void 0, void 0, function* () {
-        throw new Error('not implemented')
-      })
-    }
+
+  handleAuthentication() {
+    return __awaiter(this, void 0, void 0, function* () {
+      throw new Error('not implemented')
+    })
+  }
 }
 
       exports.PersonalAccessTokenCredentialHandler = PersonalAccessTokenCredentialHandler
@@ -6362,14 +6374,15 @@ class PersonalAccessTokenCredentialHandler {
     /***/ 614:
     /***/ (function(module) {
 
-module.exports = require("events");
+      module.exports = require('events')
 
-/***/ }),
+      /***/
+    }),
 
-/***/ 622:
-/***/ (function(module) {
+    /***/ 622:
+    /***/ (function(module) {
 
-module.exports = require("path");
+      module.exports = require('path')
 
 /***/ }),
 
