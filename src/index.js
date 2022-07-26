@@ -4019,10 +4019,14 @@ var extension = platform === 'windows' ? '.exe' : '';
 var binDir = (0, index_1.getBinDir)(workspaceDir);
 var skaffoldHomeDir = (0, path_1.join)(workspaceDir, '.skaffold');
 function getBinaryUrl(name, version) {
-    return "https://storage.googleapis.com/".concat(name, "/releases/v").concat(version, "/").concat(name, "-").concat(platform, "-amd64").concat(extension);
+    var url = "https://storage.googleapis.com/".concat(name, "/releases/v").concat(version, "/").concat(name, "-").concat(platform, "-amd64").concat(extension);
+    (0, core_1.setOutput)("Resolved ".concat(name, " url:"), url);
+    return url;
 }
 function getKubernetesBinaryUrl(name, version) {
-    return "https://dl.k8s.io/release/".concat(version, "/bin/").concat(platform, "/amd64/").concat(name).concat(extension);
+    var url = "https://dl.k8s.io/release/".concat(version, "/bin/").concat(platform, "/amd64/").concat(name).concat(extension);
+    (0, core_1.setOutput)("Resolved ".concat(name, " url:"), url);
+    return url;
 }
 function resolveArgsFromAction() {
     return (0, core_1.getInput)('command') === ''
@@ -4041,33 +4045,44 @@ function filterOutputSkitTests(args) {
         ? args.filter(function (arg) { return !arg.startsWith('--skip-tests'); })
         : args;
 }
-function run() {
-    var _a;
+function downloadAndCheckBinaries() {
     return tslib_1.__awaiter(this, void 0, void 0, function () {
-        var skaffoldTUrl, containerStructureTestUrl, kubectlUrl, options, args_1, error_1;
-        return tslib_1.__generator(this, function (_b) {
-            switch (_b.label) {
+        var skaffoldTUrl, containerStructureTestUrl, kubectlUrl;
+        return tslib_1.__generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
                     skaffoldTUrl = getBinaryUrl(Binaries.SKAFFOLD, (0, core_1.getInput)("".concat(Binaries.SKAFFOLD, "-version")));
                     containerStructureTestUrl = getBinaryUrl(Binaries.CONTAINER_STRUCTURE_TEST, (0, core_1.getInput)("".concat(Binaries.CONTAINER_STRUCTURE_TEST, "-version")));
                     kubectlUrl = getKubernetesBinaryUrl(Binaries.KUBECTL, (0, core_1.getInput)("".concat(Binaries.KUBECTL, "-version")));
-                    options = { cwd: (_a = (0, core_1.getInput)('working-directory')) !== null && _a !== void 0 ? _a : workspaceDir };
-                    _b.label = 1;
-                case 1:
-                    _b.trys.push([1, 7, , 8]);
-                    return [4, (0, io_1.mkdirP)(skaffoldHomeDir)];
-                case 2:
-                    _b.sent();
                     return [4, (0, index_1.download)(skaffoldTUrl, (0, path_1.join)(binDir, Binaries.SKAFFOLD)).then(function () { return (0, exec_1.exec)(Binaries.SKAFFOLD, ['version']); })];
-                case 3:
-                    _b.sent();
+                case 1:
+                    _a.sent();
                     return [4, (0, index_1.download)(containerStructureTestUrl, (0, path_1.join)(binDir, Binaries.CONTAINER_STRUCTURE_TEST)).then(function () {
                             return (0, exec_1.exec)(Binaries.CONTAINER_STRUCTURE_TEST, ['version']);
                         })];
-                case 4:
-                    _b.sent();
+                case 2:
+                    _a.sent();
                     return [4, (0, index_1.download)(kubectlUrl, (0, path_1.join)(binDir, Binaries.KUBECTL)).then(function () { return (0, exec_1.exec)(Binaries.KUBECTL, ['version']); })];
-                case 5:
+                case 3:
+                    _a.sent();
+                    return [2];
+            }
+        });
+    });
+}
+function run() {
+    var _a;
+    return tslib_1.__awaiter(this, void 0, void 0, function () {
+        var options, args_1, error_1;
+        return tslib_1.__generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    options = { cwd: (_a = (0, core_1.getInput)('working-directory')) !== null && _a !== void 0 ? _a : workspaceDir };
+                    _b.label = 1;
+                case 1:
+                    _b.trys.push([1, 4, , 5]);
+                    return [4, (0, io_1.mkdirP)(skaffoldHomeDir).then(downloadAndCheckBinaries)];
+                case 2:
                     _b.sent();
                     args_1 = filterOutputSkitTests(resolveArgsFromAction());
                     return [4, (0, exec_1.exec)(Binaries.SKAFFOLD, args_1, options).then(function () {
@@ -4083,14 +4098,14 @@ function run() {
                                     }
                                 } }));
                         })];
-                case 6:
+                case 3:
                     _b.sent();
-                    return [3, 8];
-                case 7:
+                    return [3, 5];
+                case 4:
                     error_1 = _b.sent();
                     (0, core_1.setFailed)(error_1.message);
-                    return [3, 8];
-                case 8: return [2];
+                    return [3, 5];
+                case 5: return [2];
             }
         });
     });
