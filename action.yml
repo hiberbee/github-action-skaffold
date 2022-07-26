@@ -9,6 +9,10 @@ inputs:
     default: 1.39.1
     description: Set Skaffold version
     required: false
+  kubectl-version:
+    default: 1.24.0
+    description: Set Kubectl version
+    required: false
   container-structure-test-version:
     default: 1.11.0
     description: Set Container Structure Test version
@@ -18,7 +22,7 @@ inputs:
     description: Skaffold command to execute. If no command provided, then skaffold will be installed and print version
     required: false
   concurrency:
-    default: ''
+    default: '1'
     description: Number of concurrently running builds. If equals 0 - will run all builds in parallel
     required: false
   push:

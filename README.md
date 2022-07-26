@@ -25,8 +25,9 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 | Name                               | Description                                                                                    | Default                 |
 |------------------------------------|------------------------------------------------------------------------------------------------|-------------------------|
-| `skaffold-version`                 | Set Skaffold version                                                                           | 1.38.0                  |
+| `skaffold-version`                 | Set Skaffold version                                                                           | 1.39.1                  |
 | `container-structure-test-version` | Set Container Structure Test version                                                           | 1.11.0                  |
+| `kubectl-version`                  | Set Kubernetes CLI version                                                                     | 1.24.3                  |
 | `working-directory`                | Set current working directory similar to Github Actions run                                    | ${{ github.workspace }} |
 | `filename`                         | Path or URL to the Skaffold config file                                                        | skaffold.yaml           |
 | `command`                          | Set Skaffold profile name                                                                      | version                 |
@@ -57,12 +58,12 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 ```yaml
 jobs:
-  pipiline:
+  pipeline:
     name: Skaffold Docker build
     runs-on: ubuntu-20.04
     steps:
       - name: Build Docker images
-        uses: hiberbee/github-action-skaffold@1.19.0
+        uses: hiberbee/github-action-skaffold@1.20.0
         with:
           command: build
           repository: ghcr.io/hiberbee/docker
