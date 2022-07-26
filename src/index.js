@@ -4023,6 +4023,11 @@ function getBinaryUrl(name, version) {
     (0, core_1.setOutput)("Resolved ".concat(name, " url:"), url);
     return url;
 }
+function getContainerStructureTestBinaryUrl(name, version) {
+    var url = "https://storage.googleapis.com/".concat(name, "/v").concat(version, "/").concat(name, "-").concat(platform, "-amd64").concat(extension);
+    (0, core_1.setOutput)("Resolved ".concat(name, " url:"), url);
+    return url;
+}
 function getKubernetesBinaryUrl(name, version) {
     var url = "https://dl.k8s.io/release/".concat(version, "/bin/").concat(platform, "/amd64/").concat(name).concat(extension);
     (0, core_1.setOutput)("Resolved ".concat(name, " url:"), url);
@@ -4052,7 +4057,7 @@ function downloadAndCheckBinaries() {
             switch (_a.label) {
                 case 0:
                     skaffoldTUrl = getBinaryUrl(Binaries.SKAFFOLD, (0, core_1.getInput)("".concat(Binaries.SKAFFOLD, "-version")));
-                    containerStructureTestUrl = getBinaryUrl(Binaries.CONTAINER_STRUCTURE_TEST, (0, core_1.getInput)("".concat(Binaries.CONTAINER_STRUCTURE_TEST, "-version")));
+                    containerStructureTestUrl = getContainerStructureTestBinaryUrl(Binaries.CONTAINER_STRUCTURE_TEST, (0, core_1.getInput)("".concat(Binaries.CONTAINER_STRUCTURE_TEST, "-version")));
                     kubectlUrl = getKubernetesBinaryUrl(Binaries.KUBECTL, (0, core_1.getInput)("".concat(Binaries.KUBECTL, "-version")));
                     return [4, (0, index_1.download)(skaffoldTUrl, (0, path_1.join)(binDir, Binaries.SKAFFOLD)).then(function () { return (0, exec_1.exec)(Binaries.SKAFFOLD, ['version']); })];
                 case 1:
