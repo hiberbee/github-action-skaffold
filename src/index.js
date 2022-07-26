@@ -4026,7 +4026,7 @@ function getContainerStructureTestBinaryUrl(name) {
     return "https://storage.googleapis.com/".concat(name, "/v").concat((0, core_1.getInput)("".concat(name, "-version")), "/").concat(name, "-").concat(platform, "-").concat(architecture).concat(extension);
 }
 function getKubernetesBinaryUrl(name) {
-    return "https://storage.googleapis.com/kubernetes-release/release/".concat(name, "/").concat((0, core_1.getInput)("".concat(name, "-version")), "/bin/").concat(platform, "/").concat(architecture, "/kubectl").concat(extension);
+    return "https://storage.googleapis.com/kubernetes-release/release/v".concat((0, core_1.getInput)("".concat(name, "-version")), "/bin/").concat(platform, "/").concat(architecture, "/").concat(name).concat(extension);
 }
 function resolveArgsFromAction() {
     return (0, core_1.getInput)('command') === ''
