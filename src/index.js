@@ -4015,23 +4015,18 @@ var Binaries;
 })(Binaries || (Binaries = {}));
 var workspaceDir = (0, index_1.getWorkspaceDir)();
 var platform = (0, index_1.getOsPlatform)();
+var architecture = 'amd64';
 var extension = platform === 'windows' ? '.exe' : '';
 var binDir = (0, index_1.getBinDir)(workspaceDir);
 var skaffoldHomeDir = (0, path_1.join)(workspaceDir, '.skaffold');
-function getBinaryUrl(name, version) {
-    var url = "https://storage.googleapis.com/".concat(name, "/releases/v").concat(version, "/").concat(name, "-").concat(platform, "-amd64").concat(extension);
-    (0, core_1.setOutput)("Resolved ".concat(name, " url:"), url);
-    return url;
+function getBinaryUrl(name) {
+    return "https://storage.googleapis.com/".concat(name, "/releases/v").concat((0, core_1.getInput)("".concat(name, "-version")), "/").concat(name, "-").concat(platform, "-").concat(architecture).concat(extension);
 }
-function getContainerStructureTestBinaryUrl(name, version) {
-    var url = "https://storage.googleapis.com/".concat(name, "/v").concat(version, "/").concat(name, "-").concat(platform, "-amd64").concat(extension);
-    (0, core_1.setOutput)("Resolved ".concat(name, " url:"), url);
-    return url;
+function getContainerStructureTestBinaryUrl(name) {
+    return "https://storage.googleapis.com/".concat(name, "/v").concat((0, core_1.getInput)("".concat(name, "-version")), "/").concat(name, "-").concat(platform, "-").concat(architecture).concat(extension);
 }
-function getKubernetesBinaryUrl(name, version) {
-    var url = "https://dl.k8s.io/release/".concat(version, "/bin/").concat(platform, "/amd64/").concat(name).concat(extension);
-    (0, core_1.setOutput)("Resolved ".concat(name, " url:"), url);
-    return url;
+function getKubernetesBinaryUrl(name) {
+    return "https://storage.googleapis.com/kubernetes-release/release/".concat(name, "/").concat((0, core_1.getInput)("".concat(name, "-version")), "/bin/").concat(platform, "/").concat(architecture, "/kubectl").concat(extension);
 }
 function resolveArgsFromAction() {
     return (0, core_1.getInput)('command') === ''
@@ -4056,9 +4051,9 @@ function downloadAndCheckBinaries() {
         return tslib_1.__generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    skaffoldTUrl = getBinaryUrl(Binaries.SKAFFOLD, (0, core_1.getInput)("".concat(Binaries.SKAFFOLD, "-version")));
-                    containerStructureTestUrl = getContainerStructureTestBinaryUrl(Binaries.CONTAINER_STRUCTURE_TEST, (0, core_1.getInput)("".concat(Binaries.CONTAINER_STRUCTURE_TEST, "-version")));
-                    kubectlUrl = getKubernetesBinaryUrl(Binaries.KUBECTL, (0, core_1.getInput)("".concat(Binaries.KUBECTL, "-version")));
+                    skaffoldTUrl = getBinaryUrl(Binaries.SKAFFOLD);
+                    containerStructureTestUrl = getContainerStructureTestBinaryUrl(Binaries.CONTAINER_STRUCTURE_TEST);
+                    kubectlUrl = getKubernetesBinaryUrl(Binaries.KUBECTL);
                     return [4, (0, index_1.download)(skaffoldTUrl, (0, path_1.join)(binDir, Binaries.SKAFFOLD)).then(function () { return (0, exec_1.exec)(Binaries.SKAFFOLD, ['version']); })];
                 case 1:
                     _a.sent();

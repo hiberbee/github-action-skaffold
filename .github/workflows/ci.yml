@@ -6,25 +6,25 @@ on:
       - .github/workflows/ci.yml
       - action.yml
 jobs:
-  pipiline:
-    name: Skaffold Pipiline
-    runs-on: ubuntu-20.04
+  pipeline:
+    name: Skaffold Pipeline
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Minikube
-        uses: hiberbee/github-action-minikube@1.5.0
+        uses: hiberbee/github-action-minikube@1.7.0
         with:
           addons: registry
 
       - name: Setup Helm
-        uses: hiberbee/github-action-helm@1.6.0
+        uses: hiberbee/github-action-helm@1.13.0
         with:
           repository-config: test/repositories.yaml
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ${{ secrets.DOCKER_REPOSITORY }}
           username: ${{ secrets.DOCKER_USERNAME }}
