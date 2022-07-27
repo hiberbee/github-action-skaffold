@@ -4095,7 +4095,7 @@ function run() {
                                     stdout: function (output) {
                                         try {
                                             var data = JSON.parse(output.toString('utf8').replace("'", ''));
-                                            (0, core_1.setOutput)('builds', JSON.stringify(data.builds));
+                                            (0, core_1.setOutput)('output', JSON.stringify(data.builds));
                                         }
                                         catch (e) {
                                             (0, core_1.setOutput)('error', e);
