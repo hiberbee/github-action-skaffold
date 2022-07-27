@@ -52,18 +52,31 @@ jobs:
         uses: hiberbee/github-action-skaffold@latest
         with:
           command: build
-          output: "render.yaml"
+          output: render.yaml
           repository: ${{ secrets.DOCKER_REPOSITORY }}
           verbosity: info
           working-directory: test
 
-      - name: Run Skaffold with output args
+      - name: Run Skaffold with output to YAML
         uses: hiberbee/github-action-skaffold@latest
         with:
-          command: build --output=render.yaml
+          command: build --output=build.yaml
           repository: ${{ secrets.DOCKER_REPOSITORY }}
-          verbosity: info
           working-directory: test
+
+      - name: Run Skaffold with output to JSON
+        uses: hiberbee/github-action-skaffold@latest
+        id: json
+        with:
+          command: build --output=tags.json
+          repository: ${{ secrets.DOCKER_REPOSITORY }}
+          working-directory: test
+
+      - name: Read JSON file output
+        run: cat tags.json'
+
+      - name: Read JSON step output
+        run: echo '${{ fromJson(steps.json.outputs.builds) }}'
 
       - name: Get Helm releases
         run: helm list

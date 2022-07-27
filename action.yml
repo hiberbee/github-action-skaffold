@@ -6,7 +6,7 @@ branding:
   color: blue
 inputs:
   skaffold-version:
-    default: 1.39.0
+    default: 1.39.1
     description: Set Skaffold version
     required: false
   kubectl-version:
@@ -18,7 +18,7 @@ inputs:
     description: Set Container Structure Test version
     required: false
   command:
-    default: ''
+    default: 'diagnose'
     description: Skaffold command to execute. If no command provided, then skaffold will be installed and print version
     required: false
   concurrency:
