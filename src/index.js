@@ -4064,7 +4064,9 @@ function downloadAndCheckBinaries() {
                         })];
                 case 2:
                     _a.sent();
-                    return [4, (0, index_1.download)(kubectlUrl, (0, path_1.join)(binDir, Binaries.KUBECTL)).then(function () { return (0, exec_1.exec)(Binaries.KUBECTL, ['version', '--client=true']); })];
+                    return [4, (0, index_1.download)(kubectlUrl, (0, path_1.join)(binDir, Binaries.KUBECTL)).then(function () {
+                            return (0, exec_1.exec)(Binaries.KUBECTL, ['version', '--client=true']);
+                        })];
                 case 3:
                     _a.sent();
                     return [2];
@@ -4095,7 +4097,7 @@ function run() {
                                     stdout: function (output) {
                                         try {
                                             var data = JSON.parse(output.toString('utf8').replace("'", ''));
-                                            (0, core_1.setOutput)('output', JSON.stringify(data.builds));
+                                            (0, core_1.setOutput)('output', data);
                                         }
                                         catch (e) {
                                             (0, core_1.setOutput)('error', e);
