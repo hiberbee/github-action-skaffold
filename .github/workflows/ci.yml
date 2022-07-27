@@ -15,26 +15,26 @@ jobs:
 
       - name: Run Skaffold pipeline as command
         uses: hiberbee/github-action-skaffold@latest
+        id: build
         with:
           command: build
           working-directory: test
           skip-tests: false
-          file-output: tags.json
           repository: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
 
       - name: Run Skaffold with output to JSON
         uses: hiberbee/github-action-skaffold@latest
-        id: json
         with:
           command: build
+          file-output: tags.json
           repository: ${{ secrets.DOCKER_REPOSITORY }}
           working-directory: test
 
-      - name: Read JSON step output
-        run: echo '${{ fromJson(steps.json.outputs.output).builds }}'
-
       - name: Read JSON file output
         run: cat test/tags.json
+
+      - name: Read JSON step output
+        run: echo '${{ fromJson(steps.build.outputs.output) }}'
 
   run:
     name: Skaffold Run
