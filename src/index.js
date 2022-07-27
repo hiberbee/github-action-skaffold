@@ -4077,42 +4077,44 @@ function downloadAndCheckBinaries() {
 function run() {
     var _a;
     return tslib_1.__awaiter(this, void 0, void 0, function () {
-        var options, args_1, error_1;
+        var options, args, error_1;
         return tslib_1.__generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
                     options = { cwd: (_a = (0, core_1.getInput)('working-directory')) !== null && _a !== void 0 ? _a : workspaceDir };
                     _b.label = 1;
                 case 1:
-                    _b.trys.push([1, 4, , 5]);
+                    _b.trys.push([1, 5, , 6]);
                     return [4, (0, io_1.mkdirP)(skaffoldHomeDir).then(downloadAndCheckBinaries)];
                 case 2:
                     _b.sent();
-                    args_1 = filterOutputSkitTests(resolveArgsFromAction());
-                    return [4, (0, exec_1.exec)(Binaries.SKAFFOLD, args_1, options).then(function () {
-                            return (0, exec_1.exec)(Binaries.SKAFFOLD, filterOutputSkitTests(['build'].concat(args_1
-                                .slice(1)
-                                .filter(function (it) { return !it.startsWith('--output') || !it.startsWith('--quiet'); })
-                                .concat(['--quiet', "--output='{{json .}}'"]))), tslib_1.__assign(tslib_1.__assign({}, options), { listeners: {
-                                    stdout: function (output) {
-                                        try {
-                                            var data = JSON.parse(output.toString('utf8').replace("'", ''));
-                                            (0, core_1.setOutput)('output', data);
-                                        }
-                                        catch (e) {
-                                            (0, core_1.setOutput)('error', e);
-                                        }
-                                    }
-                                } }));
-                        })];
+                    args = filterOutputSkitTests(resolveArgsFromAction());
+                    return [4, (0, exec_1.exec)(Binaries.SKAFFOLD, args, options)];
                 case 3:
                     _b.sent();
-                    return [3, 5];
+                    return [4, (0, exec_1.exec)(Binaries.SKAFFOLD, filterOutputSkitTests(['build'].concat(args
+                            .slice(1)
+                            .filter(function (it) { return !it.startsWith('--output') || !it.startsWith('--quiet'); })
+                            .concat(['--quiet', "--output='{{json .}}'"]))), tslib_1.__assign(tslib_1.__assign({}, options), { listeners: {
+                                stdout: function (output) {
+                                    try {
+                                        var data = JSON.parse(output.toString('utf8').replace("'", ''));
+                                        (0, core_1.info)(JSON.stringify(data));
+                                        (0, core_1.setOutput)('output', data);
+                                    }
+                                    catch (e) {
+                                        (0, core_1.setOutput)('error', e);
+                                    }
+                                }
+                            } }))];
                 case 4:
+                    _b.sent();
+                    return [3, 6];
+                case 5:
                     error_1 = _b.sent();
                     (0, core_1.setFailed)(error_1.message);
-                    return [3, 5];
-                case 5: return [2];
+                    return [3, 6];
+                case 6: return [2];
             }
         });
     });
