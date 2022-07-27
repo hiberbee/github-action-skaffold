@@ -77,7 +77,7 @@ jobs:
         run: cat ./tags.json
 
       - name: Read JSON step output
-        run: echo '${{ fromJson(steps.json.outputs.builds) }}'
+        run: echo '${{ fromJson(steps.json.outputs.output).builds }}'
 
       - name: Get Helm releases
         run: helm list
