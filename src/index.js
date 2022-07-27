@@ -4087,7 +4087,10 @@ function run() {
                     _b.sent();
                     args_1 = filterOutputSkitTests(resolveArgsFromAction());
                     return [4, (0, exec_1.exec)(Binaries.SKAFFOLD, args_1, options).then(function () {
-                            return (0, exec_1.exec)(Binaries.SKAFFOLD, filterOutputSkitTests(['build'].concat(args_1.slice(1).concat(['--quiet', "--output='{{json .}}'"]))), tslib_1.__assign(tslib_1.__assign({}, options), { listeners: {
+                            return (0, exec_1.exec)(Binaries.SKAFFOLD, filterOutputSkitTests(['build'].concat(args_1
+                                .slice(1)
+                                .filter(function (it) { return !it.startsWith('--output') || !it.startsWith('--quiet'); })
+                                .concat(['--quiet', "--output='{{json .}}'"]))), tslib_1.__assign(tslib_1.__assign({}, options), { listeners: {
                                     stdout: function (output) {
                                         try {
                                             var data = JSON.parse(output.toString('utf8').replace("'", ''));
