@@ -6,8 +6,37 @@ on:
       - .github/workflows/ci.yml
       - action.yml
 jobs:
-  pipeline:
-    name: Skaffold Pipeline
+  build:
+    name: Skaffold Build
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Run Skaffold pipeline as command
+        uses: hiberbee/github-action-skaffold@latest
+        with:
+          command: build
+          skip-tests: false
+          file-output: tags.json
+          repository: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
+
+      - name: Run Skaffold with output to JSON
+        uses: hiberbee/github-action-skaffold@latest
+        id: json
+        with:
+          command: build
+          repository: ${{ secrets.DOCKER_REPOSITORY }}
+          working-directory: test
+
+      - name: Read JSON step output
+        run: echo '${{ fromJson(steps.json.outputs.output).builds }}'
+
+      - name: Read JSON file output
+        run: cat tags.json
+
+  run:
+    name: Skaffold Run
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout sources
@@ -41,43 +70,13 @@ jobs:
           verbosity: info
           working-directory: test
 
-      - name: Run Skaffold pipeline as command
-        run: skaffold build --cache-artifacts -v debug
-        working-directory: test
-        env:
-          SKAFFOLD_DEFAULT_REPO: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
-          SKAFFOLD_SKIP_TESTS: true
-
-      - name: Run Skaffold with output
+      - name: Run Skaffold with output to file
         uses: hiberbee/github-action-skaffold@latest
-        with:
-          command: build
-          file-output: render.yaml
-          repository: ${{ secrets.DOCKER_REPOSITORY }}
-          verbosity: info
-          working-directory: test
-
-      - name: Run Skaffold with output to YAML
-        uses: hiberbee/github-action-skaffold@latest
-        with:
-          command: build --file-output=build.yaml
-          repository: ${{ secrets.DOCKER_REPOSITORY }}
-          working-directory: test
-
-      - name: Run Skaffold with output to JSON
-        uses: hiberbee/github-action-skaffold@latest
-        id: json
         with:
           command: build
           file-output: tags.json
           repository: ${{ secrets.DOCKER_REPOSITORY }}
           working-directory: test
-
-      - name: Read JSON file output
-        run: cat ./tags.json
-
-      - name: Read JSON step output
-        run: echo '${{ fromJson(steps.json.outputs.output).builds }}'
 
       - name: Get Helm releases
         run: helm list
