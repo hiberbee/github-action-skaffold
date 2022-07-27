@@ -22,7 +22,7 @@ inputs:
     description: Skaffold command to execute. If no command provided, then skaffold will be installed and print version
     required: false
   concurrency:
-    default: '1'
+    default: ''
     description: Number of concurrently running builds. If equals 0 - will run all builds in parallel
     required: false
   push:
@@ -38,7 +38,7 @@ inputs:
     description: Choose which image tags to test.
     required: false
   cache:
-    default: 'true'
+    default: ''
     description: Set to false to disable default caching of artifacts
     required: false
   cache-file:
@@ -78,15 +78,15 @@ inputs:
     description: Activate profiles by name (prefixed with `-` to disable a profile)
     required: false
   skip-tests:
-    default: 'true'
+    default: ''
     description: Whether to skip the tests after building
     required: false
   verbosity:
-    default: 'warning'
+    default: ''
     description: Log level - one of [panic fatal error warning info debug trace]
     required: false
   interactive:
-    default: 'false'
+    default: ''
     description: Allow user prompts for more information
     required: false
   output:
