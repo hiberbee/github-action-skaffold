@@ -17,6 +17,7 @@ jobs:
         uses: hiberbee/github-action-skaffold@latest
         with:
           command: build
+          working-directory: test
           skip-tests: false
           file-output: tags.json
           repository: ${{ secrets.SKAFFOLD_DEFAULT_REPO }}
@@ -33,7 +34,7 @@ jobs:
         run: echo '${{ fromJson(steps.json.outputs.output).builds }}'
 
       - name: Read JSON file output
-        run: cat tags.json
+        run: cat test/tags.json
 
   run:
     name: Skaffold Run
