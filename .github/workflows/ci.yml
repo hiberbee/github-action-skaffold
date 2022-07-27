@@ -68,12 +68,13 @@ jobs:
         uses: hiberbee/github-action-skaffold@latest
         id: json
         with:
-          command: build --output=tags.json
+          command: build
+          output: tags.json
           repository: ${{ secrets.DOCKER_REPOSITORY }}
           working-directory: test
 
       - name: Read JSON file output
-        run: cat tags.json'
+        run: cat ./tags.json
 
       - name: Read JSON step output
         run: echo '${{ fromJson(steps.json.outputs.builds) }}'
