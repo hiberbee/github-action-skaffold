@@ -52,7 +52,7 @@ jobs:
         uses: hiberbee/github-action-skaffold@latest
         with:
           command: build
-          output: render.yaml
+          file-output: render.yaml
           repository: ${{ secrets.DOCKER_REPOSITORY }}
           verbosity: info
           working-directory: test
@@ -60,7 +60,7 @@ jobs:
       - name: Run Skaffold with output to YAML
         uses: hiberbee/github-action-skaffold@latest
         with:
-          command: build --output=build.yaml
+          command: build --file-output=build.yaml
           repository: ${{ secrets.DOCKER_REPOSITORY }}
           working-directory: test
 
@@ -69,7 +69,7 @@ jobs:
         id: json
         with:
           command: build
-          output: tags.json
+          file-output: tags.json
           repository: ${{ secrets.DOCKER_REPOSITORY }}
           working-directory: test
 

@@ -30,7 +30,8 @@ This action allows you to execute skaffold commands as Github Action. Repository
 | `kubectl-version`                  | Set Kubernetes CLI version                                                                     | 1.24.3                  |
 | `working-directory`                | Set current working directory similar to Github Actions run                                    | ${{ github.workspace }} |
 | `filename`                         | Path or URL to the Skaffold config file                                                        | skaffold.yaml           |
-| `command`                          | Set Skaffold profile name                                                                      | version                 |
+| `command`                          | Default command for Skaffold to execute                                                        | diagnose                |
+| `file-output`                      | Filename to write build images to                                                              | n/a                     |
 | `repository`                       | Default repository value (overrides global config)                                             | n/a                     |
 | `insecure-registries`              | Target registries for built images which are not secure                                        | n/a                     |
 | `image`                            | Set Skaffold profile name                                                                      | n/a                     |
