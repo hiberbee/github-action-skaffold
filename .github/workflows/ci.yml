@@ -34,7 +34,7 @@ jobs:
         run: cat test/tags.json
 
       - name: Read JSON step output
-        run: echo '${{ fromJson(steps.build.outputs.output) }}'
+        run: echo '${{ steps.build.outputs.output }}'
 
   run:
     name: Skaffold Run
