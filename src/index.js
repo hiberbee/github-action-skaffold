@@ -4377,8 +4377,6 @@ function resolveArgsFromAction() {
             .concat(Object.entries(paramsArgumentsMap)
             .map(function (_a) {
             var actionParam = _a[0], skaffoldArg = _a[1];
-            if (actionParam === 'cache-file')
-                return "--".concat(skaffoldArg, "=").concat(workspaceDir, "/").concat((0, core_1.getInput)(actionParam));
             return (0, core_1.getInput)(actionParam) !== '' ? "--".concat(skaffoldArg, "=").concat((0, core_1.getInput)(actionParam)) : '';
         })
             .filter(function (it) { return it !== ''; }));
