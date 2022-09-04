@@ -38,11 +38,11 @@ inputs:
     description: Choose which image tags to test.
     required: false
   cache:
-    default: '${{ github.workspace}}/.skaffold/cache'
+    default: ''
     description: Set to false to disable default caching of artifacts
     required: false
   cache-file:
-    default: ''
+    default: '${{ github.workspace}}/.skaffold/cache'
     description: Specify the location of the cache file as relative path to working directory
     required: false
   repository:
