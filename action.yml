@@ -6,11 +6,11 @@ branding:
   color: blue
 inputs:
   skaffold-version:
-    default: 1.39.1
+    default: 1.39.2
     description: Set Skaffold version
     required: false
   kubectl-version:
-    default: 1.24.3
+    default: 1.25.0
     description: Set Kubectl version
     required: false
   container-structure-test-version:
@@ -42,8 +42,8 @@ inputs:
     description: Set to false to disable default caching of artifacts
     required: false
   cache-file:
-    default: ''
-    description: Specify the location of the cache file
+    default: '.skaffold/cache'
+    description: Specify the location of the cache file as relative path to working directory
     required: false
   repository:
     default: ''

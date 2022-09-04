@@ -13,6 +13,14 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v3
 
+      - name: Cache layers
+        uses: actions/cache@v3
+        with:
+          path: "{{ github.workspace }}/.skaffold/cache"
+          key: skaffold-${{ hashFiles('**/cache') }}
+          restore-keys: |
+            skaffold-
+
       - name: Run Skaffold pipeline as command
         uses: hiberbee/github-action-skaffold@latest
         id: build
@@ -58,7 +66,15 @@ jobs:
         with:
           registry: ${{ secrets.DOCKER_REPOSITORY }}
           username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          password: ${{ secrets.DOCKER_PASSWORD }}\
+
+      - name: Cache layers
+        uses: actions/cache@v3
+        with:
+          path: "{{ github.workspace }}/.skaffold/cache"
+          key: skaffold-${{ hashFiles('**/cache') }}
+          restore-keys: |
+            skaffold-
 
       - name: Run Skaffold pipeline as action
         uses: hiberbee/github-action-skaffold@latest

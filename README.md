@@ -25,9 +25,9 @@ This action allows you to execute skaffold commands as Github Action. Repository
 
 | Name                               | Description                                                                                    | Default                 |
 |------------------------------------|------------------------------------------------------------------------------------------------|-------------------------|
-| `skaffold-version`                 | Set Skaffold version                                                                           | 1.39.1                  |
+| `skaffold-version`                 | Set Skaffold version                                                                           | 1.39.2                  |
 | `container-structure-test-version` | Set Container Structure Test version                                                           | 1.11.0                  |
-| `kubectl-version`                  | Set Kubernetes CLI version                                                                     | 1.24.3                  |
+| `kubectl-version`                  | Set Kubernetes CLI version                                                                     | 1.25.0                  |
 | `working-directory`                | Set current working directory similar to Github Actions run                                    | ${{ github.workspace }} |
 | `filename`                         | Path or URL to the Skaffold config file                                                        | skaffold.yaml           |
 | `command`                          | Default command for Skaffold to execute                                                        | diagnose                |
