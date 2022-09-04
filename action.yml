@@ -42,7 +42,7 @@ inputs:
     description: Set to false to disable default caching of artifacts
     required: false
   cache-file:
-    default: '.skaffold/cache'
+    default: '${{ github.workspace }}/.skaffold/cache'
     description: Specify the location of the cache file as relative path to working directory
     required: false
   repository:
