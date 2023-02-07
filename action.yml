@@ -6,15 +6,15 @@ branding:
   color: blue
 inputs:
   skaffold-version:
-    default: 2.0.0
+    default: 2.1.0
     description: Set Skaffold version
     required: false
   kubectl-version:
-    default: 1.25.3
+    default: 1.26.1
     description: Set Kubectl version
     required: false
   container-structure-test-version:
-    default: 1.11.0
+    default: 1.14.0
     description: Set Container Structure Test version
     required: false
   command:
