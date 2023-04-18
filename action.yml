@@ -6,7 +6,7 @@ branding:
   color: blue
 inputs:
   skaffold-version:
-    default: 2.2.0
+    default: 2.3.1
     description: Set Skaffold version
     required: false
   kubectl-version:
