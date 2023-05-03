@@ -17,9 +17,8 @@ deploy:
     releases:
       - name: skaffold
         chartPath: charts/skaffold
-        artifactOverrides:
-          image: skaffold
         setValues:
+          image: skaffold
           service.type: NodePort
 profiles:
   - name: ci
