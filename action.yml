@@ -14,7 +14,7 @@ inputs:
     description: Set Kubectl version
     required: false
   container-structure-test-version:
-    default: 1.14.0
+    default: 1.15.0
     description: Set Container Structure Test version
     required: false
   command:
@@ -40,10 +40,6 @@ inputs:
   cache:
     default: ''
     description: Set to false to disable default caching of artifacts
-    required: false
-  cache-file:
-    default: '${{ github.workspace}}/.skaffold/cache'
-    description: Specify the location of the cache file as relative path to working directory
     required: false
   repository:
     default: ''
